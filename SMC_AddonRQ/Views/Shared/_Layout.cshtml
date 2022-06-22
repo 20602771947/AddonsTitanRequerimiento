@@ -1,0 +1,521 @@
+﻿@using DTO;
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from alliance-html.themerex.net/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 May 2016 15:17:35 GMT -->
+<head>
+    <!-- -------------- Meta and Title -------------- -->
+    <meta charset="utf-8">
+    <title>Addon Requerimientos</title>
+    @Styles.Render("~/bundles/css")
+    @RenderSection("styles", required: false)
+    <meta name="description" content="Addon Requerimientos">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @*<link rel="shortcut icon" href="~/assets/img/logo_contable.png">*@
+
+    <!-- -------------- Fonts -------------- -->
+    <link rel='stylesheet' type='text/css' href='~/css/Font-OpenSans.css'>
+    <link rel='stylesheet' type='text/css' href='~/css/Font-Lato.css'>
+    @*<link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700'>
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic' rel='stylesheet'
+              type='text/css'>*@
+    <!-- -------------- IE8 HTML5 support  -------------- -->
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="~/assets/sweetalert2.css" rel="stylesheet" />
+    <link href="~/assets/miestilos.css" rel="stylesheet" />
+
+    <link href="~/assets/alertify.css" rel="stylesheet" />
+    <link href="~/assets/alertify.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.11.3/b-2.0.1/r-2.2.9/datatables.min.css" />
+
+    <style>
+        body {
+            overflow-y: scroll;
+        }
+
+        #tbodyDetalle > tr > td {
+            padding: 0px 0px;
+            margin: 0px;
+            text-align: center;
+        }
+
+        input[readonly]:focus {
+            background-color: #f7e7b1;
+        }
+
+        #loader {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 1;
+            width: 150px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+            border: 16px solid #fff;
+            border-radius: 50%;
+            border-top: 16px solid #67d3e0;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+
+        input[type=number]::-webkit-inner-spin-button {
+            display: none;
+        }
+
+        input[type=date]::-webkit-inner-spin-button {
+            display: none;
+        }
+
+        input[type=date]::-webkit-clear-button {
+            display: none; /* Hide the button */
+        }
+
+        .navbar .nav > li > a.dropdown-toggle {
+            margin-left: 10px !important;
+        }
+
+        #cboCambioEmpresa {
+            color: #7f828f;
+        }
+    </style>
+
+
+</head>
+
+<body class="dashboard-page" style="background-color:#2d4b67;">
+    @if (@Session["idUsuario"] == null)
+    {
+        string a = "HOLA MUNDO";
+        <input type="text" name="name" value="@a" />
+        Session.Abandon();
+        Response.Redirect("/");
+
+
+        //RedirectToAction("Index", "Home");
+
+    }
+    else
+    {
+
+        <!-- -------------- Body Wrap  -------------- -->
+        <div id="loader"></div>
+        <div id="main" style="display:none;">
+
+
+            <!-- -------------- Header  -------------- -->
+            <header class="navbar navbar-fixed-top bg-dark">
+
+                    
+            
+
+                <div class="navbar-logo-wrapper">
+                    <a class="navbar-logo-text" href="/Home/About">
+                        <b>ADDON REQUERIMIENTOS</b>
+                    </a>
+                    <span id="sidebar_left_toggle" class="ad ad-lines"></span>
+                </div>
+
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown dropdown-fuse">
+                        <a href="#" class="dropdown-toggle fw600" data-toggle="dropdown">
+
+                            <span class="hidden-xs"><name>MINERA TITAN</name> </span>
+
+                            <span class="fa fa-caret-down hidden-xs mr15"></span>
+                        </a>
+                        <ul class="dropdown-menu list-group keep-dropdown fw600" role="menu" style="background-color:#5a1c1c;">
+                            @*<li class="list-group-item">
+                        <div class="col-md-12">
+                            <div class="col-md-8 text-right">
+                                <span class="label label-warning label-lg">123456789</span>
+                            </div>
+                        </div>
+                    </li>*@
+                            <li class="dropdown-footer text-center">
+                                <a href="/Home/CerrarSesion" class="btn btn-primary btn-sm btn-bordered">
+                                    <span class="fa fa-power-off pr5"></span> Logout
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+
+            </header>
+            <!-- -------------- /Header  -------------- -->
+            <!-- -------------- Sidebar  -------------- -->
+            <aside id="sidebar_left" class="nano nano-light affix">
+                <!-- -------------- Sidebar Left Wrapper  -------------- -->
+                <div class="sidebar-left-content nano-content">
+                    <!-- -------------- Sidebar Header -------------- -->
+                    <header class="sidebar-header">
+
+                        <!-- -------------- Sidebar - Author -------------- -->
+                        <div class="sidebar-widget author-widget">
+                            <div class="media">
+                                <a class="media-left" href="#">
+                                    @*<img src="~/assets/img/avatars/profile_avatar.jpg" class="img-responsive">*@
+                                    <i class="fa fa-user" style="font-size:64px;top:20px;color:#EEB52D"></i>
+                                </a>
+
+                                <div class="media-body">
+                                    <div class="media-links">
+
+                                        <a href="/Home/CerrarSesion">Logout</a>
+                                        @*<img src="~/assets/img/avatars/TITAN.png" class="img-responsive" width="50px">*@
+                                    </div>
+                                    <div class="media-author">
+                                        @base.Session["NombUsuario"].ToString()
+                                    </div>
+                                </div>
+                                <label>Conectado</label>
+                            </div>
+                        </div>
+
+                        <ul class="nav">
+                            <li>
+                                <div style="height:40px; line-height:40px; text-align:center" class="form-group-sm">
+                                    <div class="col-sm-12">
+                                        <select id="cboCambioEmpresa" class="input-sm" style="margin: 0px 0px 0px 0px; width: 220px;" disabled>
+                                            <option>@base.Session["NombreSociedad"].ToString()</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- -------------- Sidebar - Author Menu  -------------- -->
+                        <!--
+    <div class="sidebar-widget menu-widget">
+        <div class="row text-center mbn">
+            <div class="col-xs-2 pln prn">
+                <a href="dashboard1.html" class="text-primary" data-toggle="tooltip" data-placement="top"
+                   title="Dashboard">
+                    <span class="fa fa-dashboard"></span>
+                </a>
+            </div>
+            <div class="col-xs-4 col-sm-2 pln prn">
+                <a href="charts-highcharts.html" class="text-info" data-toggle="tooltip"
+                   data-placement="top" title="Stats">
+                    <span class="fa fa-bar-chart-o"></span>
+                </a>
+            </div>
+            <div class="col-xs-4 col-sm-2 pln prn">
+                <a href="sales-stats-products.html" class="text-system" data-toggle="tooltip"
+                   data-placement="top" title="Orders">
+                    <span class="fa fa-info-circle"></span>
+                </a>
+            </div>
+            <div class="col-xs-4 col-sm-2 pln prn">
+                <a href="sales-stats-purchases.html" class="text-warning" data-toggle="tooltip"
+                   data-placement="top" title="Invoices">
+                    <span class="fa fa-file"></span>
+                </a>
+            </div>
+            <div class="col-xs-4 col-sm-2 pln prn">
+                <a href="basic-profile.html" class="text-alert" data-toggle="tooltip" data-placement="top"
+                   title="Users">
+                    <span class="fa fa-users"></span>
+                </a>
+            </div>
+            <div class="col-xs-4 col-sm-2 pln prn">
+                <a href="management-tools-dock.html" class="text-danger" data-toggle="tooltip"
+                   data-placement="top" title="Settings">
+                    <span class="fa fa-cogs"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    -->
+                    </header>
+
+
+                    <!-- -------------- /Sidebar Header -------------- -->
+                    <!-- -------------- Sidebar Menu  -------------- -->
+                    <ul id="ulMenuPr" class="nav sidebar-menu">
+
+                        <li class='sidebar-label pt15'>Menu</li>
+                        <li>
+                            <a class='accordion-toggle1' href='#'>
+                                <span class='fa fa-shield'></span>
+                                <span class='sidebar-title'>SEGURIDAD</span>
+                                <span class='caret'></span>
+                            </a>
+                            <ul class='nav sub-nav'>
+                                <li>
+                                    <a href="/Usuario/Listado">USUARIOS</a>
+                                </li>
+                                <li>
+                                    <a href="/Perfil/Listado">PERFILES</a>
+                                </li>
+                                <li>
+                                    <a href="/Empleado/Listado">EMPLEADOS</a>
+                                </li>
+                                <li>
+                                    <a class="accordion-toggle1" href="#">
+                                        <span class="fa fa-share-square-o"></span>
+                                        <span class="sidebar-title">USUARIOS X MAESTROS</span>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="nav sub-nav">
+                                        <li>
+                                            <a href="/Sociedad/Listado">SOCIEDADES</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Almacen/Listado">ALMACENES</a>
+                                        </li>
+                                        <li>
+                                            <a href="/CentroCosto/Listado">CENTRO DE COSTO</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Sucursal/Listado">SUCURSALES</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="accordion-toggle1" href="#">
+                                        <span class="fa fa-share-square-o"></span>
+                                        <span class="sidebar-title">SOCIOS DE NEGOCIO</span>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="nav sub-nav">
+                                        <li>
+                                            <a href="/Cliente/Listado">CLIENTES</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Proveedor/Listado">PROVEEDORES</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a class='accordion-toggle1' href='#'>
+                                <span class='fa fa-inbox'></span>
+                                <span class='sidebar-title'>REQUERIMIENTOS DE COMPRA (RQ)</span>
+                                <span class='caret'></span>
+                            </a>
+                            <ul class='nav sub-nav'>
+                                <li>
+                                    <a href="/Usuario/Listado">NUEVA SOLICITUD RQ</a>
+                                </li>
+                                <li>
+                                    <a href="/Usuario/Listado">VISUALIZACION DE RQ PARA AUTORIZACION</a>
+                                </li>
+                                <li>
+                                    <a class="accordion-toggle1" href="#">
+                                        <span class="fa fa-share-square-o"></span>
+                                        <span class="sidebar-title">VISUALIZACION DE RQ PARA ATENCION</span>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="nav sub-nav">
+                                        <li>
+                                            <a href="/SociosNegocio/Cliente">DESPACHOS</a>
+                                        </li>
+                                        <li>
+                                            <a href="/SociosNegocio/Proveedor">COMPRA LOCAL</a>
+                                        </li>
+                                        <li>
+                                            <a href="/SociosNegocio/Proveedor">COMPRA LIMA</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a class='accordion-toggle1' href='#'>
+                                <span class='fa fa-share'></span>
+                                <span class='sidebar-title'>TRASLADOS</span>
+                                <span class='caret'></span>
+                            </a>
+                            <ul class='nav sub-nav'>
+                                <li>
+                                    <a href="/Usuario/Listado">VISUALIZACION DE TRASLADOS PENDIENTES</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a class='accordion-toggle1' href='#'>
+                                <span class='fa fa-file-text-o'></span>
+                                <span class='sidebar-title'>REPORTES</span>
+                                <span class='caret'></span>
+                            </a>
+                            <ul class='nav sub-nav'>
+                                <li>
+                                    <a href="/Usuario/Listado">HISTORICO DE ARTICULO</a>
+                                </li>
+                                <li>
+                                    <a href="/Usuario/Listado">ESTADO DE LOS REQUERIMIENTOS</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                    <!-- -------------- /Sidebar Menu  -------------- -->
+
+                    <span id="siteseal" style="display:none;">
+                        <script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=xGNO1l7MY6oRHvGkpgcKNum9oGnYzGHPWLXoK8aMeRHrhIQJFh4eZ6J3Im92"></script>
+                    </span>
+                </div>
+                <!-- -------------- /Sidebar Left Wrapper  -------------- -->
+
+            </aside>
+            <!-- -------------- /Sidebar -------------- -->
+            <!-- -------------- Main Wrapper -------------- -->
+            <section id="content_wrapper">
+                <!-- -------------- Topbar Menu Wrapper -------------- -->
+                @*<div id="topbar-dropmenu-wrapper">
+                        <div class="topbar-menu row">
+                            <div class="col-xs-4 col-sm-2">
+                                <a href="#" class="service-box bg-danger">
+                                    <span class="fa fa-music"></span>
+                                    <span class="service-title">Audio</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-4 col-sm-2">
+                                <a href="#" class="service-box bg-success">
+                                    <span class="fa fa-picture-o"></span>
+                                    <span class="service-title">Images</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-4 col-sm-2">
+                                <a href="#" class="service-box bg-primary">
+                                    <span class="fa fa-video-camera"></span>
+                                    <span class="service-title">Videos</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-4 col-sm-2">
+                                <a href="#" class="service-box bg-alert">
+                                    <span class="fa fa-envelope"></span>
+                                    <span class="service-title">Messages</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-4 col-sm-2">
+                                <a href="#" class="service-box bg-system">
+                                    <span class="fa fa-cog"></span>
+                                    <span class="service-title">Settings</span>
+                                </a>
+                            </div>
+                            <div class="col-xs-4 col-sm-2">
+                                <a href="#" class="service-box bg-dark">
+                                    <span class="fa fa-user"></span>
+                                    <span class="service-title">Users</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>*@
+                <!--start container-->
+                @*<div class="container">
+                *@
+                <section id="content" class="table-layout animated fadeIn">
+                    @RenderBody()
+                    @*
+                            </section>
+                        </div>*@
+                </section>
+                <!-- -------------- Page Footer -------------- -->
+                <!-- -------------- /Page Footer -------------- -->
+            </section>
+            <!-- -------------- /Main Wrapper -------------- -->
+            <!-- -------------- Sidebar Right -------------- -->
+            <!-- -------------- /Sidebar Right -------------- -->
+
+
+        </div>
+        <div>
+
+            @*<input type="hidden" id="empresaActual" value="@(Session["Empresa"].ToString())" />
+                <input type="hidden" id="hdfAnioP" value="@(Session["Periodo"])" />
+                <input type="hidden" id="hdfMesP" value="@(Session["Mes"])" />
+                <input type="hidden" id="hdfRuc" value="@(Session["Ruc"])" />
+                <input type="hidden" id="BDEmpresaActual" value="@(Session["nombreBaseDatos"].ToString())" />
+                <input type="hidden" id="rucEmpresa" value="@(Session["Ruc"].ToString())" />*@
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        <script src="~/assets/sweetalert2.js"></script>
+        <script src="~/assets/alertify.js"></script>
+        <script src="~/assets/alertify.min.js"></script>
+        <script>
+
+            document.addEventListener("DOMContentLoaded", function (event) {
+                setTimeout(showPage, 1000);
+            });
+
+            function showPage() {
+                document.getElementById("loader") != null ? document.getElementById("loader").style.display = "none" : "";
+                document.getElementById("main").style.display = "block";
+                configurarTogle();
+            }
+
+
+            function configurarTogle() {
+                $('.sidebar-menu li a.accordion-toggle1').on('click', function (e) {
+                    e.preventDefault();
+
+                    // If selected menu item is minified and is a submenu (has sub-nav parent) - return
+                    if ($('body').hasClass('sb-l-m') && !$(this).parents('ul.sub-nav').length) { return; }
+
+                    // If selected menu item is a dropdown - open it
+                    if (!$(this).parents('ul.sub-nav').length) {
+
+                        // If sidebar horizontal - return
+                        if ($(window).width() > 900) {
+                            if ($('body.sb-top').length) { return; }
+                        }
+
+                        $('a.accordion-toggle1.menu-open').next('ul').slideUp('fast', 'swing', function () {
+                            $(this).attr('style', '').prev().removeClass('menu-open');
+                        });
+                    }
+                    // If selected menu item is a dropdown inside of a dropdown -
+                    // close menu items which are not children of the main top level menu
+                    else {
+                        var activeMenu = $(this).next('ul.sub-nav');
+                        var siblingMenu = $(this).parent().siblings('li').children('a.accordion-toggle1.menu-open').next('ul.sub-nav');
+
+                        activeMenu.slideUp('fast', 'swing', function () {
+                            $(this).attr('style', '').prev().removeClass('menu-open');
+                        });
+                        siblingMenu.slideUp('fast', 'swing', function () {
+                            $(this).attr('style', '').prev().removeClass('menu-open');
+                        });
+                    }
+
+                    // Expand target menu item, add ".open-menu" class
+                    // and remove unneeded inline jQuery animation styles
+                    if (!$(this).hasClass('menu-open')) {
+                        $(this).next('ul').slideToggle('fast', 'swing', function () {
+                            $(this).attr('style', '').prev().toggleClass('menu-open');
+                        });
+                    }
+
+                });
+
+            }
+
+        </script>
+
+        @Scripts.Render("~/bundles/jquery")
+
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.11.3/b-2.0.1/r-2.2.9/datatables.min.js"></script>
+
+        @Scripts.Render("~/bundles/scripts")
+        @RenderSection("scripts", required: false)
+
+    }
+</body>
+
+
+<!-- Mirrored from alliance-html.themerex.net/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 May 2016 15:17:35 GMT -->
+</html>

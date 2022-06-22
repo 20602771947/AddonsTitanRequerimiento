@@ -1,0 +1,9 @@
+C:\Users\Admin\source\repos\SMC_AddonRQ\DAO\bin\Debug\DAO.dll
+C:\Users\Admin\source\repos\SMC_AddonRQ\DAO\bin\Debug\DAO.pdb
+C:\Users\Admin\source\repos\SMC_AddonRQ\DAO\bin\Debug\DTO.dll
+C:\Users\Admin\source\repos\SMC_AddonRQ\DAO\bin\Debug\DTO.pdb
+C:\Users\Admin\source\repos\SMC_AddonRQ\DAO\obj\Debug\DAO.csprojAssemblyReference.cache
+C:\Users\Admin\source\repos\SMC_AddonRQ\DAO\obj\Debug\DAO.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\SMC_AddonRQ\DAO\obj\Debug\DAO.csproj.CopyComplete
+C:\Users\Admin\source\repos\SMC_AddonRQ\DAO\obj\Debug\DAO.dll
+C:\Users\Admin\source\repos\SMC_AddonRQ\DAO\obj\Debug\DAO.pdb
