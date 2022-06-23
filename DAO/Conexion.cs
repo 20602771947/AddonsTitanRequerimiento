@@ -18,7 +18,7 @@ namespace DAO
         {
             string nombreBaseDatos = ConfigurationManager.AppSettings["BDAddonRQ"];
            
-            SqlConnection cn = new SqlConnection("Server=192.168.0.61;Database=" + nombreBaseDatos + ";User ID=sa;Password=123;Trusted_Connection=False");
+            SqlConnection cn = new SqlConnection("Server=209.45.52.78,61449;Database=" + nombreBaseDatos + ";User ID=sa;Password=$martcod3**85;Trusted_Connection=False");
           
             return cn;
         }

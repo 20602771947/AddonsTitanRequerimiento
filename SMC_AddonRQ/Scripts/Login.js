@@ -50,7 +50,7 @@ $("#frmAcceso").on('submit', function (e) {
     }
   
  
-    $.post("/Home/login", { "usuario": usuario, "password": password }, function (data) {
+    $.post("/Home/login", { "usuario": usuario, "password": password, "cadenaConexion": CadenaConexion}, function (data) {
 
         
         if (data) {

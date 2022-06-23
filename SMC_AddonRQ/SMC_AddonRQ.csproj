@@ -120,6 +120,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccesoController.cs" />
     <Compile Include="Controllers\AlmacenController.cs" />
     <Compile Include="Controllers\CentroCostoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
@@ -535,6 +536,7 @@
     <Content Include="js\xlscreateworker.js" />
     <Content Include="js\xlsx.js" />
     <Content Include="js\xlsxworker.js" />
+    <Content Include="Scripts\Acceso\Acceso.js" />
     <Content Include="Scripts\Almacen\Almacen.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -624,6 +626,7 @@
     <Content Include="Views\Cliente\Listado.cshtml" />
     <Content Include="Views\Proveedor\Listado.cshtml" />
     <Content Include="Views\CentroCosto\Listado.cshtml" />
+    <Content Include="Views\Acceso\Listado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

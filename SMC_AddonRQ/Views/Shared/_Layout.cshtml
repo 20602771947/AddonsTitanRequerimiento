@@ -241,124 +241,7 @@
                     <!-- -------------- Sidebar Menu  -------------- -->
                     <ul id="ulMenuPr" class="nav sidebar-menu">
 
-                        <li class='sidebar-label pt15'>Menu</li>
-                        <li>
-                            <a class='accordion-toggle1' href='#'>
-                                <span class='fa fa-shield'></span>
-                                <span class='sidebar-title'>SEGURIDAD</span>
-                                <span class='caret'></span>
-                            </a>
-                            <ul class='nav sub-nav'>
-                                <li>
-                                    <a href="/Usuario/Listado">USUARIOS</a>
-                                </li>
-                                <li>
-                                    <a href="/Perfil/Listado">PERFILES</a>
-                                </li>
-                                <li>
-                                    <a href="/Empleado/Listado">EMPLEADOS</a>
-                                </li>
-                                <li>
-                                    <a class="accordion-toggle1" href="#">
-                                        <span class="fa fa-share-square-o"></span>
-                                        <span class="sidebar-title">USUARIOS X MAESTROS</span>
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="nav sub-nav">
-                                        <li>
-                                            <a href="/Sociedad/Listado">SOCIEDADES</a>
-                                        </li>
-                                        <li>
-                                            <a href="/Almacen/Listado">ALMACENES</a>
-                                        </li>
-                                        <li>
-                                            <a href="/CentroCosto/Listado">CENTRO DE COSTO</a>
-                                        </li>
-                                        <li>
-                                            <a href="/Sucursal/Listado">SUCURSALES</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a class="accordion-toggle1" href="#">
-                                        <span class="fa fa-share-square-o"></span>
-                                        <span class="sidebar-title">SOCIOS DE NEGOCIO</span>
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="nav sub-nav">
-                                        <li>
-                                            <a href="/Cliente/Listado">CLIENTES</a>
-                                        </li>
-                                        <li>
-                                            <a href="/Proveedor/Listado">PROVEEDORES</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a class='accordion-toggle1' href='#'>
-                                <span class='fa fa-inbox'></span>
-                                <span class='sidebar-title'>REQUERIMIENTOS DE COMPRA (RQ)</span>
-                                <span class='caret'></span>
-                            </a>
-                            <ul class='nav sub-nav'>
-                                <li>
-                                    <a href="/Usuario/Listado">NUEVA SOLICITUD RQ</a>
-                                </li>
-                                <li>
-                                    <a href="/Usuario/Listado">VISUALIZACION DE RQ PARA AUTORIZACION</a>
-                                </li>
-                                <li>
-                                    <a class="accordion-toggle1" href="#">
-                                        <span class="fa fa-share-square-o"></span>
-                                        <span class="sidebar-title">VISUALIZACION DE RQ PARA ATENCION</span>
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="nav sub-nav">
-                                        <li>
-                                            <a href="/SociosNegocio/Cliente">DESPACHOS</a>
-                                        </li>
-                                        <li>
-                                            <a href="/SociosNegocio/Proveedor">COMPRA LOCAL</a>
-                                        </li>
-                                        <li>
-                                            <a href="/SociosNegocio/Proveedor">COMPRA LIMA</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a class='accordion-toggle1' href='#'>
-                                <span class='fa fa-share'></span>
-                                <span class='sidebar-title'>TRASLADOS</span>
-                                <span class='caret'></span>
-                            </a>
-                            <ul class='nav sub-nav'>
-                                <li>
-                                    <a href="/Usuario/Listado">VISUALIZACION DE TRASLADOS PENDIENTES</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a class='accordion-toggle1' href='#'>
-                                <span class='fa fa-file-text-o'></span>
-                                <span class='sidebar-title'>REPORTES</span>
-                                <span class='caret'></span>
-                            </a>
-                            <ul class='nav sub-nav'>
-                                <li>
-                                    <a href="/Usuario/Listado">HISTORICO DE ARTICULO</a>
-                                </li>
-                                <li>
-                                    <a href="/Usuario/Listado">ESTADO DE LOS REQUERIMIENTOS</a>
-                                </li>
-                            </ul>
-                        </li>
+                       
 
                     </ul>
                     <!-- -------------- /Sidebar Menu  -------------- -->
@@ -448,14 +331,182 @@
         <script src="~/assets/alertify.min.js"></script>
         <script>
 
-            document.addEventListener("DOMContentLoaded", function (event) {
                 setTimeout(showPage, 1000);
+            document.addEventListener("DOMContentLoaded", function (event) {
             });
 
             function showPage() {
                 document.getElementById("loader") != null ? document.getElementById("loader").style.display = "none" : "";
                 document.getElementById("main").style.display = "block";
-                configurarTogle();
+                CrearMenu();
+                //configurarTogle();
+            }
+
+        
+
+            function CrearMenu() {
+
+                
+
+                $.post("/Acceso/ObtenerAccesos", function (data, status) {
+
+                    let PermitirSerguridad = 0;
+                    let PermitirDatosMaestro = 0;
+                    let PermitirSociosNegocio = 0;
+                    let PermitirRequerimientoCompra = 0;
+                    let PermitirVisualizacionTraslados = 0;
+
+                    let PermitirReportes = 0;
+                    let accesos = JSON.parse(data);
+                    for (var i = 0; i < accesos.length; i++) {
+                        if (accesos[i].Menu == "SEGURIDAD") { PermitirSerguridad = 1; }
+                        if (accesos[i].Menu == "DATOS MAESTROS") { PermitirDatosMaestro = 1; }
+                        if (accesos[i].Menu == "SOCIOS DE NEGOCIO") { PermitirSociosNegocio = 1; }
+                        if (accesos[i].Menu == "REQUERIMIENTOS DE COMPRA (RQ)") { PermitirRequerimientoCompra = 1; }
+                        if (accesos[i].Menu == "TRASLADOS") { PermitirVisualizacionTraslados = 1; }
+                        if (accesos[i].Menu == "REPORTES") { PermitirReportes = 1; }
+                    }
+
+                    let menu = '';
+                    menu += `<li class='sidebar-label pt15'>Menu</li>`;
+                            if (PermitirSerguridad == 1) {
+                    menu += `<li>
+                            <a class='accordion-toggle1' href='#'>
+                                <span class='fa fa-shield'></span>
+                                <span class='sidebar-title'>SEGURIDAD</span>
+                                <span class='caret'></span>
+                            </a>
+                            <ul class='nav sub-nav'>
+                                <li>
+                                    <a href="/Usuario/Listado">USUARIOS</a>
+                                </li>
+                                <li>
+                                    <a href="/Perfil/Listado">PERFILES</a>
+                                </li>
+                                <li>
+                                    <a href="/Acceso/Listado">ACCESOS</a>
+                                </li>
+                            </ul>
+                        </li>`;
+                            }
+                    if (PermitirDatosMaestro == 1) {
+                        menu += `<li>
+                        
+                                <li>
+                                    <a class="accordion-toggle1" href="#">
+                                        <span class="fa fa-share-square-o"></span>
+                                        <span class="sidebar-title">DATOS MAESTROS</span>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="nav sub-nav">
+                                        <li>
+                                            <a href="/Sociedad/Listado">SOCIEDADES</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Almacen/Listado">ALMACENES</a>
+                                        </li>
+                                        <li>
+                                            <a href="/CentroCosto/Listado">CENTRO DE COSTO</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Sucursal/Listado">SUCURSALES</a>
+                                        </li>
+                                    </ul>
+                                </li>`;
+                    }
+                    if (PermitirSociosNegocio == 1) {
+                        menu += `<li>
+                                    <a class="accordion-toggle1" href="#">
+                                        <span class="fa fa-users"></span>
+                                        <span class="sidebar-title">SOCIOS DE NEGOCIO</span>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="nav sub-nav">
+                                        <li>
+                                            <a href="/Cliente/Listado">CLIENTES</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Proveedor/Listado">PROVEEDORES</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Empleado/Listado">EMPLEADOS</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                        </li>`;
+                    }
+                    if (PermitirRequerimientoCompra == 1) {
+                        menu += `<li>
+                            <a class='accordion-toggle1' href='#'>
+                                <span class='fa fa-inbox'></span>
+                                <span class='sidebar-title'>REQUERIMIENTOS DE COMPRA (RQ)</span>
+                                <span class='caret'></span>
+                            </a>
+                            <ul class='nav sub-nav'>
+                                <li>
+                                    <a href="/Usuario/Listado">NUEVA SOLICITUD RQ</a>
+                                </li>
+                                <li>
+                                    <a href="/Usuario/Listado">VISUALIZACION DE RQ PARA AUTORIZACION</a>
+                                </li>
+                                <li>
+                                    <a class="accordion-toggle1" href="#">
+                                        <span class="fa fa-share-square-o"></span>
+                                        <span class="sidebar-title">VISUALIZACION DE RQ PARA ATENCION</span>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="nav sub-nav">
+                                        <li>
+                                            <a href="/SociosNegocio/Cliente">DESPACHOS</a>
+                                        </li>
+                                        <li>
+                                            <a href="/SociosNegocio/Proveedor">COMPRA LOCAL</a>
+                                        </li>
+                                        <li>
+                                            <a href="/SociosNegocio/Proveedor">COMPRA LIMA</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>`;
+                    }
+                    if (PermitirVisualizacionTraslados == 1) {
+                        menu += `<li>
+                            <a class='accordion-toggle1' href='#'>
+                                <span class='fa fa-share'></span>
+                                <span class='sidebar-title'>TRASLADOS</span>
+                                <span class='caret'></span>
+                            </a>
+                            <ul class='nav sub-nav'>
+                                <li>
+                                    <a href="/Usuario/Listado">VISUALIZACION DE TRASLADOS PENDIENTES</a>
+                                </li>
+                            </ul>
+                        </li>`;
+                    }
+                    if (PermitirReportes == 1) {
+                        menu += `<li>
+                            <a class='accordion-toggle1' href='#'>
+                                <span class='fa fa-file-text-o'></span>
+                                <span class='sidebar-title'>REPORTES</span>
+                                <span class='caret'></span>
+                            </a>
+                            <ul class='nav sub-nav'>
+                                <li>
+                                    <a href="/Usuario/Listado">HISTORICO DE ARTICULO</a>
+                                </li>
+                                <li>
+                                    <a href="/Usuario/Listado">ESTADO DE LOS REQUERIMIENTOS</a>
+                                </li>
+                            </ul>
+                        </li>`;
+                    }
+                    $("#ulMenuPr").html(menu);
+                    configurarTogle();
+
+                });
+
+
             }
 
 

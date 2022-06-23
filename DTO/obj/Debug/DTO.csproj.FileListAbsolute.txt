@@ -4,3 +4,9 @@ C:\Users\Admin\source\repos\SMC_AddonRQ\DTO\obj\Debug\DTO.csprojAssemblyReferenc
 C:\Users\Admin\source\repos\SMC_AddonRQ\DTO\obj\Debug\DTO.csproj.CoreCompileInputs.cache
 C:\Users\Admin\source\repos\SMC_AddonRQ\DTO\obj\Debug\DTO.dll
 C:\Users\Admin\source\repos\SMC_AddonRQ\DTO\obj\Debug\DTO.pdb
+C:\laragon\www\AddonsTitanRequerimiento\DTO\obj\Debug\DTO.csprojAssemblyReference.cache
+C:\laragon\www\AddonsTitanRequerimiento\DTO\obj\Debug\DTO.csproj.CoreCompileInputs.cache
+C:\laragon\www\AddonsTitanRequerimiento\DTO\obj\Debug\DTO.dll
+C:\laragon\www\AddonsTitanRequerimiento\DTO\obj\Debug\DTO.pdb
+C:\laragon\www\AddonsTitanRequerimiento\DTO\bin\Debug\DTO.dll
+C:\laragon\www\AddonsTitanRequerimiento\DTO\bin\Debug\DTO.pdb

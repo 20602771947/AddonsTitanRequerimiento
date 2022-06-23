@@ -43,11 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccesoDAO.cs" />
     <Compile Include="AlmacenDAO.cs" />
     <Compile Include="CentroCostoDAO.cs" />
     <Compile Include="ClienteDAO.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="EmpleadoDAO.cs" />
+    <Compile Include="MenuDAO.cs" />
     <Compile Include="PerfilDAO.cs" />
     <Compile Include="ProveedorDAO.cs" />
     <Compile Include="SociedadDAO.cs" />

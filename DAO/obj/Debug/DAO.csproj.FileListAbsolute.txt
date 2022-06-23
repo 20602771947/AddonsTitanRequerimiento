@@ -7,3 +7,12 @@ C:\Users\Admin\source\repos\SMC_AddonRQ\DAO\obj\Debug\DAO.csproj.CoreCompileInpu
 C:\Users\Admin\source\repos\SMC_AddonRQ\DAO\obj\Debug\DAO.csproj.CopyComplete
 C:\Users\Admin\source\repos\SMC_AddonRQ\DAO\obj\Debug\DAO.dll
 C:\Users\Admin\source\repos\SMC_AddonRQ\DAO\obj\Debug\DAO.pdb
+C:\laragon\www\AddonsTitanRequerimiento\DAO\bin\Debug\DAO.dll
+C:\laragon\www\AddonsTitanRequerimiento\DAO\bin\Debug\DAO.pdb
+C:\laragon\www\AddonsTitanRequerimiento\DAO\bin\Debug\DTO.dll
+C:\laragon\www\AddonsTitanRequerimiento\DAO\bin\Debug\DTO.pdb
+C:\laragon\www\AddonsTitanRequerimiento\DAO\obj\Debug\DAO.csprojAssemblyReference.cache
+C:\laragon\www\AddonsTitanRequerimiento\DAO\obj\Debug\DAO.csproj.CoreCompileInputs.cache
+C:\laragon\www\AddonsTitanRequerimiento\DAO\obj\Debug\DAO.csproj.CopyComplete
+C:\laragon\www\AddonsTitanRequerimiento\DAO\obj\Debug\DAO.dll
+C:\laragon\www\AddonsTitanRequerimiento\DAO\obj\Debug\DAO.pdb

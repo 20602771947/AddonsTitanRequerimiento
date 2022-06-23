@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Listado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .tl:hover {
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
+
+<div class="container-fluid" style="height:93%;">
+    <div class="panel">
+        <div class="container-fluid">
+            <div class="topbar-left col-xs-6">
+                <h3>Acceso a Usuarios</h3>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="col-xs-6">
+            </div>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="container-fluid">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="form-group-sm col-md-12">
+                        <label for="txtUsuario" class="control-label col-md-1 left-align">Perfil</label>
+                        <div class="col-md-3">
+                            <select id="cboPerfil" class="form-control" onchange="BuscarAccesos()"></select>
+                        </div>
+                        <div class="col-md-3" style="display:none">
+                            <input type="text" id="txtID" class="form-control ">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" id="btnAplicar" onclick="GuardarAcceso()" class="btn btn-primary pull-right plu">Aplicar</button>
+                        </div>
+                        @*<div class="col-md-3">
+                                <button type="submit" id="btnSinAcceso" class="btn btn-primary pull-right plu" onclick="seleccionar();">Deseleccionar</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" id="btnAccesoTotal" class="btn btn-primary pull-right plu" onclick="seleccionar(1);">Seleccionar Todo</button>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="container-fluid" style="height:300px">
+            <div class="container-fluid" style="overflow:auto;height:300px;padding:15px">
+                @*<ul id="ulMenu" class="nav sidebar-menuc"></ul>*@
+                <table id="tblRol">
+                    <thead>
+                        <tr>
+                            <th style="width:60%">Tabla</th>
+                            <th style="width:15%">Permiso</th>
+                            @*<th style="width:15%">Lectura</th>*@
+                        </tr>
+                    </thead>
+                    <tbody id="tbRol"></tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/scripts/Acceso/Acceso.js", "~/scripts/General.js", "~/js/pdf/jspdf.min.js", "~/js/pdf/faker.min.js", "~/js/pdf/jspdf.plugin.autotable.src.js")
+}
