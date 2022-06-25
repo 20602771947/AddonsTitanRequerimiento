@@ -4,6 +4,7 @@
 window.onload = function () {
     var url = "ObtenerAlmacenes";
     ConsultaServidor(url);
+    
 };
 
 
@@ -29,6 +30,7 @@ function ConsultaServidor(url) {
                 '<td>' + (i + 1) + '</td>' +
                 '<td>' + almacenes[i].Codigo.toUpperCase() + '</td>' +
                 '<td>' + almacenes[i].Descripcion.toUpperCase() + '</td>' +
+                '<td>' + almacenes[i].Sucursal.toUpperCase() + '</td>' +
                 '<td><button class="btn btn-primary fa fa-pencil btn-xs" onclick="ObtenerDatosxID(' + almacenes[i].IdAlmacen + ')"></button>' +
                 '<button class="btn btn-danger btn-xs  fa fa-trash" onclick="eliminar(' + almacenes[i].IdAlmacen + ')"></button></td >' +
                 '</tr>';
@@ -49,9 +51,36 @@ function ConsultaServidor(url) {
 function ModalNuevo() {
     $("#lblTituloModal").html("Nuevo Almacen");
     AbrirModal("modal-form");
+    CargarSucursales();
 }
 
 
+
+function CargarSucursales() {
+
+    $.post("/Sucursal/ObtenerSucursales", function (data, status) {
+
+        let sucursales = JSON.parse(data);
+        llenarComboSucursal(sucursales, "cboSucursal", "Seleccione")
+
+    });
+
+}
+
+function llenarComboSucursal(lista, idCombo, primerItem) {
+    var contenido = "";
+    if (primerItem != null) contenido = "<option value=''>" + primerItem + "</option>";
+    var nRegistros = lista.length;
+    var nCampos;
+    var campos;
+    for (var i = 0; i < nRegistros; i++) {
+
+        if (lista.length > 0) { contenido += "<option value='" + lista[i].IdSucursal + "'>" + lista[i].Descripcion + "</option>"; }
+        else { }
+    }
+    var cbo = document.getElementById(idCombo);
+    if (cbo != null) cbo.innerHTML = contenido;
+}
 
 
 function GuardarAlmacen() {
@@ -59,6 +88,7 @@ function GuardarAlmacen() {
     let varIdAlmacen = $("#txtId").val();
     let varCodigo = $("#txtCodigo").val();
     let varDescripcion = $("#txtDescripcion").val();
+    let varSucursal = $("#cboSucursal").val();
     let varEstado = false;
 
     if ($('#chkActivo')[0].checked) {
@@ -69,7 +99,8 @@ function GuardarAlmacen() {
         'IdAlmacen': varIdAlmacen,
         'Codigo': varCodigo,
         'Descripcion': varDescripcion,
-        'Estado': varEstado
+        'Estado': varEstado,
+        'IdSucursal': varSucursal
     }, function (data, status) {
 
         if (data == 1) {
@@ -107,6 +138,25 @@ function ObtenerDatosxID(varIdAlmacen) {
             if (almacenes[0].Estado) {
                 $("#chkActivo").prop('checked', true);
             }
+
+
+
+            $.post("/Sucursal/ObtenerSucursales", function (data, status) {
+                let contenido;
+                let sucursales = JSON.parse(data);
+                for (var i = 0; i < sucursales.length; i++) {
+                    if (sucursales[i].IdSucursal == almacenes[0].IdSucursal) {
+                        contenido += "<option selected value='" + sucursales[i].IdSucursal + "'>" + sucursales[i].Descripcion + "</option>";
+                    } else {
+                        contenido += "<option value='" + sucursales[i].IdSucursal + "'>" + sucursales[i].Descripcion + "</option>";
+                    }
+                }
+                let cbo = document.getElementById("cboSucursal");
+                if (cbo != null) cbo.innerHTML = contenido;
+            });
+
+
+
 
         }
 

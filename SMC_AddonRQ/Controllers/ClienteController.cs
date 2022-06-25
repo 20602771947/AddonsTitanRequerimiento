@@ -73,6 +73,19 @@ namespace SMC_AddonRQ.Controllers
             return resultado;
         }
 
+        public string ConsultarDocumento(int Tipo,string Documento)
+        {
+            ClienteDAO oClienteDAO = new ClienteDAO();
+            string datos = oClienteDAO.ConsultarDocumento(Tipo, Documento);
+            if (datos != "Error")
+            {
+                return datos;
+            }
+            else
+            {
+                return "error";
+            }
+        }
 
     }
 }

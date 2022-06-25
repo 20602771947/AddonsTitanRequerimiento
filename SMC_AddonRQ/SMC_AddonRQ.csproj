@@ -124,12 +124,24 @@
     <Compile Include="Controllers\AlmacenController.cs" />
     <Compile Include="Controllers\CentroCostoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\CondicionPagoController.cs" />
+    <Compile Include="Controllers\DepartamentoController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndicadorImpuestoController.cs" />
+    <Compile Include="Controllers\LineaNegocioController.cs" />
+    <Compile Include="Controllers\MonedaController.cs" />
+    <Compile Include="Controllers\PaisController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
+    <Compile Include="Controllers\ProyectoController.cs" />
+    <Compile Include="Controllers\SerieController.cs" />
     <Compile Include="Controllers\SociedadController.cs" />
     <Compile Include="Controllers\SucursalController.cs" />
+    <Compile Include="Controllers\TipoDocumentoController.cs" />
+    <Compile Include="Controllers\TipoPersonaController.cs" />
+    <Compile Include="Controllers\UbigeoController.cs" />
+    <Compile Include="Controllers\UnidadMedidaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -585,8 +597,11 @@
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\CentroCosto\CentroCosto.js" />
     <Content Include="Scripts\Cliente\Cliente.js" />
+    <Content Include="Scripts\CondicionPago\CondicionPago.js" />
+    <Content Include="Scripts\Departamento\Departamento.js" />
     <Content Include="Scripts\Empleado\Empleado.js" />
     <Content Include="Scripts\General.js" />
+    <Content Include="Scripts\IndicadorImpuesto\IndicadorImpuesto.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -596,12 +611,17 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\LineaNegocio\LineaNegocio.js" />
     <Content Include="Scripts\Login.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Moneda\Moneda.js" />
     <Content Include="Scripts\Perfil\Perfil.js" />
     <Content Include="Scripts\Proveedor\Proveedor.js" />
+    <Content Include="Scripts\Proyecto\Proyecto.js" />
+    <Content Include="Scripts\Serie\Serie.js" />
     <Content Include="Scripts\Sociedad\Sociedad.js" />
     <Content Include="Scripts\Sucursal\Sucursal.js" />
+    <Content Include="Scripts\UnidadMedida\UnidadMedida.js" />
     <Content Include="Scripts\Usuario\Usuario.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -627,10 +647,22 @@
     <Content Include="Views\Proveedor\Listado.cshtml" />
     <Content Include="Views\CentroCosto\Listado.cshtml" />
     <Content Include="Views\Acceso\Listado.cshtml" />
+    <Content Include="Views\Departamento\Listado.cshtml" />
+    <Content Include="Views\Moneda\Listado.cshtml" />
+    <Content Include="Views\UnidadMedida\Listado.cshtml" />
+    <Content Include="Views\LineaNegocio\Listado.cshtml" />
+    <Content Include="Views\IndicadorImpuesto\Listado.cshtml" />
+    <Content Include="Views\Proyecto\Listado.cshtml" />
+    <Content Include="Views\Serie\Listado.cshtml" />
+    <Content Include="Views\CondicionPago\Listado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Pais\" />
+    <Folder Include="Views\TipoDocumento\" />
+    <Folder Include="Views\TipoPersona\" />
+    <Folder Include="Views\Ubigeo\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

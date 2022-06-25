@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -148,6 +150,42 @@ namespace DAO
                     }
                 }
             }
+        }
+
+
+        public string ConsultarDocumento(int tipo,string Documento)
+        {
+            string responseBody = "";
+            var url = "";
+            if (tipo == 1) {
+                url = $"https://e-factura.tuscomprobantes.pe/wsconsulta/dni/" + Documento;
+            }
+            else
+            {
+                url = $"https://e-factura.tuscomprobantes.pe/wsconsulta/ruc/" + Documento;
+            }
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            try
+            {
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (Stream strReader = response.GetResponseStream())
+                    {
+                        if (strReader == null) { }
+                        else
+                            using (StreamReader objReader = new StreamReader(strReader))
+                            {
+                                responseBody = objReader.ReadToEnd();
+                            }
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                return "Error";
+            }
+            return responseBody;
         }
 
 

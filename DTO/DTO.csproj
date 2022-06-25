@@ -45,12 +45,24 @@
     <Compile Include="AlmacenDTO.cs" />
     <Compile Include="CentroCostoDTO.cs" />
     <Compile Include="ClienteDTO.cs" />
+    <Compile Include="CondicionPagoDTO.cs" />
+    <Compile Include="DepartamentoDTO.cs" />
     <Compile Include="EmpleadoDTO.cs" />
+    <Compile Include="IndicadorImpuestoDTO.cs" />
+    <Compile Include="LineaNegocioDTO.cs" />
     <Compile Include="MenuDTO.cs" />
+    <Compile Include="MonedaDTO.cs" />
+    <Compile Include="PaisDTO.cs" />
     <Compile Include="PerfilDTO.cs" />
     <Compile Include="ProveedorDTO.cs" />
+    <Compile Include="ProyectoDTO.cs" />
+    <Compile Include="SerieDTO.cs" />
     <Compile Include="SociedadDTO.cs" />
     <Compile Include="SucursalDTO.cs" />
+    <Compile Include="TipoDocumentoDTO.cs" />
+    <Compile Include="TipoPersonaDTO.cs" />
+    <Compile Include="UbigeoDTO.cs" />
+    <Compile Include="UnidadMedidaDTO.cs" />
     <Compile Include="UsuarioDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

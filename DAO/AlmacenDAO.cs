@@ -32,6 +32,8 @@ namespace DAO
                         oAlmacenDTO.Codigo = drd["Codigo"].ToString();
                         oAlmacenDTO.Descripcion = drd["Descripcion"].ToString();
                         oAlmacenDTO.Estado = bool.Parse(drd["Estado"].ToString());
+                        oAlmacenDTO.IdSucursal = int.Parse(drd["IdSucursal"].ToString());
+                        oAlmacenDTO.Sucursal = drd["Sucursal"].ToString();
                         lstAlmacenDTO.Add(oAlmacenDTO);
                     }
                     drd.Close();
@@ -64,6 +66,7 @@ namespace DAO
                         da.SelectCommand.Parameters.AddWithValue("@Codigo", oAlmacenDTO.Codigo);
                         da.SelectCommand.Parameters.AddWithValue("@Descripcion", oAlmacenDTO.Descripcion);
                         da.SelectCommand.Parameters.AddWithValue("@Estado", oAlmacenDTO.Estado);
+                        da.SelectCommand.Parameters.AddWithValue("@IdSucursal", oAlmacenDTO.IdSucursal);
                         int rpta = da.SelectCommand.ExecuteNonQuery();
                         transactionScope.Complete();
                         return rpta;
@@ -95,6 +98,8 @@ namespace DAO
                         oAlmacenDTO.Codigo = drd["Codigo"].ToString();
                         oAlmacenDTO.Descripcion = drd["Descripcion"].ToString();
                         oAlmacenDTO.Estado = bool.Parse(drd["Estado"].ToString());
+                        oAlmacenDTO.IdSucursal = int.Parse(drd["IdSucursal"].ToString());
+                        oAlmacenDTO.Sucursal = drd["Sucursal"].ToString();
                         lstAlmacenDTO.Add(oAlmacenDTO);
                     }
                     drd.Close();

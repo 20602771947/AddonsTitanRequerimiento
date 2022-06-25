@@ -124,11 +124,21 @@ function GuardarAcceso() {
     });
 
 
-    $.post("GuardarAcceso", { 'IdPerfil': varcboPerfil, 'ArrayAccesos': arrayacceso}, function (data, status) {
-
-
-
+    $.post("EliminarAccesoxPerfil", { 'IdPerfil': varcboPerfil}, function (data, status) {
+        if (data == 1) {
+            $.post("GuardarAcceso", { 'IdPerfil': varcboPerfil, 'ArrayAccesos': arrayacceso }, function (data, status) {
+                if (data == 1) {
+                    swal("Exito!", "Proceso Realizado Correctamente", "success")
+                } else {
+                    swal("Error!", "Ocurrio un Error")
+                }
+            });
+        } else {
+            swal("Error!", "Ocurrio un Error")
+        }
     });
+
+   
    
 
 }

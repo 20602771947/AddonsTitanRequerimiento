@@ -71,6 +71,19 @@ namespace SMC_AddonRQ.Controllers
             return resultado;
         }
 
+        public int EliminarAccesoxPerfil(int IdPerfil)
+        {
+            AccesoDAO oAccesoDAO = new AccesoDAO();
+            int resultado = oAccesoDAO.Delete(IdPerfil);
+            if (resultado == 0)
+            {
+                resultado = 1;
+            }
+
+            return resultado;
+        }
+
+
 
 
     }
