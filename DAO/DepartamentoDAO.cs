@@ -22,7 +22,7 @@ namespace DAO
                 try
                 {
                     cn.Open();
-                    SqlDataAdapter da = new SqlDataAdapter("SMC_ListarDepartamentos", cn);
+                    SqlDataAdapter da = new SqlDataAdapter("SMC_ListarMaestroDepartamentos", cn);
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     SqlDataReader drd = da.SelectCommand.ExecuteReader();
                     while (drd.Read())

@@ -1,0 +1,311 @@
+﻿@{
+    ViewBag.Title = "Listado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    body {
+        font-family: Arial;
+    }
+
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #bcecf1;
+        background-color: #effafc;
+    }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+                background-color: #baecf5;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                background-color: #baecf5;
+            }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+</style>
+
+<div class="container-fluid" style="height:93%;">
+    <div class="panel">
+        <div class="container-fluid">
+            <div class="topbar-left col-xs-6">
+                <h3>Solicitudes</h3>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="col-xs-6">
+                <div class="topbar-left col-xs-6">
+                    <h4 style="font-size:1.2em;">Total de Registros: <span id="spnTotalRegistros"></span></h4>
+                </div>
+            </div>
+            <div class="col-xs-6 right">
+                <button class="btn btn-sm  btn-primary pull-right plu" data-target="modal1" onclick="ModalNuevo()" style="margin-left:10px;">Nuevo</button>
+                @*<button class="btn btn-sm  btn-success pull-right plu" id="btnPdf" style="margin-left:10px;">Descargar PDF</button>
+                    <button class="btn btn-sm btn-info pull-right plu" id="btnExcel" style="margin-left:10px;">Descargar Excel</button>*@
+            </div>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="container-fluid">
+
+            <table id="table_id" class="table" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Documento</th>
+                        <th>Razon Social</th>
+                        <th>Mas</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody_Solicitudes"></tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div id="modal-form" class="popup-xl allcp-form mfp-with-anim mfp-hide">
+        <div class="panel">
+            <div class="panel-heading">
+                <h5 id='lblTituloModal'></h5>
+            </div>
+            <div class="panel-body ">
+                <div class='col s12 m12 '>
+                    <div class='container-fluid'>
+                        <div class='form-horizontal'>
+                            <div class="form-group-sm" style="display:none;">
+                                <input placeholder='' id='txtId' type='text' style="display:none;">
+                            </div>
+
+                            <div class="row">
+                                <div class='form-group-sm'>
+                                    <label for="cboSerie" class="control-label col-sm-2 left-align">Serie</label>
+                                    <div class="col-sm-4">
+                                        <select id="cboSerie" class="form-control input-sm" tabindex="0"></select>
+                                    </div>
+                                </div>
+                                <div class='form-group-sm'>
+                                    <label for="txtEstado" class="control-label col-sm-2 left-align">Estado</label>
+                                    <div class="col-sm-4">
+                                        <input id="txtEstado" type="text" class="form-control input-sm" tabindex="1" value="Abierto" disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class='form-group-sm'>
+                                    <label for="txtNumeracion" class="control-label col-sm-2 left-align">Numeracion</label>
+                                    <div class="col-sm-4">
+                                        <input id="txtNumeracion" type="text" class="form-control input-sm" tabindex="2" disabled>
+                                    </div>
+                                </div>
+                                <div class='form-group-sm'>
+                                    <label for="cboMoneda" class="control-label col-sm-2 left-align">Tipo de Cambio</label>
+                                    <div class="col-sm-2">
+                                        <select id="cboMoneda" type="text" class="form-control input-sm" tabindex="3" onchange="ValidarMonedaBase()"></select>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input id="txtTipoCambio" type="text" class="form-control input-sm" tabindex="4">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class='form-group-sm'>
+                                    <label for="cboEmpleado" class="control-label col-sm-2 left-align">Solicitante</label>
+                                    <div class="col-sm-4">
+                                        <select id="cboEmpleado" class="form-control input-sm" tabindex="5"></select>
+                                    </div>
+                                </div>
+                                <div class='form-group-sm'>
+                                    <label for="txtFechaContabilizacion" class="control-label col-sm-2 left-align">Fecha Contabilizacion</label>
+                                    <div class="col-sm-4">
+                                        <input id="txtFechaContabilizacion" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="date" class="form-control input-sm" tabindex="6">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class='form-group-sm'>
+                                    <label for="cboSucursal" class="control-label col-sm-2 left-align">Sucursal</label>
+                                    <div class="col-sm-4">
+                                        <select id="cboSucursal" class="form-control input-sm" tabindex="7"></select>
+                                    </div>
+                                </div>
+                                <div class='form-group-sm'>
+                                    <label for="txtFechaValidoHasta" class="control-label col-sm-2 left-align">Valido Hasta</label>
+                                    <div class="col-sm-4">
+                                        <input id="txtFechaValidoHasta" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="date" class="form-control input-sm" tabindex="8">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class='form-group-sm'>
+                                    <label for="cboDepartamento" class="control-label col-sm-2 left-align">Departamento</label>
+                                    <div class="col-sm-4">
+                                        <select id="cboDepartamento" class="form-control input-sm" tabindex="9"></select>
+                                    </div>
+                                </div>
+                                <div class='form-group-sm'>
+                                    <label for="txtFechaDocumento" class="control-label col-sm-2 left-align">Fecha Documento</label>
+                                    <div class="col-sm-4">
+                                        <input id="txtFechaDocumento" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="date" class="form-control input-sm" tabindex="10">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br />
+
+                            <div class="tab">
+                                <button class="tablinks active" onclick="openContenido(event, 'Contenido')">Contenido</button>
+                                <button class="tablinks" onclick="openContenido(event, 'Anexos')">Anexos</button>
+
+                            </div>
+
+                            <div id="Contenido" class="tabcontent" style="display: block;">
+                                <div class="table-responsive">
+                                    <table class="table" id="tabla">
+                                        <thead>
+                                            <tr>
+                                                <th><button class="btn btn-xs btn-info" onclick="AgregarLinea()" type="button">+</button></th>
+                                                <th>Numero de Articulo</th>
+                                                <th>Descripcion de Articulo</th>
+                                                <th>Unidad de Medida</th>
+                                                <th>Fecha Necesaria</th>
+                                                <th>Moneda</th>
+                                                <th>Tipo Cambio</th>
+                                                <th>Cantidad Necesaria</th>
+                                                <th>Precio Info</th>
+                                                <th>Indicador de Impuestos</th>
+                                                <th>Total</th>
+                                                <th>Almacen</th>
+                                                <th>Proveedor</th>
+                                                <th>Numero de Fabricacion</th>
+                                                <th>Numero de Serie</th>
+                                                <th>Linea de Negocio</th>
+                                                <th>Centro Costos</th>
+                                                <th>Proyecto</th>
+                                                <th>Cantidad</th>
+                                                <th>En Pedido</th>
+                                                <th>Accion</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody_detalle"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div id="Anexos" class="tabcontent">
+ 
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class='form-group-sm'>
+                                    <label for="cboTitular" class="control-label col-sm-2 left-align">Titular</label>
+                                    <div class="col-sm-4">
+                                        <select id="cboTitular" class="form-control input-sm" tabindex="11"></select>
+                                    </div>
+                                </div>
+                                <div class='form-group-sm'>
+                                    <label for="txtTotalAntesDescuento" class="control-label col-sm-2 left-align">Total Antes del Descuento</label>
+                                    <div class="col-sm-4">
+                                        <input id="txtTotalAntesDescuento" type="number" class="form-control input-sm" tabindex="12">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class='form-group-sm'>
+                                    <label for="txtComentarios" class="control-label col-sm-2 left-align">Comentarios</label>
+                                    <div class="col-sm-4">
+                                        @*<input id="txtComentarios" type="date" class="form-control input-sm" tabindex="14">*@
+                                        <textarea class="form-control" id="txtComentarios" name="txtComentarios" rows="5" cols="30" tabindex="14"></textarea>
+                                    </div>
+                                </div>
+                                <div class='form-group-sm'>
+                                    <label for="txtImpuesto" class="control-label col-sm-2 left-align">Impuesto</label>
+                                    <div class="col-sm-4">
+                                        <input id="txtImpuesto" type="number" class="form-control input-sm" tabindex="15">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class='form-group-sm'>
+                                    <label for="txtTotal" class="control-label col-sm-2 left-align"></label>
+                                    <div class="col-sm-4">
+                                        @*<input id="txtTotal" type="number" class="form-control input-sm" tabindex="16">*@
+                                    </div>
+                                </div>
+                                <div class='form-group-sm'>
+                                    <label for="txtTotal" class="control-label col-sm-2 left-align">Total</label>
+                                    <div class="col-sm-4">
+                                        <input id="txtTotal" type="number" class="form-control input-sm" tabindex="16">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                      
+                      
+                     
+                     
+                      
+              
+                      
+                   
+                   
+          
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <div class="row">
+                <button type="button" id="btnGrabar" onclick="GuardarSolicitud()" class="btn btn-primary pull-right plu">Grabar</button>
+                <button type="button" id="btnCancelar" onclick="CerrarModal()" class="btn btn-danger pull-right" style="background-color:orange;">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/scripts/SolicitudRQ/SolicitudRQ.js", "~/scripts/General.js", "~/js/pdf/jspdf.min.js", "~/js/pdf/faker.min.js", "~/js/pdf/jspdf.plugin.autotable.src.js")
+}
+

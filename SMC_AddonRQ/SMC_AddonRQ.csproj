@@ -137,6 +137,7 @@
     <Compile Include="Controllers\ProyectoController.cs" />
     <Compile Include="Controllers\SerieController.cs" />
     <Compile Include="Controllers\SociedadController.cs" />
+    <Compile Include="Controllers\SolicitudRQController.cs" />
     <Compile Include="Controllers\SucursalController.cs" />
     <Compile Include="Controllers\TipoDocumentoController.cs" />
     <Compile Include="Controllers\TipoPersonaController.cs" />
@@ -620,6 +621,7 @@
     <Content Include="Scripts\Proyecto\Proyecto.js" />
     <Content Include="Scripts\Serie\Serie.js" />
     <Content Include="Scripts\Sociedad\Sociedad.js" />
+    <Content Include="Scripts\SolicitudRQ\SolicitudRQ.js" />
     <Content Include="Scripts\Sucursal\Sucursal.js" />
     <Content Include="Scripts\UnidadMedida\UnidadMedida.js" />
     <Content Include="Scripts\Usuario\Usuario.js" />
@@ -655,6 +657,7 @@
     <Content Include="Views\Proyecto\Listado.cshtml" />
     <Content Include="Views\Serie\Listado.cshtml" />
     <Content Include="Views\CondicionPago\Listado.cshtml" />
+    <Content Include="Views\SolicitudRQ\Listado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
