@@ -73,6 +73,21 @@ namespace SMC_AddonRQ.Controllers
             return resultado;
         }
 
+        public string ValidarMonedaBase(int IdMoneda)
+        {
+            MonedaDAO oMonedaDAO = new MonedaDAO();
+            List<MonedaDTO> lstMonedaDTO = oMonedaDAO.ValidarMonedaBase(IdMoneda);
+
+            if (lstMonedaDTO.Count > 0)
+            {
+                return JsonConvert.SerializeObject(lstMonedaDTO);
+            }
+            else
+            {
+                return "error";
+            }
+
+        }
 
 
     }

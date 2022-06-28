@@ -75,5 +75,22 @@ namespace SMC_AddonRQ.Controllers
         }
 
 
+        public string ValidarNumeracionSerieSolicitudRQ(int IdSerie)
+        {
+            SerieDAO oSerieDAO = new SerieDAO();
+            List<SerieDTO> lstSerieDTO = oSerieDAO.ValidarNumeracionSerieSolicitudRQ(IdSerie);
+
+            if (lstSerieDTO.Count > 0)
+            {
+                return JsonConvert.SerializeObject(lstSerieDTO);
+            }
+            else
+            {
+                return "sin datos";
+            }
+
+        }
+
+
     }
 }

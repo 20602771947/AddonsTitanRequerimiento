@@ -141,5 +141,39 @@ namespace DAO
         }
 
 
+
+        public List<SerieDTO> ValidarNumeracionSerieSolicitudRQ(int IdSerie)
+        {
+            List<SerieDTO> lstSerieDTO = new List<SerieDTO>();
+            using (SqlConnection cn = new Conexion().conectar())
+            {
+                try
+                {
+                    cn.Open();
+                    SqlDataAdapter da = new SqlDataAdapter("SMC_ValidarNumeracionSerieSolicitudRQ", cn);
+                    da.SelectCommand.Parameters.AddWithValue("@IdSerie", IdSerie);
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader drd = da.SelectCommand.ExecuteReader();
+                    while (drd.Read())
+                    {
+                        SerieDTO oSerieDTO = new SerieDTO();
+                        oSerieDTO.IdSerie = int.Parse(drd["Id"].ToString());
+                        oSerieDTO.Serie = drd["Serie"].ToString();
+                        oSerieDTO.NumeroInicial = int.Parse(drd["Numero"].ToString());
+                        lstSerieDTO.Add(oSerieDTO);
+                    }
+                    drd.Close();
+
+
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+            return lstSerieDTO;
+        }
+
+
+
     }
 }

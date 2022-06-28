@@ -58,6 +58,8 @@
     <Compile Include="ProyectoDTO.cs" />
     <Compile Include="SerieDTO.cs" />
     <Compile Include="SociedadDTO.cs" />
+    <Compile Include="SolicitudRQDetalleDTO.cs" />
+    <Compile Include="SolicitudRQDTO.cs" />
     <Compile Include="SucursalDTO.cs" />
     <Compile Include="TipoDocumentoDTO.cs" />
     <Compile Include="TipoPersonaDTO.cs" />

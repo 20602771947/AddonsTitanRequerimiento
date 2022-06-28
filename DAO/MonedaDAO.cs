@@ -139,6 +139,39 @@ namespace DAO
         }
 
 
+        public List<MonedaDTO> ValidarMonedaBase(int IdMoneda)
+        {
+            List<MonedaDTO> lstMonedaDTO = new List<MonedaDTO>();
+            using (SqlConnection cn = new Conexion().conectar())
+            {
+                try
+                {
+                    cn.Open();
+                    SqlDataAdapter da = new SqlDataAdapter("SMC_ValidarMonedaBase", cn);
+                    da.SelectCommand.Parameters.AddWithValue("@IdMoneda", IdMoneda);
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader drd = da.SelectCommand.ExecuteReader();
+                    while (drd.Read())
+                    {
+                        MonedaDTO oMonedaDTO = new MonedaDTO();
+                        oMonedaDTO.IdMoneda = int.Parse(drd["Id"].ToString());
+                        oMonedaDTO.Codigo = drd["Codigo"].ToString();
+                        oMonedaDTO.Descripcion = drd["Descripcion"].ToString();
+                        oMonedaDTO.Base = bool.Parse(drd["Base"].ToString());
+                        oMonedaDTO.Estado = bool.Parse(drd["Estado"].ToString());
+                        lstMonedaDTO.Add(oMonedaDTO);
+                    }
+                    drd.Close();
+
+
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+            return lstMonedaDTO;
+        }
+
 
     }
 }
