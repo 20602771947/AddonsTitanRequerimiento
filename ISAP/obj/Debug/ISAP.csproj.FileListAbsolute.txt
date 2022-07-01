@@ -1,0 +1,6 @@
+C:\laragon\www\AddonsTitanRequerimiento\ISAP\bin\Debug\ISAP.dll
+C:\laragon\www\AddonsTitanRequerimiento\ISAP\bin\Debug\ISAP.pdb
+C:\laragon\www\AddonsTitanRequerimiento\ISAP\obj\Debug\ISAP.csprojAssemblyReference.cache
+C:\laragon\www\AddonsTitanRequerimiento\ISAP\obj\Debug\ISAP.csproj.CoreCompileInputs.cache
+C:\laragon\www\AddonsTitanRequerimiento\ISAP\obj\Debug\ISAP.dll
+C:\laragon\www\AddonsTitanRequerimiento\ISAP\obj\Debug\ISAP.pdb

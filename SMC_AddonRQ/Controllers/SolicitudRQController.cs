@@ -63,6 +63,18 @@ namespace SMC_AddonRQ.Controllers
         }
 
 
+        public int EliminarDetalleSolicitud(int IdSolicitudRQDetalle)
+        {
+            SolicitudRQDAO oSolicitudRQDAO = new SolicitudRQDAO();
+            int resultado = oSolicitudRQDAO.Delete(IdSolicitudRQDetalle);
+            if (resultado == 0)
+            {
+                resultado = 1;
+            }
+
+            return resultado;
+        }
+
 
     }
 }
