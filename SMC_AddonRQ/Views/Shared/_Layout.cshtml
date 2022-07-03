@@ -356,7 +356,14 @@
                     let PermitirSeguridadAccesos = 0;
                     let PermitirSeguridadConfiguracion = 0;
 
+                    let PermitirProcedimientoAutorizacion = 0;
+                    let PermitirEtapasAutorizacion = 0;
+                    let PermitirModelosAutorizacion = 0;
+                    let PermitirInformeStatusAutorizacion = 0;
+                    let PermitirInformeDecisionAutorizacion = 0;
+
                     let PermitirDatosMaestro = 0;
+                    let PermitirDatosMaestroArticulos = 0;
                     let PermitirDatosMaestroSociedades = 0;
                     let PermitirDatosMaestroAlmacenes = 0;
                     let PermitirDatosMaestroCentroCosto = 0;
@@ -395,7 +402,14 @@
                         if (accesos[i].Menu == "ACCESOS") { PermitirSeguridadAccesos = 1; }
                         if (accesos[i].Menu == "CONFIGURACION DECIMALES") { PermitirSeguridadConfiguracion = 1; }
 
+                        if (accesos[i].Menu == "PROCEDIMIENTO DE AUTORIZACION") { PermitirProcedimientoAutorizacion = 1; }
+                        if (accesos[i].Menu == "ETAPAS DE AUTORIZACION") { PermitirEtapasAutorizacion = 1; }
+                        if (accesos[i].Menu == "MODELOS DE AUTORIZACION") { PermitirModelosAutorizacion = 1; }
+                        if (accesos[i].Menu == "INFORME STATUS DE AUTORIZACION") { PermitirInformeStatusAutorizacion = 1; }
+                        if (accesos[i].Menu == "INFORME DECISION DE AUTORIZACION") { PermitirInformeDecisionAutorizacion = 1; }
+
                         if (accesos[i].Menu == "DATOS MAESTROS") { PermitirDatosMaestro = 1; }
+                        if (accesos[i].Menu == "ARTICULOS") { PermitirDatosMaestroArticulos = 1; }
                         if (accesos[i].Menu == "SOCIEDADES") { PermitirDatosMaestroSociedades = 1; }
                         if (accesos[i].Menu == "ALMACENES") { PermitirDatosMaestroAlmacenes = 1; }
                         if (accesos[i].Menu == "CENTRO DE COSTO") { PermitirDatosMaestroCentroCosto = 1; }
@@ -457,6 +471,37 @@
                                     <a href="/ConfiguracionDecimales/Listado">CONFIGURACION DECIMALES</a>
                               </li>`;
                                 }
+                                if (PermitirProcedimientoAutorizacion == 1) {
+                                    menu += `<li>
+                                    <a class="accordion-toggle1" href="#">
+                                        <span class="fa fa-share-square-o"></span>
+                                        <span class="sidebar-title">PROCEDIMIENTO DE AUTORIZACION</span>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="nav sub-nav">`;
+                                    if (PermitirEtapasAutorizacion == 1) {
+                                        menu += `<li>
+                                            <a href="/EtapaAutorizacion/Listado">ETAPAS DE AUTORIZACION</a>
+                                        </li>`;
+                                    }
+                                    if (PermitirModelosAutorizacion == 1) {
+                                        menu += `<li>
+                                            <a href="/ModeloAutorizacion/Listado">MODELOS DE AUTORIZACION</a>
+                                        </li>`;
+                                    }
+                                    if (PermitirInformeStatusAutorizacion == 1) {
+                                        menu += `<li>
+                                            <a href="/SociosNegocio/Proveedor">INFORME STATUS DE AUTORIZACION</a>
+                                        </li>`;
+                                    }
+                                    if (PermitirInformeDecisionAutorizacion == 1) {
+                                        menu += `<li>
+                                            <a href="/SociosNegocio/Proveedor">INFORME DECISION DE AUTORIZACION</a>
+                                        </li>`;
+                                    }
+                               menu += `</ul>
+                                </li>`;
+                                }
                     menu += `</ul>
                         </li>`;
 
@@ -471,6 +516,11 @@
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="nav sub-nav">`;
+                        if (PermitirDatosMaestroArticulos == 1) {
+                            menu += `     <li>
+                                            <a href="/Articulo/Listado">ARTICULOS</a>
+                                        </li>`;
+                        }
                         if (PermitirDatosMaestroSociedades == 1) {
                             menu += `     <li>
                                             <a href="/Sociedad/Listado">SOCIEDADES</a>

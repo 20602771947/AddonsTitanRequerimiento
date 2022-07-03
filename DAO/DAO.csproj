@@ -52,6 +52,7 @@
     <Compile Include="ConfiguracionDecimalesDAO.cs" />
     <Compile Include="DepartamentoDAO.cs" />
     <Compile Include="EmpleadoDAO.cs" />
+    <Compile Include="EtapaAutorizacionDAO.cs" />
     <Compile Include="IndicadorImpuestoDAO.cs" />
     <Compile Include="LineaNegocioDAO.cs" />
     <Compile Include="MenuDAO.cs" />

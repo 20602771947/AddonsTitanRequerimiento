@@ -213,7 +213,7 @@ namespace DAO
                 {
                     cn.Open();
                     SqlDataAdapter da = new SqlDataAdapter("SMC_ListarSolicitudDetalleRQxID", cn);
-                    da.SelectCommand.Parameters.AddWithValue("IdSolicitudRQ", IdSolicitudRQ);
+                    da.SelectCommand.Parameters.AddWithValue("@IdSolicitudRQ", IdSolicitudRQ);
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     SqlDataReader dr1 = da.SelectCommand.ExecuteReader();
                     while (dr1.Read())

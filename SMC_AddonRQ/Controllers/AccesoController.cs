@@ -62,7 +62,7 @@ namespace SMC_AddonRQ.Controllers
         public int GuardarAcceso(int IdPerfil,List<int> ArrayAccesos)
         {
             AccesoDAO oAccesoDAO = new AccesoDAO();
-            int resultado = oAccesoDAO.UpdateInsertAcceso(IdPerfil, ArrayAccesos);
+            int resultado = oAccesoDAO.UpdateInsertAcceso(IdPerfil, ArrayAccesos,base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

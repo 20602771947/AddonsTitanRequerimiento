@@ -48,7 +48,7 @@ namespace DAO
         }
 
 
-        public int UpdateInsertAcceso(int IdPerfil,List<int> ArrayAccesos)
+        public int UpdateInsertAcceso(int IdPerfil,List<int> ArrayAccesos,string IdSociedad)
         {
             TransactionOptions transactionOptions = default(TransactionOptions);
             transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;
@@ -69,6 +69,7 @@ namespace DAO
                             da.SelectCommand.Parameters.AddWithValue("@IdPerfil", IdPerfil);
                             da.SelectCommand.Parameters.AddWithValue("@IdMenu", ArrayAccesos[i]);
                             da.SelectCommand.Parameters.AddWithValue("@Estado", 1);
+                            da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                             rpta = da.SelectCommand.ExecuteNonQuery();
                         }
 

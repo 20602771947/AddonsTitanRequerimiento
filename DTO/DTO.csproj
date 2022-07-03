@@ -49,6 +49,7 @@
     <Compile Include="ConfiguracionDecimalesDTO.cs" />
     <Compile Include="DepartamentoDTO.cs" />
     <Compile Include="EmpleadoDTO.cs" />
+    <Compile Include="EtapaAutorizacionDTO.cs" />
     <Compile Include="IndicadorImpuestoDTO.cs" />
     <Compile Include="LineaNegocioDTO.cs" />
     <Compile Include="MenuDTO.cs" />
