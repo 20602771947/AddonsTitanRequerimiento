@@ -20,7 +20,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerPerfiles()
         {
             PerfilDAO oPerfilDAO = new PerfilDAO();
-            List<PerfilDTO> lstPerfilDTO = oPerfilDAO.ObtenerPerfiles();
+            List<PerfilDTO> lstPerfilDTO = oPerfilDAO.ObtenerPerfiles(base.Session["IdSociedad"].ToString());
             if (lstPerfilDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstPerfilDTO);
@@ -35,7 +35,7 @@ namespace SMC_AddonRQ.Controllers
         {
 
             PerfilDAO oPerfilDAO = new PerfilDAO();
-            int resultado = oPerfilDAO.UpdateInsertPerfil(perfilDTO);
+            int resultado = oPerfilDAO.UpdateInsertPerfil(perfilDTO, base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

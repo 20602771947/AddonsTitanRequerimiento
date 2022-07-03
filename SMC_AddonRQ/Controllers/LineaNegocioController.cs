@@ -21,7 +21,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerLineaNegocios()
         {
             LineaNegocioDAO oLineaNegocioDAO = new LineaNegocioDAO();
-            List<LineaNegocioDTO> lstLineaNegocioDTO = oLineaNegocioDAO.ObtenerLineaNegocios();
+            List<LineaNegocioDTO> lstLineaNegocioDTO = oLineaNegocioDAO.ObtenerLineaNegocios(base.Session["IdSociedad"].ToString());
             if (lstLineaNegocioDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstLineaNegocioDTO);
@@ -36,7 +36,7 @@ namespace SMC_AddonRQ.Controllers
         {
 
             LineaNegocioDAO oLineaNegocioDAO = new LineaNegocioDAO();
-            int resultado = oLineaNegocioDAO.UpdateInsertLineaNegocio(LineaNegocioDTO);
+            int resultado = oLineaNegocioDAO.UpdateInsertLineaNegocio(LineaNegocioDTO, base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

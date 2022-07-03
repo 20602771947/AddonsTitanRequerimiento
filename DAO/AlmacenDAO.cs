@@ -14,7 +14,7 @@ namespace DAO
     public class AlmacenDAO
     {
 
-        public List<AlmacenDTO> ObtenerAlmacenes()
+        public List<AlmacenDTO> ObtenerAlmacenes(string IdSociedad)
         {
             List<AlmacenDTO> lstAlmacenDTO = new List<AlmacenDTO>();
             using (SqlConnection cn = new Conexion().conectar())
@@ -23,6 +23,7 @@ namespace DAO
                 {
                     cn.Open();
                     SqlDataAdapter da = new SqlDataAdapter("SMC_ListarAlmacenes", cn);
+                    da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     SqlDataReader drd = da.SelectCommand.ExecuteReader();
                     while (drd.Read())
@@ -47,7 +48,7 @@ namespace DAO
             return lstAlmacenDTO;
         }
 
-        public int UpdateInsertAlmacen(AlmacenDTO oAlmacenDTO)
+        public int UpdateInsertAlmacen(AlmacenDTO oAlmacenDTO, string IdSociedad)
         {
             TransactionOptions transactionOptions = default(TransactionOptions);
             transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;
@@ -67,6 +68,7 @@ namespace DAO
                         da.SelectCommand.Parameters.AddWithValue("@Descripcion", oAlmacenDTO.Descripcion);
                         da.SelectCommand.Parameters.AddWithValue("@Estado", oAlmacenDTO.Estado);
                         da.SelectCommand.Parameters.AddWithValue("@IdSucursal", oAlmacenDTO.IdSucursal);
+                        da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                         int rpta = da.SelectCommand.ExecuteNonQuery();
                         transactionScope.Complete();
                         return rpta;

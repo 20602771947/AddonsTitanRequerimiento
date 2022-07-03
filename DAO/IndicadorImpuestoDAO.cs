@@ -13,7 +13,7 @@ namespace DAO
     public class IndicadorImpuestoDAO
     {
 
-        public List<IndicadorImpuestoDTO> ObtenerIndicadorImpuestos()
+        public List<IndicadorImpuestoDTO> ObtenerIndicadorImpuestos(string IdSociedad)
         {
             List<IndicadorImpuestoDTO> lstIndicadorImpuestoDTO = new List<IndicadorImpuestoDTO>();
             using (SqlConnection cn = new Conexion().conectar())
@@ -22,6 +22,7 @@ namespace DAO
                 {
                     cn.Open();
                     SqlDataAdapter da = new SqlDataAdapter("SMC_ListarIndicadorImpuestos", cn);
+                    da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     SqlDataReader drd = da.SelectCommand.ExecuteReader();
                     while (drd.Read())
@@ -45,7 +46,7 @@ namespace DAO
             return lstIndicadorImpuestoDTO;
         }
 
-        public int UpdateInsertIndicadorImpuesto(IndicadorImpuestoDTO oIndicadorImpuestoDTO)
+        public int UpdateInsertIndicadorImpuesto(IndicadorImpuestoDTO oIndicadorImpuestoDTO,string IdSociedad)
         {
             TransactionOptions transactionOptions = default(TransactionOptions);
             transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;
@@ -65,6 +66,7 @@ namespace DAO
                         da.SelectCommand.Parameters.AddWithValue("@Descripcion", oIndicadorImpuestoDTO.Descripcion);
                         da.SelectCommand.Parameters.AddWithValue("@Porcentaje", oIndicadorImpuestoDTO.Porcentaje);
                         da.SelectCommand.Parameters.AddWithValue("@Estado", oIndicadorImpuestoDTO.Estado);
+                        da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                         int rpta = da.SelectCommand.ExecuteNonQuery();
                         transactionScope.Complete();
                         return rpta;

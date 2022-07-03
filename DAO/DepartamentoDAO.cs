@@ -14,7 +14,7 @@ namespace DAO
     public class DepartamentoDAO
     {
 
-        public List<DepartamentoDTO> ObtenerDepartamentos()
+        public List<DepartamentoDTO> ObtenerDepartamentos(string IdSociedad)
         {
             List<DepartamentoDTO> lstDepartamentoDTO = new List<DepartamentoDTO>();
             using (SqlConnection cn = new Conexion().conectar())
@@ -23,6 +23,7 @@ namespace DAO
                 {
                     cn.Open();
                     SqlDataAdapter da = new SqlDataAdapter("SMC_ListarMaestroDepartamentos", cn);
+                    da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     SqlDataReader drd = da.SelectCommand.ExecuteReader();
                     while (drd.Read())
@@ -45,7 +46,7 @@ namespace DAO
             return lstDepartamentoDTO;
         }
 
-        public int UpdateInsertDepartamento(DepartamentoDTO oDepartamentoDTO)
+        public int UpdateInsertDepartamento(DepartamentoDTO oDepartamentoDTO,string IdSociedad)
         {
             TransactionOptions transactionOptions = default(TransactionOptions);
             transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;
@@ -64,6 +65,7 @@ namespace DAO
                         da.SelectCommand.Parameters.AddWithValue("@Codigo", oDepartamentoDTO.Codigo);
                         da.SelectCommand.Parameters.AddWithValue("@Descripcion", oDepartamentoDTO.Descripcion);
                         da.SelectCommand.Parameters.AddWithValue("@Estado", oDepartamentoDTO.Estado);
+                        da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                         int rpta = da.SelectCommand.ExecuteNonQuery();
                         transactionScope.Complete();
                         return rpta;

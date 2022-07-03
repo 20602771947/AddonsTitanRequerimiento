@@ -12,7 +12,7 @@ namespace DAO
     public class MonedaDAO
     {
 
-        public List<MonedaDTO> ObtenerMonedas()
+        public List<MonedaDTO> ObtenerMonedas(string IdSociedad)
         {
             List<MonedaDTO> lstMonedaDTO = new List<MonedaDTO>();
             using (SqlConnection cn = new Conexion().conectar())
@@ -21,6 +21,7 @@ namespace DAO
                 {
                     cn.Open();
                     SqlDataAdapter da = new SqlDataAdapter("SMC_ListarMonedas", cn);
+                    da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     SqlDataReader drd = da.SelectCommand.ExecuteReader();
                     while (drd.Read())
@@ -44,7 +45,7 @@ namespace DAO
             return lstMonedaDTO;
         }
 
-        public int UpdateInsertMoneda(MonedaDTO oMonedaDTO)
+        public int UpdateInsertMoneda(MonedaDTO oMonedaDTO,string IdSociedad)
         {
             TransactionOptions transactionOptions = default(TransactionOptions);
             transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;
@@ -64,6 +65,7 @@ namespace DAO
                         da.SelectCommand.Parameters.AddWithValue("@Descripcion", oMonedaDTO.Descripcion);
                         da.SelectCommand.Parameters.AddWithValue("@Base", oMonedaDTO.Base);
                         da.SelectCommand.Parameters.AddWithValue("@Estado", oMonedaDTO.Estado);
+                        da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                         int rpta = da.SelectCommand.ExecuteNonQuery();
                         transactionScope.Complete();
                         return rpta;

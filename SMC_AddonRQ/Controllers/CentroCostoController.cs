@@ -20,7 +20,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerCentroCostos()
         {
             CentroCostoDAO oCentroCostoDAO = new CentroCostoDAO();
-            List<CentroCostoDTO> lstCentroCostoDTO = oCentroCostoDAO.ObtenerCentroCostos();
+            List<CentroCostoDTO> lstCentroCostoDTO = oCentroCostoDAO.ObtenerCentroCostos(base.Session["IdSociedad"].ToString());
             if (lstCentroCostoDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstCentroCostoDTO);
@@ -35,7 +35,7 @@ namespace SMC_AddonRQ.Controllers
         {
 
             CentroCostoDAO oCentroCostoDAO = new CentroCostoDAO();
-            int resultado = oCentroCostoDAO.UpdateInsertCentroCosto(centroCostoDTO);
+            int resultado = oCentroCostoDAO.UpdateInsertCentroCosto(centroCostoDTO, base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

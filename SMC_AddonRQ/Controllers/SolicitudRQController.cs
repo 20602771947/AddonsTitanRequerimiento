@@ -21,7 +21,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerSolicitudesRQ()
         {
             SolicitudRQDAO oSolicitudRQDAO = new SolicitudRQDAO();
-            List<SolicitudRQDTO> lstSolicitudRQDTO = oSolicitudRQDAO.ObtenerSolicitudesRQ();
+            List<SolicitudRQDTO> lstSolicitudRQDTO = oSolicitudRQDAO.ObtenerSolicitudesRQ(base.Session["IdSociedad"].ToString());
             if (lstSolicitudRQDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstSolicitudRQDTO);
@@ -36,7 +36,7 @@ namespace SMC_AddonRQ.Controllers
         {
 
             SolicitudRQDAO oSolicitudRQDAO = new SolicitudRQDAO();
-            int resultado = oSolicitudRQDAO.UpdateInsertSolicitud(solicitudRQDTO, solicitudRQDetalleDTO);
+            int resultado = oSolicitudRQDAO.UpdateInsertSolicitud(solicitudRQDTO, solicitudRQDetalleDTO, base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

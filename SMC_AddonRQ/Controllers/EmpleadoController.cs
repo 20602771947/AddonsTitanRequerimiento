@@ -20,7 +20,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerEmpleados()
         {
             EmpleadoDAO oEmpleadoDAO = new EmpleadoDAO();
-            List<EmpleadoDTO> lstEmpleadoDTO = oEmpleadoDAO.ObtenerEmpleados();
+            List<EmpleadoDTO> lstEmpleadoDTO = oEmpleadoDAO.ObtenerEmpleados(base.Session["IdSociedad"].ToString());
             if (lstEmpleadoDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstEmpleadoDTO);
@@ -35,7 +35,7 @@ namespace SMC_AddonRQ.Controllers
         {
 
             EmpleadoDAO oEmpleadoDAO = new EmpleadoDAO();
-            int resultado = oEmpleadoDAO.UpdateInsertEmpleado(empleadoDTO);
+            int resultado = oEmpleadoDAO.UpdateInsertEmpleado(empleadoDTO, base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

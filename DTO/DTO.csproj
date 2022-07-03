@@ -46,6 +46,7 @@
     <Compile Include="CentroCostoDTO.cs" />
     <Compile Include="ClienteDTO.cs" />
     <Compile Include="CondicionPagoDTO.cs" />
+    <Compile Include="ConfiguracionDecimalesDTO.cs" />
     <Compile Include="DepartamentoDTO.cs" />
     <Compile Include="EmpleadoDTO.cs" />
     <Compile Include="IndicadorImpuestoDTO.cs" />

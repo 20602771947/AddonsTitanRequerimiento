@@ -49,6 +49,7 @@
     <Compile Include="ClienteDAO.cs" />
     <Compile Include="CondicionPagoDAO.cs" />
     <Compile Include="Conexion.cs" />
+    <Compile Include="ConfiguracionDecimalesDAO.cs" />
     <Compile Include="DepartamentoDAO.cs" />
     <Compile Include="EmpleadoDAO.cs" />
     <Compile Include="IndicadorImpuestoDAO.cs" />

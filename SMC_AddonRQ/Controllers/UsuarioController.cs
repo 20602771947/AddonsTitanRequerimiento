@@ -21,7 +21,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerUsuarios()
         {
             UsuarioDAO oUsuarioDAO = new UsuarioDAO();
-            List<UsuarioDTO> lstUsuarioDTO = oUsuarioDAO.ObtenerUsuarios();
+            List<UsuarioDTO> lstUsuarioDTO = oUsuarioDAO.ObtenerUsuarios(base.Session["IdSociedad"].ToString());
             if (lstUsuarioDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstUsuarioDTO);
@@ -36,7 +36,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerPerfiles()
         {
             PerfilDAO oPerfilDAO = new PerfilDAO();
-            List<PerfilDTO> lstPerfilDTO = oPerfilDAO.ObtenerPerfiles();
+            List<PerfilDTO> lstPerfilDTO = oPerfilDAO.ObtenerPerfiles(base.Session["IdSociedad"].ToString());
             if (lstPerfilDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstPerfilDTO);
@@ -67,7 +67,7 @@ namespace SMC_AddonRQ.Controllers
         {
 
             UsuarioDAO oUsuarioDAO = new UsuarioDAO();
-            int resultado = oUsuarioDAO.UpdateInsertUsuario(usuarioDTO);
+            int resultado = oUsuarioDAO.UpdateInsertUsuario(usuarioDTO, base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

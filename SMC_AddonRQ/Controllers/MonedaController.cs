@@ -20,7 +20,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerMonedas()
         {
             MonedaDAO oMonedaDAO = new MonedaDAO();
-            List<MonedaDTO> lstMonedaDTO = oMonedaDAO.ObtenerMonedas();
+            List<MonedaDTO> lstMonedaDTO = oMonedaDAO.ObtenerMonedas(base.Session["IdSociedad"].ToString());
             if (lstMonedaDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstMonedaDTO);
@@ -35,7 +35,7 @@ namespace SMC_AddonRQ.Controllers
         {
 
             MonedaDAO oMonedaDAO = new MonedaDAO();
-            int resultado = oMonedaDAO.UpdateInsertMoneda(MonedaDTO);
+            int resultado = oMonedaDAO.UpdateInsertMoneda(MonedaDTO, base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

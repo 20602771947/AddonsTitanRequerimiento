@@ -25,7 +25,7 @@ function ConsultaServidor(url) {
                 '<td>' + (i + 1) + '</td>' +
                 '<td>' + sociedades[i].NombreSociedad.toUpperCase() + '</td>' +
                 '<td>' + sociedades[i].NombreBd.toUpperCase() + '</td>' +
-                '<td>' + sociedades[i].CadenaConexion.toUpperCase() + '</td>' +
+                //'<td>' + sociedades[i].CadenaConexion.toUpperCase() + '</td>' +
                 '<td><button class="btn btn-primary fa fa-pencil btn-xs" onclick="ObtenerDatosxID(' + sociedades[i].IdSociedad + ')"></button>' +
                 '<button class="btn btn-danger btn-xs  fa fa-trash" onclick="eliminar(' + sociedades[i].IdSociedad + ')"></button></td >' +
                 '</tr>';
@@ -53,7 +53,7 @@ function GuardarSociedad() {
     let varIdUsuario = $("#txtId").val();
     let varNombreSociedad= $("#txtNombreSociedad").val();
     let varNombreBD = $("#txtNombreBD").val();
-    let varCadenaConexion = $("#txtCadenaConexion").val();
+    //let varCadenaConexion = $("#txtCadenaConexion").val();
     let varEstado = false;
 
     if ($('#chkActivo')[0].checked) {
@@ -64,7 +64,7 @@ function GuardarSociedad() {
         'IdSociedad': varIdUsuario,
         'NombreSociedad': varNombreSociedad,
         'NombreBd': varNombreBD,
-        'CadenaConexion': varCadenaConexion,
+        'CadenaConexion': '-',
         'Estado': varEstado
     }, function (data, status) {
 
@@ -100,7 +100,7 @@ function ObtenerDatosxID(varIdSociedad) {
             $("#txtId").val(sociedades[0].IdSociedad);
             $("#txtNombreSociedad").val(sociedades[0].NombreSociedad);
             $("#txtNombreBD").val(sociedades[0].NombreBd);
-            $("#txtCadenaConexion").val(sociedades[0].CadenaConexion);
+            //$("#txtCadenaConexion").val(sociedades[0].CadenaConexion);
             if (sociedades[0].Estado) {
                 $("#chkActivo").prop('checked', true);
             }
@@ -139,7 +139,7 @@ function limpiarDatos() {
     $("#txtId").val("");
     $("#txtNombreSociedad").val("");
     $("#txtNombreBD").val("");
-    $("#txtCadenaConexion").val("");
+    //$("#txtCadenaConexion").val("");
     $("#chkActivo").prop('checked', false);
 }
 

@@ -20,7 +20,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerAccesos()
         {
             AccesoDAO oAccesoDAO = new AccesoDAO();
-            List<AccesoDTO> lstAccesoDTO = oAccesoDAO.ObtenerAccesos(base.Session["IdPerfil"].ToString());
+            List<AccesoDTO> lstAccesoDTO = oAccesoDAO.ObtenerAccesos(base.Session["IdPerfil"].ToString(), base.Session["IdSociedad"].ToString());
             if (lstAccesoDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstAccesoDTO);
@@ -34,7 +34,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerAccesosPerfil(string IdPerfil)
         {
             AccesoDAO oAccesoDAO = new AccesoDAO();
-            List<AccesoDTO> lstAccesoDTO = oAccesoDAO.ObtenerAccesos(IdPerfil);
+            List<AccesoDTO> lstAccesoDTO = oAccesoDAO.ObtenerAccesos(IdPerfil, base.Session["IdSociedad"].ToString());
             if (lstAccesoDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstAccesoDTO);

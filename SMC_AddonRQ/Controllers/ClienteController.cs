@@ -20,7 +20,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerClientes()
         {
             ClienteDAO oClienteDAO = new ClienteDAO();
-            List<ClienteDTO> lstClienteDTO = oClienteDAO.ObtenerClientes();
+            List<ClienteDTO> lstClienteDTO = oClienteDAO.ObtenerClientes(base.Session["IdSociedad"].ToString());
             if (lstClienteDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstClienteDTO);
@@ -35,7 +35,7 @@ namespace SMC_AddonRQ.Controllers
         {
 
             ClienteDAO oClienteDAO = new ClienteDAO();
-            int resultado = oClienteDAO.UpdateInsertCliente(clienteDTO);
+            int resultado = oClienteDAO.UpdateInsertCliente(clienteDTO, base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

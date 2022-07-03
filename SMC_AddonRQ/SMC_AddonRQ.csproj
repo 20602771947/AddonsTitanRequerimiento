@@ -125,6 +125,7 @@
     <Compile Include="Controllers\CentroCostoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\CondicionPagoController.cs" />
+    <Compile Include="Controllers\ConfiguracionDecimalesController.cs" />
     <Compile Include="Controllers\DepartamentoController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -599,6 +600,7 @@
     <Content Include="Scripts\CentroCosto\CentroCosto.js" />
     <Content Include="Scripts\Cliente\Cliente.js" />
     <Content Include="Scripts\CondicionPago\CondicionPago.js" />
+    <Content Include="Scripts\ConfiguracionDecimales\ConfiguracionDecimales.js" />
     <Content Include="Scripts\Departamento\Departamento.js" />
     <Content Include="Scripts\Empleado\Empleado.js" />
     <Content Include="Scripts\General.js" />
@@ -658,6 +660,7 @@
     <Content Include="Views\Serie\Listado.cshtml" />
     <Content Include="Views\CondicionPago\Listado.cshtml" />
     <Content Include="Views\SolicitudRQ\Listado.cshtml" />
+    <Content Include="Views\ConfiguracionDecimales\Listado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

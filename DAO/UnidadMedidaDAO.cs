@@ -12,7 +12,7 @@ namespace DAO
     public class UnidadMedidaDAO
     {
 
-        public List<UnidadMedidaDTO> ObtenerUnidadMedidas()
+        public List<UnidadMedidaDTO> ObtenerUnidadMedidas(string IdSociedad)
         {
             List<UnidadMedidaDTO> lstUnidadMedidaDTO = new List<UnidadMedidaDTO>();
             using (SqlConnection cn = new Conexion().conectar())
@@ -21,6 +21,7 @@ namespace DAO
                 {
                     cn.Open();
                     SqlDataAdapter da = new SqlDataAdapter("SMC_ListarUnidadMedidas", cn);
+                    da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     SqlDataReader drd = da.SelectCommand.ExecuteReader();
                     while (drd.Read())
@@ -44,7 +45,7 @@ namespace DAO
             return lstUnidadMedidaDTO;
         }
 
-        public int UpdateInsertUnidadMedida(UnidadMedidaDTO oUnidadMedidaDTO)
+        public int UpdateInsertUnidadMedida(UnidadMedidaDTO oUnidadMedidaDTO, string IdSociedad)
         {
             TransactionOptions transactionOptions = default(TransactionOptions);
             transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;
@@ -64,6 +65,7 @@ namespace DAO
                         da.SelectCommand.Parameters.AddWithValue("@CodigoSunat", oUnidadMedidaDTO.CodigoSunat);
                         da.SelectCommand.Parameters.AddWithValue("@Descripcion", oUnidadMedidaDTO.Descripcion);
                         da.SelectCommand.Parameters.AddWithValue("@Estado", oUnidadMedidaDTO.Estado);
+                        da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                         int rpta = da.SelectCommand.ExecuteNonQuery();
                         transactionScope.Complete();
                         return rpta;

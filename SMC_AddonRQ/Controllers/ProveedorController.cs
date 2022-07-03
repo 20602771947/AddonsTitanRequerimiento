@@ -20,7 +20,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerProveedores()
         {
             ProveedorDAO oProveedorDAO = new ProveedorDAO();
-            List<ProveedorDTO> lstProveedorDTO = oProveedorDAO.ObtenerProveedores();
+            List<ProveedorDTO> lstProveedorDTO = oProveedorDAO.ObtenerProveedores(base.Session["IdSociedad"].ToString());
             if (lstProveedorDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstProveedorDTO);
@@ -35,7 +35,7 @@ namespace SMC_AddonRQ.Controllers
         {
 
             ProveedorDAO oProveedorDAO = new ProveedorDAO();
-            int resultado = oProveedorDAO.UpdateInsertProveedor(proveedorDTO);
+            int resultado = oProveedorDAO.UpdateInsertProveedor(proveedorDTO, base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

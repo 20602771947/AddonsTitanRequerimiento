@@ -21,7 +21,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerDepartamentos()
         {
             DepartamentoDAO oDepartamentoDAO = new DepartamentoDAO();
-            List<DepartamentoDTO> lstDepartamentoDTO = oDepartamentoDAO.ObtenerDepartamentos();
+            List<DepartamentoDTO> lstDepartamentoDTO = oDepartamentoDAO.ObtenerDepartamentos(base.Session["IdSociedad"].ToString());
             if (lstDepartamentoDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstDepartamentoDTO);
@@ -36,7 +36,7 @@ namespace SMC_AddonRQ.Controllers
         {
 
             DepartamentoDAO oDepartamentoDAO = new DepartamentoDAO();
-            int resultado = oDepartamentoDAO.UpdateInsertDepartamento(departamentoDTO);
+            int resultado = oDepartamentoDAO.UpdateInsertDepartamento(departamentoDTO, base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

@@ -21,7 +21,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerSeries()
         {
             SerieDAO oSerieDAO = new SerieDAO();
-            List<SerieDTO> lstSerieDTO = oSerieDAO.ObtenerSeries();
+            List<SerieDTO> lstSerieDTO = oSerieDAO.ObtenerSeries(base.Session["IdSociedad"].ToString());
             if (lstSerieDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstSerieDTO);
@@ -36,7 +36,7 @@ namespace SMC_AddonRQ.Controllers
         {
 
             SerieDAO oSerieDAO = new SerieDAO();
-            int resultado = oSerieDAO.UpdateInsertSerie(SerieDTO);
+            int resultado = oSerieDAO.UpdateInsertSerie(SerieDTO, base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

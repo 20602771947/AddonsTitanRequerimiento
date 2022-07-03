@@ -20,7 +20,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerSucursales()
         {
             SucursalDAO oSucursalDAO = new SucursalDAO();
-            List<SucursalDTO> lstSucursalDTO = oSucursalDAO.ObtenerSucursales();
+            List<SucursalDTO> lstSucursalDTO = oSucursalDAO.ObtenerSucursales(base.Session["IdSociedad"].ToString());
             if (lstSucursalDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstSucursalDTO);
@@ -35,7 +35,7 @@ namespace SMC_AddonRQ.Controllers
         {
 
             SucursalDAO oSucursalDAO = new SucursalDAO();
-            int resultado = oSucursalDAO.UpdateInsertSucursal(sucursalDTO);
+            int resultado = oSucursalDAO.UpdateInsertSucursal(sucursalDTO, base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

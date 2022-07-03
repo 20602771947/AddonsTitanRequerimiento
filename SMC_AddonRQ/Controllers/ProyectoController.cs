@@ -20,7 +20,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerProyectos()
         {
             ProyectoDAO oProyectoDAO = new ProyectoDAO();
-            List<ProyectoDTO> lstProyectoDTO = oProyectoDAO.ObtenerProyectos();
+            List<ProyectoDTO> lstProyectoDTO = oProyectoDAO.ObtenerProyectos(base.Session["IdSociedad"].ToString());
             if (lstProyectoDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstProyectoDTO);
@@ -35,7 +35,7 @@ namespace SMC_AddonRQ.Controllers
         {
 
             ProyectoDAO oProyectoDAO = new ProyectoDAO();
-            int resultado = oProyectoDAO.UpdateInsertProyecto(ProyectoDTO);
+            int resultado = oProyectoDAO.UpdateInsertProyecto(ProyectoDTO, base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

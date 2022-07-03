@@ -12,7 +12,7 @@ namespace DAO
 {
     public class AccesoDAO
     {
-        public List<AccesoDTO> ObtenerAccesos(string IdPerfil)
+        public List<AccesoDTO> ObtenerAccesos(string IdPerfil,string IdSociedad)
         {
             List<AccesoDTO> lstAccesoDTO = new List<AccesoDTO>();
             using (SqlConnection cn = new Conexion().conectar())
@@ -22,6 +22,7 @@ namespace DAO
                     cn.Open();
                     SqlDataAdapter da = new SqlDataAdapter("SMC_ListarAccesosxPerfil", cn);
                     da.SelectCommand.Parameters.AddWithValue("@IdPerfil", int.Parse(IdPerfil));
+                    da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     SqlDataReader drd = da.SelectCommand.ExecuteReader();
                     while (drd.Read())

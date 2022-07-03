@@ -20,7 +20,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerCondicionPagos()
         {
             CondicionPagoDAO oCondicionPagoDAO = new CondicionPagoDAO();
-            List<CondicionPagoDTO> lstCondicionPagoDTO = oCondicionPagoDAO.ObtenerCentroCostos();
+            List<CondicionPagoDTO> lstCondicionPagoDTO = oCondicionPagoDAO.ObtenerCentroCostos(base.Session["IdSociedad"].ToString());
             if (lstCondicionPagoDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstCondicionPagoDTO);
@@ -35,7 +35,7 @@ namespace SMC_AddonRQ.Controllers
         {
 
             CondicionPagoDAO oCondicionPagoDAO = new CondicionPagoDAO();
-            int resultado = oCondicionPagoDAO.UpdateInsertCondicionPago(CondicionPagoDTO);
+            int resultado = oCondicionPagoDAO.UpdateInsertCondicionPago(CondicionPagoDTO, base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

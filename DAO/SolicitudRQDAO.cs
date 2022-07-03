@@ -13,7 +13,7 @@ namespace DAO
     public class SolicitudRQDAO
     {
 
-        public List<SolicitudRQDTO> ObtenerSolicitudesRQ()
+        public List<SolicitudRQDTO> ObtenerSolicitudesRQ(string IdSociedad)
         {
             List<SolicitudRQDTO> lstSolicitudRQDTO = new List<SolicitudRQDTO>();
             using (SqlConnection cn = new Conexion().conectar())
@@ -22,6 +22,7 @@ namespace DAO
                 {
                     cn.Open();
                     SqlDataAdapter da = new SqlDataAdapter("SMC_ListarSolicitudRQ", cn);
+                    da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     SqlDataReader drd = da.SelectCommand.ExecuteReader();
                     while (drd.Read())
@@ -63,7 +64,7 @@ namespace DAO
 
 
 
-        public int UpdateInsertSolicitud(SolicitudRQDTO oSolicitudRQDTO, SolicitudRQDetalleDTO oSolicitudRQDetalleDTO)
+        public int UpdateInsertSolicitud(SolicitudRQDTO oSolicitudRQDTO, SolicitudRQDetalleDTO oSolicitudRQDetalleDTO, string IdSociedad)
         {
             TransactionOptions transactionOptions = default(TransactionOptions);
             transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;
@@ -99,6 +100,7 @@ namespace DAO
                         da.SelectCommand.Parameters.AddWithValue("@FechaDocumento", oSolicitudRQDTO.FechaDocumento);
                         da.SelectCommand.Parameters.AddWithValue("@Comentarios", oSolicitudRQDTO.Comentarios);
                         da.SelectCommand.Parameters.AddWithValue("@Estado", oSolicitudRQDTO.Estado);
+                        da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                         int IdInsert = 0;
                         if (oSolicitudRQDTO.IdSolicitudRQ > 0)
                         {
@@ -133,6 +135,7 @@ namespace DAO
                             dad.SelectCommand.Parameters.AddWithValue("@IdProyecto", oSolicitudRQDetalleDTO.IdProyecto[i]);
                             dad.SelectCommand.Parameters.AddWithValue("@IdMoneda", oSolicitudRQDetalleDTO.IdItemMoneda[i]);
                             dad.SelectCommand.Parameters.AddWithValue("@TipoCambio", oSolicitudRQDetalleDTO.ItemTipoCambio[i]);
+                            da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                             //IdInsertDetalle = Convert.ToInt32(dad.SelectCommand.ExecuteScalar());
                             rpta = dad.SelectCommand.ExecuteNonQuery();
                             //int rptaDetalle = dad.SelectCommand.ExecuteNonQuery();

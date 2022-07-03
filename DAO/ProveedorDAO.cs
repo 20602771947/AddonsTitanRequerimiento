@@ -14,7 +14,7 @@ namespace DAO
     public class ProveedorDAO
     {
 
-        public List<ProveedorDTO> ObtenerProveedores()
+        public List<ProveedorDTO> ObtenerProveedores(string IdSociedad)
         {
             List<ProveedorDTO> lstProveedorDTO = new List<ProveedorDTO>();
             using (SqlConnection cn = new Conexion().conectar())
@@ -23,6 +23,7 @@ namespace DAO
                 {
                     cn.Open();
                     SqlDataAdapter da = new SqlDataAdapter("SMC_ListarProveedores", cn);
+                    da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     SqlDataReader drd = da.SelectCommand.ExecuteReader();
                     while (drd.Read())
@@ -68,7 +69,7 @@ namespace DAO
             return lstProveedorDTO;
         }
 
-        public int UpdateInsertProveedor(ProveedorDTO proveedorDTO)
+        public int UpdateInsertProveedor(ProveedorDTO proveedorDTO,string IdSociedad)
         {
             TransactionOptions transactionOptions = default(TransactionOptions);
             transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;
@@ -111,6 +112,7 @@ namespace DAO
                         da.SelectCommand.Parameters.AddWithValue("@Observacion", proveedorDTO.Observacion);
                         da.SelectCommand.Parameters.AddWithValue("@Estado", proveedorDTO.Estado);
                         da.SelectCommand.Parameters.AddWithValue("@Tipo", proveedorDTO.Tipo);
+                        da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                         int rpta = da.SelectCommand.ExecuteNonQuery();
                         transactionScope.Complete();
                         return rpta;

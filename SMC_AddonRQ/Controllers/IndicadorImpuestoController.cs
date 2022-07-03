@@ -20,7 +20,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerIndicadorImpuestos()
         {
             IndicadorImpuestoDAO oIndicadorImpuestoDAO = new IndicadorImpuestoDAO();
-            List<IndicadorImpuestoDTO> lstIndicadorImpuestoDTO = oIndicadorImpuestoDAO.ObtenerIndicadorImpuestos();
+            List<IndicadorImpuestoDTO> lstIndicadorImpuestoDTO = oIndicadorImpuestoDAO.ObtenerIndicadorImpuestos(base.Session["IdSociedad"].ToString());
             if (lstIndicadorImpuestoDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstIndicadorImpuestoDTO);
@@ -35,7 +35,7 @@ namespace SMC_AddonRQ.Controllers
         {
 
             IndicadorImpuestoDAO oIndicadorImpuestoDAO = new IndicadorImpuestoDAO();
-            int resultado = oIndicadorImpuestoDAO.UpdateInsertIndicadorImpuesto(IndicadorImpuestoDTO);
+            int resultado = oIndicadorImpuestoDAO.UpdateInsertIndicadorImpuesto(IndicadorImpuestoDTO, base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

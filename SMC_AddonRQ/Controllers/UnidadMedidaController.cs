@@ -20,7 +20,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerUnidadMedidas()
         {
             UnidadMedidaDAO oUnidadMedidaDAO = new UnidadMedidaDAO();
-            List<UnidadMedidaDTO> lstUnidadMedidaDTO = oUnidadMedidaDAO.ObtenerUnidadMedidas();
+            List<UnidadMedidaDTO> lstUnidadMedidaDTO = oUnidadMedidaDAO.ObtenerUnidadMedidas(base.Session["IdSociedad"].ToString());
             if (lstUnidadMedidaDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstUnidadMedidaDTO);
@@ -35,7 +35,7 @@ namespace SMC_AddonRQ.Controllers
         {
 
             UnidadMedidaDAO oUnidadMedidaDAO = new UnidadMedidaDAO();
-            int resultado = oUnidadMedidaDAO.UpdateInsertUnidadMedida(UnidadMedidaDTO);
+            int resultado = oUnidadMedidaDAO.UpdateInsertUnidadMedida(UnidadMedidaDTO, base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

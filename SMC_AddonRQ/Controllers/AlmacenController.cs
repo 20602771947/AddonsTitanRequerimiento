@@ -20,7 +20,7 @@ namespace SMC_AddonRQ.Controllers
         public string ObtenerAlmacenes()
         {
             AlmacenDAO oAlmacenDAO = new AlmacenDAO();
-            List<AlmacenDTO> lstAlmacenDTO = oAlmacenDAO.ObtenerAlmacenes();
+            List<AlmacenDTO> lstAlmacenDTO = oAlmacenDAO.ObtenerAlmacenes(base.Session["IdSociedad"].ToString());
             if (lstAlmacenDTO.Count > 0)
             {
                 return JsonConvert.SerializeObject(lstAlmacenDTO);
@@ -35,7 +35,7 @@ namespace SMC_AddonRQ.Controllers
         {
 
             AlmacenDAO oAlmacenDAO = new AlmacenDAO();
-            int resultado = oAlmacenDAO.UpdateInsertAlmacen(almacenDTO);
+            int resultado = oAlmacenDAO.UpdateInsertAlmacen(almacenDTO, base.Session["IdSociedad"].ToString());
             if (resultado != 0)
             {
                 resultado = 1;

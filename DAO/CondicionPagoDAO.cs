@@ -13,7 +13,7 @@ namespace DAO
     public class CondicionPagoDAO
     {
 
-        public List<CondicionPagoDTO> ObtenerCentroCostos()
+        public List<CondicionPagoDTO> ObtenerCentroCostos(string IdSociedad)
         {
             List<CondicionPagoDTO> lstCondicionPagoDTO = new List<CondicionPagoDTO>();
             using (SqlConnection cn = new Conexion().conectar())
@@ -22,6 +22,7 @@ namespace DAO
                 {
                     cn.Open();
                     SqlDataAdapter da = new SqlDataAdapter("SMC_ListarCondicionPagos", cn);
+                    da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     SqlDataReader drd = da.SelectCommand.ExecuteReader();
                     while (drd.Read())
@@ -45,7 +46,7 @@ namespace DAO
             return lstCondicionPagoDTO;
         }
 
-        public int UpdateInsertCondicionPago(CondicionPagoDTO oCondicionPagoDTO)
+        public int UpdateInsertCondicionPago(CondicionPagoDTO oCondicionPagoDTO,string IdSociedad)
         {
             TransactionOptions transactionOptions = default(TransactionOptions);
             transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;
@@ -65,6 +66,7 @@ namespace DAO
                         da.SelectCommand.Parameters.AddWithValue("@Descripcion", oCondicionPagoDTO.Descripcion);
                         da.SelectCommand.Parameters.AddWithValue("@Dias", oCondicionPagoDTO.Dias);
                         da.SelectCommand.Parameters.AddWithValue("@Estado", oCondicionPagoDTO.Estado);
+                        da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                         int rpta = da.SelectCommand.ExecuteNonQuery();
                         transactionScope.Complete();
                         return rpta;

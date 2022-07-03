@@ -13,7 +13,7 @@ namespace DAO
     {
 
         
-            public List<LineaNegocioDTO> ObtenerLineaNegocios()
+            public List<LineaNegocioDTO> ObtenerLineaNegocios(string IdSociedad)
             {
                 List<LineaNegocioDTO> lstLineaNegocioDTO = new List<LineaNegocioDTO>();
                 using (SqlConnection cn = new Conexion().conectar())
@@ -22,7 +22,8 @@ namespace DAO
                     {
                         cn.Open();
                         SqlDataAdapter da = new SqlDataAdapter("SMC_ListarLineaNegocios", cn);
-                        da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
                         SqlDataReader drd = da.SelectCommand.ExecuteReader();
                         while (drd.Read())
                         {
@@ -44,7 +45,7 @@ namespace DAO
                 return lstLineaNegocioDTO;
             }
 
-            public int UpdateInsertLineaNegocio(LineaNegocioDTO oLineaNegocioDTO)
+            public int UpdateInsertLineaNegocio(LineaNegocioDTO oLineaNegocioDTO,string IdSociedad)
             {
                 TransactionOptions transactionOptions = default(TransactionOptions);
                 transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;
@@ -63,7 +64,8 @@ namespace DAO
                             da.SelectCommand.Parameters.AddWithValue("@Codigo", oLineaNegocioDTO.Codigo);
                             da.SelectCommand.Parameters.AddWithValue("@Descripcion", oLineaNegocioDTO.Descripcion);
                             da.SelectCommand.Parameters.AddWithValue("@Estado", oLineaNegocioDTO.Estado);
-                            int rpta = da.SelectCommand.ExecuteNonQuery();
+                        da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
+                        int rpta = da.SelectCommand.ExecuteNonQuery();
                             transactionScope.Complete();
                             return rpta;
                         }

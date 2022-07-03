@@ -13,7 +13,7 @@ namespace DAO
 {
     public class CentroCostoDAO
     {
-        public List<CentroCostoDTO> ObtenerCentroCostos()
+        public List<CentroCostoDTO> ObtenerCentroCostos(string IdSociedad)
         {
             List<CentroCostoDTO> lstCentroCostoDTO = new List<CentroCostoDTO>();
             using (SqlConnection cn = new Conexion().conectar())
@@ -22,6 +22,7 @@ namespace DAO
                 {
                     cn.Open();
                     SqlDataAdapter da = new SqlDataAdapter("SMC_ListarCentroCostos", cn);
+                    da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     SqlDataReader drd = da.SelectCommand.ExecuteReader();
                     while (drd.Read())
@@ -44,7 +45,7 @@ namespace DAO
             return lstCentroCostoDTO;
         }
 
-        public int UpdateInsertCentroCosto(CentroCostoDTO oCentroCostoDTO)
+        public int UpdateInsertCentroCosto(CentroCostoDTO oCentroCostoDTO,string IdSociedad)
         {
             TransactionOptions transactionOptions = default(TransactionOptions);
             transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;
@@ -63,6 +64,7 @@ namespace DAO
                         da.SelectCommand.Parameters.AddWithValue("@Codigo", oCentroCostoDTO.Codigo);
                         da.SelectCommand.Parameters.AddWithValue("@Descripcion", oCentroCostoDTO.Descripcion);
                         da.SelectCommand.Parameters.AddWithValue("@Estado", oCentroCostoDTO.Estado);
+                        da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                         int rpta = da.SelectCommand.ExecuteNonQuery();
                         transactionScope.Complete();
                         return rpta;

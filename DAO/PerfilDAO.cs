@@ -12,7 +12,7 @@ namespace DAO
 {
     public class PerfilDAO
     {
-        public List<PerfilDTO> ObtenerPerfiles()
+        public List<PerfilDTO> ObtenerPerfiles(string IdSociedad)
         {
             List<PerfilDTO> lstPerfilDTO = new List<PerfilDTO>();
             using (SqlConnection cn = new Conexion().conectar())
@@ -21,6 +21,7 @@ namespace DAO
                 {
                     cn.Open();
                     SqlDataAdapter da = new SqlDataAdapter("SMC_ListarPerfiles", cn);
+                    da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     SqlDataReader drd = da.SelectCommand.ExecuteReader();
                     while (drd.Read())
@@ -42,7 +43,7 @@ namespace DAO
             return lstPerfilDTO;
         }
 
-        public int UpdateInsertPerfil(PerfilDTO oPerfilDTO)
+        public int UpdateInsertPerfil(PerfilDTO oPerfilDTO, string IdSociedad)
         {
             TransactionOptions transactionOptions = default(TransactionOptions);
             transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;
@@ -60,6 +61,7 @@ namespace DAO
                         da.SelectCommand.Parameters.AddWithValue("@idPerfil", oPerfilDTO.IdPerfil);
                         da.SelectCommand.Parameters.AddWithValue("@Perfil", oPerfilDTO.Perfil);
                         da.SelectCommand.Parameters.AddWithValue("@Estado", oPerfilDTO.Estado);
+                        da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                         int rpta = da.SelectCommand.ExecuteNonQuery();
                         transactionScope.Complete();
                         return rpta;
