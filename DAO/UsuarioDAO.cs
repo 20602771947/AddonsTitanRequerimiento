@@ -13,7 +13,7 @@ namespace DAO
 {
     public class UsuarioDAO
     {
-        public List<UsuarioDTO> ValidarUsuario(string Usuario, string Password)
+        public List<UsuarioDTO> ValidarUsuario(string Usuario, string Password,int IdSociedad)
         {
             List<UsuarioDTO> lstUsuarioDTO = new List<UsuarioDTO>();
             using (SqlConnection cn = new Conexion().conectar())
@@ -25,6 +25,7 @@ namespace DAO
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand.Parameters.AddWithValue("@Usuarios", Usuario);
                     da.SelectCommand.Parameters.AddWithValue("@Password", Password);
+                    da.SelectCommand.Parameters.AddWithValue("@IdSociedad", IdSociedad);
                     SqlDataReader drd = da.SelectCommand.ExecuteReader();
                     while (drd.Read())
                     {
@@ -50,7 +51,7 @@ namespace DAO
         }
 
 
-        public List<UsuarioDTO> ObtenerUsuarios()
+        public List<UsuarioDTO> ObtenerUsuarios(string IdSociedad)
         {
             List<UsuarioDTO> lstUsuarioDTO = new List<UsuarioDTO>();
             using (SqlConnection cn = new Conexion().conectar())
@@ -59,6 +60,7 @@ namespace DAO
                 {
                     cn.Open();
                     SqlDataAdapter da = new SqlDataAdapter("SMC_ListarUsuarios", cn);
+                    da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     SqlDataReader drd = da.SelectCommand.ExecuteReader();
                     while (drd.Read())
@@ -86,7 +88,7 @@ namespace DAO
         }
 
 
-        public int UpdateInsertUsuario(UsuarioDTO oUsuarioDTO)
+        public int UpdateInsertUsuario(UsuarioDTO oUsuarioDTO,string IdSociedad)
         {
             TransactionOptions transactionOptions = default(TransactionOptions);
             transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;

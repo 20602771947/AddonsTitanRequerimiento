@@ -354,6 +354,7 @@
                     let PermitirSeguridadUsuarios = 0;
                     let PermitirSeguridadPerfiles = 0;
                     let PermitirSeguridadAccesos = 0;
+                    let PermitirSeguridadConfiguracion = 0;
 
                     let PermitirDatosMaestro = 0;
                     let PermitirDatosMaestroSociedades = 0;
@@ -392,6 +393,7 @@
                         if (accesos[i].Menu == "USUARIOS") { PermitirSeguridadUsuarios = 1; }
                         if (accesos[i].Menu == "PERFILES") { PermitirSeguridadPerfiles = 1; }
                         if (accesos[i].Menu == "ACCESOS") { PermitirSeguridadAccesos = 1; }
+                        if (accesos[i].Menu == "CONFIGURACION DECIMALES") { PermitirSeguridadConfiguracion = 1; }
 
                         if (accesos[i].Menu == "DATOS MAESTROS") { PermitirDatosMaestro = 1; }
                         if (accesos[i].Menu == "SOCIEDADES") { PermitirDatosMaestroSociedades = 1; }
@@ -448,6 +450,11 @@
                                 if (PermitirSeguridadAccesos == 1) {
                     menu += ` <li>
                                     <a href="/Acceso/Listado">ACCESOS</a>
+                              </li>`;
+                                }
+                                if (PermitirSeguridadConfiguracion == 1) {
+                    menu += ` <li>
+                                    <a href="/ConfiguracionDecimales/Listado">CONFIGURACION DECIMALES</a>
                               </li>`;
                                 }
                     menu += `</ul>

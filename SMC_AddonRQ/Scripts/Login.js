@@ -20,7 +20,7 @@ function ConsultaServidor(url) {
         for (var i = 0; i < sociedades.length; i++) {
 
             tr += '<tr>' +
-                    '<td>  <input type="radio" clase="" id="rdSeleccionado' + sociedades[i].IdSociedad + '" valor="' + sociedades[i].IdSociedad + '"  name="rdSeleccionado"  value = "' + sociedades[i].CadenaConexion +'" ></td>' +
+                '<td>  <input type="radio" clase="" id="rdSeleccionado' + sociedades[i].IdSociedad + '" valor="' + sociedades[i].IdSociedad + '"  name="rdSeleccionado"  value = "' + sociedades[i].IdSociedad +'" ></td>' +
                     '<td>' + sociedades[i].NombreSociedad.toUpperCase() + '</td>' +
                     '<td>' + sociedades[i].NombreBd.toUpperCase() + '</td>' +
                     '</tr>';
@@ -39,9 +39,10 @@ $("#frmAcceso").on('submit', function (e) {
     password = $("#txtPassword").val();
 
 
-    CadenaConexion = $('input:radio[name=rdSeleccionado]:checked').val();
+    IdSociedad = $('input:radio[name=rdSeleccionado]:checked').val();
+    console.log(IdSociedad);
 
-    if (CadenaConexion == undefined) {
+    if (IdSociedad == undefined) {
         var lblMensaje = document.getElementById("mensajeErr");
         lblMensaje.style.visibility = 'visible';
         lblMensaje.innerHTML = "Debe seleccionar una sociedad";
@@ -50,7 +51,7 @@ $("#frmAcceso").on('submit', function (e) {
     }
   
  
-    $.post("/Home/login", { "usuario": usuario, "password": password, "cadenaConexion": CadenaConexion}, function (data) {
+    $.post("/Home/login", { "usuario": usuario, "password": password, "IdSociedad": Number(IdSociedad)}, function (data) {
 
         
         if (data) {

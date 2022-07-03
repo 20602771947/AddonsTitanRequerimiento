@@ -33,13 +33,13 @@ namespace SMC_AddonRQ.Controllers
         }
 
 
-        public bool login(string usuario, string password)
+        public bool login(string usuario, string password,int IdSociedad)
         {
             bool respuesta = false;
             try
             {
                 UsuarioDAO oUsuarioDAO = new UsuarioDAO();
-                List<UsuarioDTO> lstUsuarioDTO = oUsuarioDAO.ValidarUsuario(usuario, password);
+                List<UsuarioDTO> lstUsuarioDTO = oUsuarioDAO.ValidarUsuario(usuario, password, IdSociedad);
                 UsuarioDTO oUsuarioDTO = lstUsuarioDTO[0];
                 if (oUsuarioDTO.Estado == true)
                 {
