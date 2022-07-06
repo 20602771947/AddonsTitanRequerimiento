@@ -122,8 +122,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccesoController.cs" />
     <Compile Include="Controllers\AlmacenController.cs" />
+    <Compile Include="Controllers\ArticuloController.cs" />
     <Compile Include="Controllers\CentroCostoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\CodigoUbsoController.cs" />
     <Compile Include="Controllers\CondicionPagoController.cs" />
     <Compile Include="Controllers\ConfiguracionDecimalesController.cs" />
     <Compile Include="Controllers\DepartamentoController.cs" />
@@ -554,6 +556,7 @@
     <Content Include="js\xlsxworker.js" />
     <Content Include="Scripts\Acceso\Acceso.js" />
     <Content Include="Scripts\Almacen\Almacen.js" />
+    <Content Include="Scripts\Articulo\Articulo.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="js\plugins\dropify\fonts\dropify.eot" />
@@ -601,6 +604,7 @@
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\CentroCosto\CentroCosto.js" />
     <Content Include="Scripts\Cliente\Cliente.js" />
+    <Content Include="Scripts\CodigoUbso\CodigoUbso.js" />
     <Content Include="Scripts\CondicionPago\CondicionPago.js" />
     <Content Include="Scripts\ConfiguracionDecimales\ConfiguracionDecimales.js" />
     <Content Include="Scripts\Departamento\Departamento.js" />
@@ -619,6 +623,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\LineaNegocio\LineaNegocio.js" />
     <Content Include="Scripts\Login.js" />
+    <Content Include="Scripts\ModeloAutorizacion\ModeloAutorizacion.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Moneda\Moneda.js" />
     <Content Include="Scripts\Perfil\Perfil.js" />
@@ -665,11 +670,13 @@
     <Content Include="Views\SolicitudRQ\Listado.cshtml" />
     <Content Include="Views\ConfiguracionDecimales\Listado.cshtml" />
     <Content Include="Views\EtapaAutorizacion\Listado.cshtml" />
+    <Content Include="Views\ModeloAutorizacion\Listado.cshtml" />
+    <Content Include="Views\Articulo\Listado.cshtml" />
+    <Content Include="Views\CodigoUbso\Listado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\ModeloAutorizacion\" />
     <Folder Include="Views\Pais\" />
     <Folder Include="Views\TipoDocumento\" />
     <Folder Include="Views\TipoPersona\" />

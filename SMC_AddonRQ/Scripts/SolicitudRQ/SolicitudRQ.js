@@ -34,6 +34,7 @@ function ConsultaServidor(url) {
                 '<td>' + solicitudes[i].Numero + '</td>' +
                 '<td>' + solicitudes[i].TotalAntesDescuento + '</td>' +
                 '<td>' + solicitudes[i].Impuesto + '</td>' +
+                '<td>' + solicitudes[i].DetalleEstado + '</td>' +
                 '<td>' + solicitudes[i].Total + '</td>' +
                 '<td><button class="btn btn-primary fa fa-pencil btn-xs" onclick="ObtenerDatosxID(' + solicitudes[i].IdSolicitudRQ + ')"></button>' +
                 //'<button class="btn btn-danger btn-xs  fa fa-trash" onclick="eliminar(' + solicitudes[i].IdSolicitudRQ + ')"></button></td >' +
@@ -59,9 +60,8 @@ function ModalNuevo() {
     CargarSucursales();
     CargarDepartamentos();
     CargarMoneda();
-    //configurarAutocompletar("txtCodigoArticulo");
     AbrirModal("modal-form");
-   
+    //setearValor_ComboRenderizado("cboCodigoArticulo");
 }
 
 function openContenido(evt, Name) {
@@ -136,13 +136,18 @@ function AgregarLinea() {
 
     contador++;
     let tr = '';
-
+    
+    //<select class="form-control select2" id="cboCodigoArticulo" name="cboCodigoArticulo[]">
+    //    <option value="0">Seleccione</option>
+    //</select>
     tr += `<tr>
             <td><input style="display:none;" class="form-control" type="text" value="0" id="txtIdSolicitudRQDetalle" name="txtIdSolicitudRQDetalle[]"/></td>
-            <td><input class="form-control" type="text" id="txtCodigoArticulo" name="txtCodigoArticulo[]"/></td>
+            <td>
+            <input class="form-control" type="text" id="txtCodigoArticulo" name="txtCodigoArticulo[]" />
+            </td>
             <td><input class="form-control" type="text" id="txtDescripcionArticulo" name="txtDescripcionArticulo[]"/></td>
             <td>
-            <select class="form-control" name="cboUnidadMedida[]">`;
+            <select class="form-control" id="cboUnidadMedida" name="cboUnidadMedida[]">`;
     tr += `  <option value="0">Seleccione</option>`;
             for (var i = 0; i < UnidadMedida.length; i++) {
                 tr += `  <option value="` + UnidadMedida[i].IdUnidadMedida+`">` + UnidadMedida[i].Descripcion + `</option>`;
@@ -983,3 +988,48 @@ function EnviarTipoCambioDetalle(){
     let TpCambio = $("#txtTipoCambio").val();
     $(".TipoCambioDeCabecera").val(TpCambio);
 }
+
+//function setearValor_ComboRenderizado(combo) {
+
+
+//    $("#"+combo).select2(
+//        {
+//            ajax: {
+//                url: "/Articulo/ObtenerArticulos",
+//                dataType: 'json',
+//                processResults: function (data) {
+//                    let ArrayProductos = new Array();
+//                    for (var i = 0; i < data.length; i++) {
+//                        ArrayProductos.push({ "id": data[i].IdArticulo, "text": data[i].Descripcion1 });
+//                    }
+//                    return {
+//                        results: [
+//                            {
+//                                id: 0,
+//                                text: 'enhancement'
+//                            },
+//                            {
+//                                id: 1,
+//                                text: 'bug'
+//                            },
+//                            {
+//                                id: 2,
+//                                text: 'duplicate'
+//                            },
+//                            {
+//                                id: 3,
+//                                text: 'invalid'
+//                            },
+//                            {
+//                                id: 4,
+//                                text: 'wontfix'
+//                            }
+//                        ]
+//                    };
+//                }
+//            }
+//        }
+//    );
+
+
+//}

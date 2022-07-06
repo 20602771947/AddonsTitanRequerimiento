@@ -47,6 +47,7 @@ function ConsultaServidor(url) {
 
 function ModalNuevo() {
     $("#lblTituloModal").html("Nuevo Perfil");
+    $('#chkActivo').prop('checked', true);
     AbrirModal("modal-form");
 }
 

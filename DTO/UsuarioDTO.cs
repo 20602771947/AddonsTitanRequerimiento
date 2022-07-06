@@ -19,5 +19,7 @@ namespace DTO
         public bool Estado { get; set; }
         public string SapUsuario { get; set; }
         public string SapPassword { get; set; }
+        public int IdDepartamento { get; set; }
+        public string Correo { get; set; }
     }
 }

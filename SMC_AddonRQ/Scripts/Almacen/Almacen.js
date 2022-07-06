@@ -51,6 +51,7 @@ function ConsultaServidor(url) {
 function ModalNuevo() {
     $("#lblTituloModal").html("Nuevo Almacen");
     AbrirModal("modal-form");
+    $('#chkActivo').prop('checked', true);
     CargarSucursales();
 }
 

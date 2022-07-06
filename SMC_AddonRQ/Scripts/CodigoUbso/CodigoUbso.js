@@ -2,8 +2,9 @@
 
 
 window.onload = function () {
-    var url = "ObtenerCentroCostos";
+    var url = "ObtenerCodigoUbso";
     ConsultaServidor(url);
+
 };
 
 
@@ -11,7 +12,7 @@ function ConsultaServidor(url) {
 
     $.post(url, function (data, status) {
 
-        //console.log(data);
+        console.log(data);
         if (data == "error") {
             table = $("#table_id").DataTable(lenguaje);
             return;
@@ -19,23 +20,23 @@ function ConsultaServidor(url) {
 
         let tr = '';
 
-        let centrocostos = JSON.parse(data);
-        let total_centrocostos = centrocostos.length;
+        let codigoubso = JSON.parse(data);
+        let total_codigoubso = codigoubso.length;
 
-        for (var i = 0; i < centrocostos.length; i++) {
+        for (var i = 0; i < codigoubso.length; i++) {
 
 
             tr += '<tr>' +
                 '<td>' + (i + 1) + '</td>' +
-                '<td>' + centrocostos[i].Codigo.toUpperCase() + '</td>' +
-                '<td>' + centrocostos[i].Descripcion.toUpperCase() + '</td>' +
-                '<td><button class="btn btn-primary fa fa-pencil btn-xs" onclick="ObtenerDatosxID(' + centrocostos[i].IdCentroCosto + ')"></button>' +
-                '<button class="btn btn-danger btn-xs  fa fa-trash" onclick="eliminar(' + centrocostos[i].IdCentroCosto + ')"></button></td >' +
+                '<td>' + codigoubso[i].Codigo.toUpperCase() + '</td>' +
+                '<td>' + codigoubso[i].Descripcion.toUpperCase() + '</td>' +
+                '<td><button class="btn btn-primary fa fa-pencil btn-xs" onclick="ObtenerDatosxID(' + codigoubso[i].IdCodigoUbso + ')"></button>' +
+                '<button class="btn btn-danger btn-xs  fa fa-trash" onclick="eliminar(' + codigoubso[i].IdCodigoUbso + ')"></button></td >' +
                 '</tr>';
         }
 
-        $("#tbody_CentroCostos").html(tr);
-        $("#spnTotalRegistros").html(total_centrocostos);
+        $("#tbody_codigoUbso").html(tr);
+        $("#spnTotalRegistros").html(total_codigoubso);
 
         table = $("#table_id").DataTable(lenguaje);
 
@@ -44,20 +45,17 @@ function ConsultaServidor(url) {
 }
 
 
-
-
 function ModalNuevo() {
-    $("#lblTituloModal").html("Nuevo Centro de Costo");
+    $("#lblTituloModal").html("Nuevo Codigo Ubso");
     AbrirModal("modal-form");
     $('#chkActivo').prop('checked', true);
+    //CargarSucursales();
 }
 
 
+function GuardarCodigoUbso() {
 
-
-function GuardarCentroCosto() {
-
-    let varIdCentroCosto = $("#txtId").val();
+    let varIdCodigoUbso = $("#txtId").val();
     let varCodigo = $("#txtCodigo").val();
     let varDescripcion = $("#txtDescripcion").val();
     let varEstado = false;
@@ -66,8 +64,8 @@ function GuardarCentroCosto() {
         varEstado = true;
     }
 
-    $.post('UpdateInsertCentroCosto', {
-        'IdCentroCosto': varIdCentroCosto,
+    $.post('UpdateInsertCodigoUbso', {
+        'IdCodigoUbso': varIdCodigoUbso,
         'Codigo': varCodigo,
         'Descripcion': varDescripcion,
         'Estado': varEstado
@@ -76,7 +74,7 @@ function GuardarCentroCosto() {
         if (data == 1) {
             swal("Exito!", "Proceso Realizado Correctamente", "success")
             table.destroy();
-            ConsultaServidor("ObtenerCentroCostos");
+            ConsultaServidor("ObtenerCodigoUbso");
             limpiarDatos();
         } else {
             swal("Error!", "Ocurrio un Error")
@@ -86,26 +84,28 @@ function GuardarCentroCosto() {
     });
 }
 
-function ObtenerDatosxID(varIdCentroCosto) {
-    $("#lblTituloModal").html("Editar Centro de Costo");
+
+
+function ObtenerDatosxID(varIdCodigoUbso) {
+    $("#lblTituloModal").html("Editar Codigo Ubso");
     AbrirModal("modal-form");
 
     //console.log(varIdUsuario);
 
     $.post('ObtenerDatosxID', {
-        'IdCentroCosto': varIdCentroCosto,
+        'IdCodigoUbso': varIdCodigoUbso,
     }, function (data, status) {
 
         if (data == "Error") {
             swal("Error!", "Ocurrio un error")
             limpiarDatos();
         } else {
-            let centrocosto = JSON.parse(data);
+            let codigoUbso = JSON.parse(data);
             //console.log(usuarios);
-            $("#txtId").val(centrocosto[0].IdCentroCosto);
-            $("#txtCodigo").val(centrocosto[0].Codigo);
-            $("#txtDescripcion").val(centrocosto[0].Descripcion);
-            if (centrocosto[0].Estado) {
+            $("#txtId").val(codigoUbso[0].IdCodigoUbso);
+            $("#txtCodigo").val(codigoUbso[0].Codigo);
+            $("#txtDescripcion").val(codigoUbso[0].Descripcion);
+            if (codigoUbso[0].Estado) {
                 $("#chkActivo").prop('checked', true);
             }
 
@@ -115,19 +115,21 @@ function ObtenerDatosxID(varIdCentroCosto) {
 
 }
 
-function eliminar(varIdCentroCosto) {
 
 
-    alertify.confirm('Confirmar', '¿Desea eliminar este centro de costo?', function () {
-        $.post("EliminarCentroCosto", { 'IdCentroCosto': varIdCentroCosto }, function (data) {
+function eliminar(varIdCodigoUbso) {
+
+
+    alertify.confirm('Confirmar', '¿Desea eliminar este codigo ubso?', function () {
+        $.post("EliminarCodigoUbso", { 'IdCodigoUbso': varIdCodigoUbso }, function (data) {
 
             if (data == 0) {
                 swal("Error!", "Ocurrio un Error")
                 limpiarDatos();
             } else {
-                swal("Exito!", "Centro de Costo Eliminado", "success")
+                swal("Exito!", "Codigo Ubso Eliminado", "success")
                 table.destroy();
-                ConsultaServidor("ObtenerCentroCostos");
+                ConsultaServidor("ObtenerCodigoUbso");
                 limpiarDatos();
             }
 
@@ -141,10 +143,7 @@ function eliminar(varIdCentroCosto) {
 function limpiarDatos() {
     $("#txtId").val("");
     $("#txtCodigo").val("");
+    $("#txtCodigoSunat").val("");
     $("#txtDescripcion").val("");
     $("#chkActivo").prop('checked', false);
 }
-
-
-
-

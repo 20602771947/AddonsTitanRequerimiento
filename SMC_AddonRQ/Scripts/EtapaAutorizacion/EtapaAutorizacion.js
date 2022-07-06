@@ -142,7 +142,7 @@ function ObtenerDatosxID(varIdEtapaAutorizacion) {
 
             for (var i = 0; i < Detalles.length; i++) {
 
-                AgregarLineaDetalle(Detalles[i].IdEtapaAutorizacionDetalle, Detalles[i].IdUsuario, Detalles[i].IdDepartamento);
+                AgregarLineaDetalle(i,Detalles[i].IdEtapaAutorizacionDetalle, Detalles[i].IdUsuario, Detalles[i].IdDepartamento);
 
             }
         }
@@ -206,7 +206,7 @@ function AgregarLinea() {
     tr += `<tr>
             <td><input style="display:none;" class="form-control" type="text" value="0" id="txtIdEtapaAutorizacionDetalle" name="txtIdEtapaAutorizacionDetalle[]"/></td>
            <td>
-            <select class="form-control" name="cboUsuario[]">`;
+            <select class="form-control" name="cboUsuario[]" id="cboUsuario`+contador+`"  onchange="ObtenerDepartamentoUsuario(`+contador+`)" >`;
     tr += `  <option value="0">Seleccione</option>`;
     for (var i = 0; i < Usuarios.length; i++) {
         tr += `  <option value="` + Usuarios[i].IdUsuario + `">` + Usuarios[i].NombreUsuario + `</option>`;
@@ -214,7 +214,7 @@ function AgregarLinea() {
     tr += `</select>
             </td>
             <td>
-            <select class="form-control" name="cboDepartamento[]">`;
+            <select class="form-control" name="cboDepartamento[]" id="cboDepartamento`+contador+`">`;
     tr += `  <option value="0">Seleccione</option>`;
     for (var i = 0; i < Departamentos.length; i++) {
         tr += `  <option value="` + Departamentos[i].IdDepartamento + `">` + Departamentos[i].Descripcion + `</option>`;
@@ -225,7 +225,7 @@ function AgregarLinea() {
             </tr>`;
 
     $("#tabla").find('tbody').append(tr);
-
+    contador++;
 }
 
 $(document).on('click', '.borrar', function (event) {
@@ -241,7 +241,21 @@ function CerrarModal() {
 }
 
 
-function AgregarLineaDetalle(IdEtapaAutorizacionDetalle, IdUsuario, IdDepartamento) {
+function ObtenerDepartamentoUsuario(contador) {
+
+    let IdUsuario = $("#cboUsuario" + contador).val();
+
+    $.ajaxSetup({ async: false });
+    $.post("/Departamento/ObtenerDepartamentosxUsuario", { 'IdUsuario': IdUsuario }, function (data, status) {
+        let datos = JSON.parse(data);
+        console.log(datos);
+        $("#cboDepartamento" + contador).val(datos[0].IdDepartamento);
+    });
+
+}
+
+
+function AgregarLineaDetalle(contador,IdEtapaAutorizacionDetalle, IdUsuario, IdDepartamento) {
 
     let Departamentos;
     let Usuarios;
@@ -260,7 +274,7 @@ function AgregarLineaDetalle(IdEtapaAutorizacionDetalle, IdUsuario, IdDepartamen
     tr += `<tr>
             <td><input style="display:none;" class="form-control" type="text" value="`+ IdEtapaAutorizacionDetalle + `" id="txtIdEtapaAutorizacionDetalle" name="txtIdEtapaAutorizacionDetalle[]"/></td>
            <td>
-            <select class="form-control" name="cboUsuario[]">`;
+            <select class="form-control" name="cboUsuario[]" id="cboUsuario`+ contador + `"  onchange="ObtenerDepartamentoUsuario(` + contador +`)">`;
     tr += `  <option value="0">Seleccione</option>`;
     for (var i = 0; i < Usuarios.length; i++) {
         if (Usuarios[i].IdUsuario == IdUsuario) {
@@ -273,7 +287,7 @@ function AgregarLineaDetalle(IdEtapaAutorizacionDetalle, IdUsuario, IdDepartamen
     tr += `</select>
             </td>
             <td>
-            <select class="form-control" name="cboDepartamento[]">`;
+            <select class="form-control" name="cboDepartamento[]" id="cboDepartamento`+ contador +`">`;
     tr += `  <option value="0">Seleccione</option>`;
     for (var i = 0; i < Departamentos.length; i++) {
         if (Departamentos[i].IdDepartamento == IdDepartamento) {

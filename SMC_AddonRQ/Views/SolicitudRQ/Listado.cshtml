@@ -45,6 +45,11 @@
         border: 1px solid #ccc;
         border-top: none;
     }
+
+
+
+
+    
 </style>
 
 <div class="container-fluid" style="height:93%;">
@@ -80,6 +85,7 @@
                         <th>Neto</th>
                         <th>Impuesto</th>
                         <th>Total</th>
+                        <th>Estado</th>
                         <th>Mas</th>
                     </tr>
                 </thead>
@@ -320,6 +326,6 @@
 
 
 @section Scripts {
-    @Scripts.Render("~/scripts/SolicitudRQ/SolicitudRQ.js", "~/scripts/General.js", "~/js/pdf/jspdf.min.js", "~/js/pdf/faker.min.js", "~/js/pdf/jspdf.plugin.autotable.src.js")
+    @Scripts.Render("~/scripts/SolicitudRQ/SolicitudRQ.js", "~/scripts/General.js", "~/js/pdf/jspdf.min.js", "~/js/pdf/faker.min.js", "~/js/pdf/jspdf.plugin.autotable.src.js", "~/js/jquery.autocomplete.js")
 }
 

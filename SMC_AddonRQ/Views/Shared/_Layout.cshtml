@@ -31,6 +31,7 @@
     <link href="~/assets/alertify.css" rel="stylesheet" />
     <link href="~/assets/alertify.min.css" rel="stylesheet" />
 
+
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.11.3/b-2.0.1/r-2.2.9/datatables.min.css" />
 
     <style>
@@ -112,8 +113,8 @@
             <!-- -------------- Header  -------------- -->
             <header class="navbar navbar-fixed-top bg-dark">
 
-                    
-            
+
+
 
                 <div class="navbar-logo-wrapper">
                     <a class="navbar-logo-text" href="/Home/About">
@@ -133,12 +134,12 @@
                         </a>
                         <ul class="dropdown-menu list-group keep-dropdown fw600" role="menu" style="background-color:#5a1c1c;">
                             @*<li class="list-group-item">
-                        <div class="col-md-12">
-                            <div class="col-md-8 text-right">
-                                <span class="label label-warning label-lg">123456789</span>
-                            </div>
-                        </div>
-                    </li>*@
+                                    <div class="col-md-12">
+                                        <div class="col-md-8 text-right">
+                                            <span class="label label-warning label-lg">123456789</span>
+                                        </div>
+                                    </div>
+                                </li>*@
                             <li class="dropdown-footer text-center">
                                 <a href="/Home/CerrarSesion" class="btn btn-primary btn-sm btn-bordered">
                                     <span class="fa fa-power-off pr5"></span> Logout
@@ -193,57 +194,53 @@
                         </ul>
                         <!-- -------------- Sidebar - Author Menu  -------------- -->
                         <!--
-    <div class="sidebar-widget menu-widget">
-        <div class="row text-center mbn">
-            <div class="col-xs-2 pln prn">
-                <a href="dashboard1.html" class="text-primary" data-toggle="tooltip" data-placement="top"
-                   title="Dashboard">
-                    <span class="fa fa-dashboard"></span>
-                </a>
-            </div>
-            <div class="col-xs-4 col-sm-2 pln prn">
-                <a href="charts-highcharts.html" class="text-info" data-toggle="tooltip"
-                   data-placement="top" title="Stats">
-                    <span class="fa fa-bar-chart-o"></span>
-                </a>
-            </div>
-            <div class="col-xs-4 col-sm-2 pln prn">
-                <a href="sales-stats-products.html" class="text-system" data-toggle="tooltip"
-                   data-placement="top" title="Orders">
-                    <span class="fa fa-info-circle"></span>
-                </a>
-            </div>
-            <div class="col-xs-4 col-sm-2 pln prn">
-                <a href="sales-stats-purchases.html" class="text-warning" data-toggle="tooltip"
-                   data-placement="top" title="Invoices">
-                    <span class="fa fa-file"></span>
-                </a>
-            </div>
-            <div class="col-xs-4 col-sm-2 pln prn">
-                <a href="basic-profile.html" class="text-alert" data-toggle="tooltip" data-placement="top"
-                   title="Users">
-                    <span class="fa fa-users"></span>
-                </a>
-            </div>
-            <div class="col-xs-4 col-sm-2 pln prn">
-                <a href="management-tools-dock.html" class="text-danger" data-toggle="tooltip"
-                   data-placement="top" title="Settings">
-                    <span class="fa fa-cogs"></span>
-                </a>
-            </div>
-        </div>
-    </div>
-    -->
+                        <div class="sidebar-widget menu-widget">
+                            <div class="row text-center mbn">
+                                <div class="col-xs-2 pln prn">
+                                    <a href="dashboard1.html" class="text-primary" data-toggle="tooltip" data-placement="top"
+                                       title="Dashboard">
+                                        <span class="fa fa-dashboard"></span>
+                                    </a>
+                                </div>
+                                <div class="col-xs-4 col-sm-2 pln prn">
+                                    <a href="charts-highcharts.html" class="text-info" data-toggle="tooltip"
+                                       data-placement="top" title="Stats">
+                                        <span class="fa fa-bar-chart-o"></span>
+                                    </a>
+                                </div>
+                                <div class="col-xs-4 col-sm-2 pln prn">
+                                    <a href="sales-stats-products.html" class="text-system" data-toggle="tooltip"
+                                       data-placement="top" title="Orders">
+                                        <span class="fa fa-info-circle"></span>
+                                    </a>
+                                </div>
+                                <div class="col-xs-4 col-sm-2 pln prn">
+                                    <a href="sales-stats-purchases.html" class="text-warning" data-toggle="tooltip"
+                                       data-placement="top" title="Invoices">
+                                        <span class="fa fa-file"></span>
+                                    </a>
+                                </div>
+                                <div class="col-xs-4 col-sm-2 pln prn">
+                                    <a href="basic-profile.html" class="text-alert" data-toggle="tooltip" data-placement="top"
+                                       title="Users">
+                                        <span class="fa fa-users"></span>
+                                    </a>
+                                </div>
+                                <div class="col-xs-4 col-sm-2 pln prn">
+                                    <a href="management-tools-dock.html" class="text-danger" data-toggle="tooltip"
+                                       data-placement="top" title="Settings">
+                                        <span class="fa fa-cogs"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        -->
                     </header>
 
 
                     <!-- -------------- /Sidebar Header -------------- -->
                     <!-- -------------- Sidebar Menu  -------------- -->
-                    <ul id="ulMenuPr" class="nav sidebar-menu">
-
-                       
-
-                    </ul>
+                    <ul id="ulMenuPr" class="nav sidebar-menu"></ul>
                     <!-- -------------- /Sidebar Menu  -------------- -->
 
                     <span id="siteseal" style="display:none;">
@@ -331,7 +328,7 @@
         <script src="~/assets/alertify.min.js"></script>
         <script>
 
-                setTimeout(showPage, 1000);
+            setTimeout(showPage, 1000);
             document.addEventListener("DOMContentLoaded", function (event) {
             });
 
@@ -342,11 +339,11 @@
                 //configurarTogle();
             }
 
-        
+
 
             function CrearMenu() {
 
-                
+
 
                 $.post("/Acceso/ObtenerAccesos", function (data, status) {
 
@@ -376,6 +373,7 @@
                     let PermitirDatosMaestroProyectos = 0;
                     let PermitirDatosMaestroSeries = 0;
                     let PermitirDatosMaestroCondicionPago = 0;
+                    let PermitirDatosMaestroCodigoUbso = 0;
 
                     let PermitirSociosNegocio = 0;
                     let PermitirSociosNegocioClientes = 0;
@@ -422,6 +420,8 @@
                         if (accesos[i].Menu == "PROYECTOS") { PermitirDatosMaestroProyectos = 1; }
                         if (accesos[i].Menu == "SERIES") { PermitirDatosMaestroSeries = 1; }
                         if (accesos[i].Menu == "CONDICION DE PAGO") { PermitirDatosMaestroCondicionPago = 1; }
+                        if (accesos[i].Menu == "CODIGO UBSO") { PermitirDatosMaestroCodigoUbso = 1; }
+
 
                         if (accesos[i].Menu == "SOCIOS DE NEGOCIO") { PermitirSociosNegocio = 1; }
                         if (accesos[i].Menu == "CLIENTES") { PermitirSociosNegocioClientes = 1; }
@@ -443,250 +443,255 @@
 
                     let menu = '';
                     menu += `<li class='sidebar-label pt15'>Menu</li>`;
-                            if (PermitirSerguridad == 1) {
+                    if (PermitirSerguridad == 1) {
+                        menu += `<li>
+                                            <a class='accordion-toggle1' href='#'>
+                                                <span class='fa fa-shield'></span>
+                                                <span class='sidebar-title'>SEGURIDAD</span>
+                                                <span class='caret'></span>
+                                            </a>
+                                            <ul class='nav sub-nav'>`;
+                        if (PermitirSeguridadUsuarios == 1) {
+                            menu += ` <li>
+                                                    <a href="/Usuario/Listado">USUARIOS</a>
+                                              </li>`;
+                        }
+                        if (PermitirSeguridadPerfiles == 1) {
+                            menu += ` <li>
+                                                    <a href="/Perfil/Listado">PERFILES</a>
+                                              </li>`;
+                        }
+                        if (PermitirSeguridadAccesos == 1) {
+                            menu += ` <li>
+                                                    <a href="/Acceso/Listado">ACCESOS</a>
+                                              </li>`;
+                        }
+                        if (PermitirSeguridadConfiguracion == 1) {
+                            menu += ` <li>
+                                                    <a href="/ConfiguracionDecimales/Listado">CONFIGURACION DECIMALES</a>
+                                              </li>`;
+                        }
+                        if (PermitirProcedimientoAutorizacion == 1) {
+                            menu += `<li>
+                                                    <a class="accordion-toggle1" href="#">
+                                                        <span class="fa fa-share-square-o"></span>
+                                                        <span class="sidebar-title">PROCEDIMIENTO DE AUTORIZACION</span>
+                                                        <span class="caret"></span>
+                                                    </a>
+                                                    <ul class="nav sub-nav">`;
+                            if (PermitirEtapasAutorizacion == 1) {
                                 menu += `<li>
-                            <a class='accordion-toggle1' href='#'>
-                                <span class='fa fa-shield'></span>
-                                <span class='sidebar-title'>SEGURIDAD</span>
-                                <span class='caret'></span>
-                            </a>
-                            <ul class='nav sub-nav'>`;
-                                if (PermitirSeguridadUsuarios ==1) {
-                    menu += ` <li>
-                                    <a href="/Usuario/Listado">USUARIOS</a>
-                              </li>`;
-                                }
-                                if (PermitirSeguridadPerfiles == 1) {
-                    menu += ` <li>
-                                    <a href="/Perfil/Listado">PERFILES</a>
-                              </li>`;
-                                }
-                                if (PermitirSeguridadAccesos == 1) {
-                    menu += ` <li>
-                                    <a href="/Acceso/Listado">ACCESOS</a>
-                              </li>`;
-                                }
-                                if (PermitirSeguridadConfiguracion == 1) {
-                    menu += ` <li>
-                                    <a href="/ConfiguracionDecimales/Listado">CONFIGURACION DECIMALES</a>
-                              </li>`;
-                                }
-                                if (PermitirProcedimientoAutorizacion == 1) {
-                                    menu += `<li>
-                                    <a class="accordion-toggle1" href="#">
-                                        <span class="fa fa-share-square-o"></span>
-                                        <span class="sidebar-title">PROCEDIMIENTO DE AUTORIZACION</span>
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="nav sub-nav">`;
-                                    if (PermitirEtapasAutorizacion == 1) {
-                                        menu += `<li>
-                                            <a href="/EtapaAutorizacion/Listado">ETAPAS DE AUTORIZACION</a>
-                                        </li>`;
-                                    }
-                                    if (PermitirModelosAutorizacion == 1) {
-                                        menu += `<li>
-                                            <a href="/ModeloAutorizacion/Listado">MODELOS DE AUTORIZACION</a>
-                                        </li>`;
-                                    }
-                                    if (PermitirInformeStatusAutorizacion == 1) {
-                                        menu += `<li>
-                                            <a href="/SociosNegocio/Proveedor">INFORME STATUS DE AUTORIZACION</a>
-                                        </li>`;
-                                    }
-                                    if (PermitirInformeDecisionAutorizacion == 1) {
-                                        menu += `<li>
-                                            <a href="/SociosNegocio/Proveedor">INFORME DECISION DE AUTORIZACION</a>
-                                        </li>`;
-                                    }
-                               menu += `</ul>
-                                </li>`;
-                                }
-                    menu += `</ul>
-                        </li>`;
-
+                                                            <a href="/EtapaAutorizacion/Listado">ETAPAS DE AUTORIZACION</a>
+                                                        </li>`;
                             }
+                            if (PermitirModelosAutorizacion == 1) {
+                                menu += `<li>
+                                                            <a href="/ModeloAutorizacion/Listado">MODELOS DE AUTORIZACION</a>
+                                                        </li>`;
+                            }
+                            if (PermitirInformeStatusAutorizacion == 1) {
+                                menu += `<li>
+                                                            <a href="/SociosNegocio/Proveedor">INFORME STATUS DE AUTORIZACION</a>
+                                                        </li>`;
+                            }
+                            if (PermitirInformeDecisionAutorizacion == 1) {
+                                menu += `<li>
+                                                            <a href="/SociosNegocio/Proveedor">INFORME DECISION DE AUTORIZACION</a>
+                                                        </li>`;
+                            }
+                            menu += `</ul>
+                                                </li>`;
+                        }
+                        menu += `</ul>
+                                        </li>`;
+
+                    }
                     if (PermitirDatosMaestro == 1) {
                         menu += `<li>
-                        
-                                <li>
-                                    <a class="accordion-toggle1" href="#">
-                                        <span class="fa fa-share-square-o"></span>
-                                        <span class="sidebar-title">DATOS MAESTROS</span>
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="nav sub-nav">`;
+
+                                                <li>
+                                                    <a class="accordion-toggle1" href="#">
+                                                        <span class="fa fa-share-square-o"></span>
+                                                        <span class="sidebar-title">DATOS MAESTROS</span>
+                                                        <span class="caret"></span>
+                                                    </a>
+                                                    <ul class="nav sub-nav">`;
                         if (PermitirDatosMaestroArticulos == 1) {
                             menu += `     <li>
-                                            <a href="/Articulo/Listado">ARTICULOS</a>
-                                        </li>`;
+                                                            <a href="/Articulo/Listado">ARTICULOS</a>
+                                                        </li>`;
                         }
                         if (PermitirDatosMaestroSociedades == 1) {
                             menu += `     <li>
-                                            <a href="/Sociedad/Listado">SOCIEDADES</a>
-                                        </li>`;
+                                                            <a href="/Sociedad/Listado">SOCIEDADES</a>
+                                                        </li>`;
                         }
                         if (PermitirDatosMaestroAlmacenes == 1) {
                             menu += `       <li>
-                                            <a href="/Almacen/Listado">ALMACENES</a>
-                                        </li>`;
+                                                            <a href="/Almacen/Listado">ALMACENES</a>
+                                                        </li>`;
                         }
                         if (PermitirDatosMaestroCentroCosto == 1) {
                             menu += `       <li>
-                                            <a href="/CentroCosto/Listado">CENTRO DE COSTO</a>
-                                        </li>`;
+                                                            <a href="/CentroCosto/Listado">CENTRO DE COSTO</a>
+                                                        </li>`;
                         }
                         if (PermitirDatosMaestroSucursales == 1) {
                             menu += `        <li>
-                                            <a href="/Sucursal/Listado">SUCURSALES</a>
-                                        </li>`;
+                                                            <a href="/Sucursal/Listado">SUCURSALES</a>
+                                                        </li>`;
                         }
                         if (PermitirDatosMaestroDepartamentos == 1) {
                             menu += `        <li>
-                                            <a href="/Departamento/Listado">DEPARTAMENTOS</a>
-                                        </li>`;
+                                                            <a href="/Departamento/Listado">DEPARTAMENTOS</a>
+                                                        </li>`;
                         }
                         if (PermitirDatosMaestroMonedas == 1) {
                             menu += `        <li>
-                                            <a href="/Moneda/Listado">MONEDAS</a>
-                                        </li>`;
+                                                            <a href="/Moneda/Listado">MONEDAS</a>
+                                                        </li>`;
                         }
                         if (PermitirDatosMaestroLineaNegocio == 1) {
                             menu += `        <li>
-                                            <a href="/LineaNegocio/Listado">LINEA DE NEGOCIO</a>
-                                        </li>`;
+                                                            <a href="/LineaNegocio/Listado">LINEA DE NEGOCIO</a>
+                                                        </li>`;
                         }
                         if (PermitirDatosMaestroUnidadMedida == 1) {
                             menu += `        <li>
-                                            <a href="/UnidadMedida/Listado">UNIDAD DE MEDIDA</a>
-                                        </li>`;
+                                                            <a href="/UnidadMedida/Listado">UNIDAD DE MEDIDA</a>
+                                                        </li>`;
                         }
                         if (PermitirDatosMaestroIndicadorImpuestos == 1) {
                             menu += `        <li>
-                                            <a href="/IndicadorImpuesto/Listado">INDICADOR DE IMPUESTOS</a>
-                                        </li>`;
+                                                            <a href="/IndicadorImpuesto/Listado">INDICADOR DE IMPUESTOS</a>
+                                                        </li>`;
                         }
                         if (PermitirDatosMaestroProyectos == 1) {
                             menu += `        <li>
-                                            <a href="/Proyecto/Listado">PROYECTOS</a>
-                                        </li>`;
+                                                            <a href="/Proyecto/Listado">PROYECTOS</a>
+                                                        </li>`;
                         } if (PermitirDatosMaestroSeries == 1) {
                             menu += `        <li>
-                                            <a href="/Serie/Listado">SERIES</a>
-                                        </li>`;
+                                                            <a href="/Serie/Listado">SERIES</a>
+                                                        </li>`;
                         }
                         if (PermitirDatosMaestroCondicionPago == 1) {
                             menu += `        <li>
-                                            <a href="/CondicionPago/Listado">CONDICION DE PAGO</a>
-                                        </li>`;
+                                                            <a href="/CondicionPago/Listado">CONDICION DE PAGO</a>
+                                                        </li>`;
+                        }
+                        if (PermitirDatosMaestroCodigoUbso == 1) {
+                            menu += `        <li>
+                                                            <a href="/CodigoUbso/Listado">CODIGO UBSO</a>
+                                                        </li>`;
                         }
                         menu += `    </ul>
-                                </li>`;
+                                                </li>`;
                     }
                     if (PermitirSociosNegocio == 1) {
                         menu += `<li>
-                                    <a class="accordion-toggle1" href="#">
-                                        <span class="fa fa-users"></span>
-                                        <span class="sidebar-title">SOCIOS DE NEGOCIO</span>
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="nav sub-nav">`;
+                                                    <a class="accordion-toggle1" href="#">
+                                                        <span class="fa fa-users"></span>
+                                                        <span class="sidebar-title">SOCIOS DE NEGOCIO</span>
+                                                        <span class="caret"></span>
+                                                    </a>
+                                                    <ul class="nav sub-nav">`;
                         if (PermitirSociosNegocioClientes == 1) {
                             menu += `       <li>
-                                            <a href="/Cliente/Listado">CLIENTES</a>
-                                        </li>`;
+                                                            <a href="/Cliente/Listado">CLIENTES</a>
+                                                        </li>`;
                         }
                         if (PermitirSociosNegocioProveedores == 1) {
                             menu += `       <li>
-                                            <a href="/Proveedor/Listado">PROVEEDORES</a>
-                                        </li>`;
+                                                            <a href="/Proveedor/Listado">PROVEEDORES</a>
+                                                        </li>`;
                         }
                         if (PermitirSociosNegocioEmpleados == 1) {
                             menu += `        <li>
-                                            <a href="/Empleado/Listado">EMPLEADOS</a>
-                                        </li>`;
+                                                            <a href="/Empleado/Listado">EMPLEADOS</a>
+                                                        </li>`;
                         }
                         menu += `    </ul>
-                                </li>
-                        </li>`;
+                                                </li>
+                                        </li>`;
                     }
                     if (PermitirRequerimientoCompra == 1) {
                         menu += `<li>
-                            <a class='accordion-toggle1' href='#'>
-                                <span class='fa fa-inbox'></span>
-                                <span class='sidebar-title'>REQUERIMIENTOS DE COMPRA (RQ)</span>
-                                <span class='caret'></span>
-                            </a>
-                            <ul class='nav sub-nav'>`;
+                                            <a class='accordion-toggle1' href='#'>
+                                                <span class='fa fa-inbox'></span>
+                                                <span class='sidebar-title'>REQUERIMIENTOS DE COMPRA (RQ)</span>
+                                                <span class='caret'></span>
+                                            </a>
+                                            <ul class='nav sub-nav'>`;
                         if (PermitirRequerimientoCompraNuevaSolicitud == 1) {
                             menu += `<li>
-                                    <a href="/SolicitudRQ/Listado">NUEVA SOLICITUD RQ</a>
-                                </li>`;
+                                                    <a href="/SolicitudRQ/Listado">NUEVA SOLICITUD RQ</a>
+                                                </li>`;
                         }
                         if (PermitirRequerimientoCompraVisuRQAutorizacion == 1) {
                             menu += `<li>
-                                    <a href="/Usuario/Listado">VISUALIZACION DE RQ PARA AUTORIZACION</a>
-                                </li>`;
+                                                    <a href="/Usuario/Listado">VISUALIZACION DE RQ PARA AUTORIZACION</a>
+                                                </li>`;
                         }
                         if (PermitirRequerimientoCompraVisuRQAtencion == 1) {
                             menu += `<li>
-                                    <a class="accordion-toggle1" href="#">
-                                        <span class="fa fa-share-square-o"></span>
-                                        <span class="sidebar-title">VISUALIZACION DE RQ PARA ATENCION</span>
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="nav sub-nav">
-                                        <li>
-                                            <a href="/SociosNegocio/Cliente">DESPACHOS</a>
-                                        </li>
-                                        <li>
-                                            <a href="/SociosNegocio/Proveedor">COMPRA LOCAL</a>
-                                        </li>
-                                        <li>
-                                            <a href="/SociosNegocio/Proveedor">COMPRA LIMA</a>
-                                        </li>
-                                    </ul>
-                                </li>`;
+                                                    <a class="accordion-toggle1" href="#">
+                                                        <span class="fa fa-share-square-o"></span>
+                                                        <span class="sidebar-title">VISUALIZACION DE RQ PARA ATENCION</span>
+                                                        <span class="caret"></span>
+                                                    </a>
+                                                    <ul class="nav sub-nav">
+                                                        <li>
+                                                            <a href="/SociosNegocio/Cliente">DESPACHOS</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/SociosNegocio/Proveedor">COMPRA LOCAL</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/SociosNegocio/Proveedor">COMPRA LIMA</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>`;
                         }
-                        menu +=`</ul>
-                        </li>`;
+                        menu += `</ul>
+                                        </li>`;
                     }
                     if (PermitirVisualizacionTraslados == 1) {
                         menu += `<li>
-                            <a class='accordion-toggle1' href='#'>
-                                <span class='fa fa-share'></span>
-                                <span class='sidebar-title'>TRASLADOS</span>
-                                <span class='caret'></span>
-                            </a>
-                            <ul class='nav sub-nav'>`;
+                                            <a class='accordion-toggle1' href='#'>
+                                                <span class='fa fa-share'></span>
+                                                <span class='sidebar-title'>TRASLADOS</span>
+                                                <span class='caret'></span>
+                                            </a>
+                                            <ul class='nav sub-nav'>`;
                         if (PermitirVisualizacionTrasladosVisuTrasPen == 1) {
                             menu += `<li>
-                                    <a href="/Usuario/Listado">VISUALIZACION DE TRASLADOS PENDIENTES</a>
-                                </li>`;
+                                                    <a href="/Usuario/Listado">VISUALIZACION DE TRASLADOS PENDIENTES</a>
+                                                </li>`;
                         }
                         menu += `</ul>
-                        </li>`;
+                                        </li>`;
                     }
                     if (PermitirReportes == 1) {
                         menu += `<li>
-                            <a class='accordion-toggle1' href='#'>
-                                <span class='fa fa-file-text-o'></span>
-                                <span class='sidebar-title'>REPORTES</span>
-                                <span class='caret'></span>
-                            </a>
-                            <ul class='nav sub-nav'>`;
+                                            <a class='accordion-toggle1' href='#'>
+                                                <span class='fa fa-file-text-o'></span>
+                                                <span class='sidebar-title'>REPORTES</span>
+                                                <span class='caret'></span>
+                                            </a>
+                                            <ul class='nav sub-nav'>`;
                         if (PermitirReportesHistorico == 1) {
                             menu += `<li>
-                                    <a href="/Usuario/Listado">HISTORICO DE ARTICULO</a>
-                                </li>`;
+                                                    <a href="/Usuario/Listado">HISTORICO DE ARTICULO</a>
+                                                </li>`;
                         }
                         if (PermitirReportesEstadoRequerimientos == 1) {
                             menu += `<li>
-                                    <a href="/Usuario/Listado">ESTADO DE LOS REQUERIMIENTOS</a>
-                                </li>`;
+                                                    <a href="/Usuario/Listado">ESTADO DE LOS REQUERIMIENTOS</a>
+                                                </li>`;
                         }
                         menu += `</ul>
-                        </li>`;
+                                        </li>`;
                     }
                     $("#ulMenuPr").html(menu);
                     configurarTogle();
@@ -747,6 +752,7 @@
         @Scripts.Render("~/bundles/jquery")
 
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.11.3/b-2.0.1/r-2.2.9/datatables.min.js"></script>
+
 
         @Scripts.Render("~/bundles/scripts")
         @RenderSection("scripts", required: false)

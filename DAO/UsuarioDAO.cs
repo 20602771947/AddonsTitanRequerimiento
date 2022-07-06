@@ -37,6 +37,7 @@ namespace DAO
                         oUsuarioDTO.IdSociedad = int.Parse(drd["IdSociedad"].ToString());
                         oUsuarioDTO.NombreSociedad = drd["NombreSociedad"].ToString();
                         oUsuarioDTO.Estado = bool.Parse(drd["Estado"].ToString());
+                        //oUsuarioDTO.IdDepartamento= int.Parse(drd["IdDepartamento"].ToString());
                         lstUsuarioDTO.Add(oUsuarioDTO);
                     }
                     drd.Close();
@@ -74,6 +75,8 @@ namespace DAO
                         oUsuarioDTO.IdSociedad = int.Parse(drd["IdSociedad"].ToString());
                         oUsuarioDTO.NombreSociedad = drd["NombreSociedad"].ToString();
                         oUsuarioDTO.Estado = bool.Parse(drd["Estado"].ToString());
+                        oUsuarioDTO.IdDepartamento = int.Parse(drd["IdDepartamento"].ToString());
+                        oUsuarioDTO.Correo = drd["Correo"].ToString();
                         lstUsuarioDTO.Add(oUsuarioDTO);
                     }
                     drd.Close();
@@ -112,6 +115,8 @@ namespace DAO
                         da.SelectCommand.Parameters.AddWithValue("@SapUsuario", oUsuarioDTO.SapUsuario);
                         da.SelectCommand.Parameters.AddWithValue("@SapContraseña", oUsuarioDTO.SapPassword);
                         da.SelectCommand.Parameters.AddWithValue("@Estado", oUsuarioDTO.Estado);
+                        da.SelectCommand.Parameters.AddWithValue("@IdDepartamento", oUsuarioDTO.IdDepartamento);
+                        da.SelectCommand.Parameters.AddWithValue("@Correo", oUsuarioDTO.Correo);
                         int rpta = da.SelectCommand.ExecuteNonQuery();
                         transactionScope.Complete();
                         return rpta;
@@ -149,6 +154,8 @@ namespace DAO
                         oUsuarioDTO.IdSociedad = int.Parse(drd["IdSociedad"].ToString());
                         oUsuarioDTO.NombreSociedad = drd["NombreSociedad"].ToString();
                         oUsuarioDTO.Estado = bool.Parse(drd["Estado"].ToString());
+                        oUsuarioDTO.IdDepartamento = int.Parse(drd["IdDepartamento"].ToString());
+                        oUsuarioDTO.Correo = drd["Correo"].ToString();
                         lstUsuarioDTO.Add(oUsuarioDTO);
                     }
                     drd.Close();

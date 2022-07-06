@@ -45,8 +45,10 @@
   <ItemGroup>
     <Compile Include="AccesoDAO.cs" />
     <Compile Include="AlmacenDAO.cs" />
+    <Compile Include="ArticuloDAO.cs" />
     <Compile Include="CentroCostoDAO.cs" />
     <Compile Include="ClienteDAO.cs" />
+    <Compile Include="CodigoUbsoDAO.cs" />
     <Compile Include="CondicionPagoDAO.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="ConfiguracionDecimalesDAO.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="IndicadorImpuestoDAO.cs" />
     <Compile Include="LineaNegocioDAO.cs" />
     <Compile Include="MenuDAO.cs" />
+    <Compile Include="ModeloAutorizacionDAO.cs" />
     <Compile Include="MonedaDAO.cs" />
     <Compile Include="PaisDAO.cs" />
     <Compile Include="PerfilDAO.cs" />

@@ -29,6 +29,7 @@ namespace DTO
         public DateTime FechaDocumento { get; set; }
         public string Comentarios { get; set; }
         public int Estado { get; set; }
+        public string DetalleEstado { get; set; }
 
         public IList<SolicitudDetalleDTO> Detalle;
     }

@@ -49,6 +49,7 @@ namespace DAO
                         oSolicitudRQDTO.FechaDocumento = Convert.ToDateTime(drd["FechaDocumento"].ToString());
                         oSolicitudRQDTO.Comentarios = drd["Comentarios"].ToString();
                         oSolicitudRQDTO.Estado = int.Parse(drd["Estado"].ToString());
+                        oSolicitudRQDTO.DetalleEstado = drd["DetalleEstado"].ToString();
                         lstSolicitudRQDTO.Add(oSolicitudRQDTO);
                     }
                     drd.Close();
@@ -196,6 +197,7 @@ namespace DAO
                         oSolicitudRQDTO.FechaDocumento = Convert.ToDateTime(drd["FechaDocumento"].ToString());
                         oSolicitudRQDTO.Comentarios = drd["Comentarios"].ToString();
                         oSolicitudRQDTO.Estado = int.Parse(drd["Estado"].ToString());
+                        oSolicitudRQDTO.DetalleEstado = drd["DetalleEstado"].ToString();
                         //lstSolicitudRQDTO.Add(oSolicitudRQDTO);
                     }
                     drd.Close();

@@ -43,8 +43,10 @@
   <ItemGroup>
     <Compile Include="AccesoDTO.cs" />
     <Compile Include="AlmacenDTO.cs" />
+    <Compile Include="ArticuloDTO.cs" />
     <Compile Include="CentroCostoDTO.cs" />
     <Compile Include="ClienteDTO.cs" />
+    <Compile Include="CodigoUbsoDTO.cs" />
     <Compile Include="CondicionPagoDTO.cs" />
     <Compile Include="ConfiguracionDecimalesDTO.cs" />
     <Compile Include="DepartamentoDTO.cs" />
@@ -53,6 +55,7 @@
     <Compile Include="IndicadorImpuestoDTO.cs" />
     <Compile Include="LineaNegocioDTO.cs" />
     <Compile Include="MenuDTO.cs" />
+    <Compile Include="ModeloAutorizacionDTO.cs" />
     <Compile Include="MonedaDTO.cs" />
     <Compile Include="PaisDTO.cs" />
     <Compile Include="PerfilDTO.cs" />

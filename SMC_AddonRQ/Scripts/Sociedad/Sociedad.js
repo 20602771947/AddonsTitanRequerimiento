@@ -43,6 +43,7 @@ function ConsultaServidor(url) {
 
 function ModalNuevo() {
     $("#lblTituloModal").html("Nueva Sociedad");
+    $('#chkActivo').prop('checked', true);
     AbrirModal("modal-form");
 }
 
