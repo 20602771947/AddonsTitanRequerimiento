@@ -173,7 +173,7 @@ function CerrarModal() {
     $("#tablaCondiciones").find('tbody').empty();
     $.magnificPopup.close();
 
-    //limpiarDatos();
+    limpiarDatos();
 }
 
 

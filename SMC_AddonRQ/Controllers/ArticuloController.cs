@@ -77,5 +77,22 @@ namespace SMC_AddonRQ.Controllers
 
 
 
+        public string ObtenerArticuloxCodigo(string Codigo)
+        {
+            ArticuloDAO oArticuloDAO = new ArticuloDAO();
+            List<ArticuloDTO> lstArticuloDTO = oArticuloDAO.ObtenerArticuloxCodigo(Codigo);
+
+            if (lstArticuloDTO.Count > 0)
+            {
+                return JsonConvert.SerializeObject(lstArticuloDTO);
+            }
+            else
+            {
+                return "error";
+            }
+
+        }
+
+
     }
 }

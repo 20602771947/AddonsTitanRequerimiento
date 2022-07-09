@@ -49,6 +49,7 @@ function ConsultaServidor(url) {
 function ModalNuevo() {
     $("#lblTituloModal").html("Nuevo Departamento");
     AbrirModal("modal-form");
+    $('#chkActivo').prop('checked', true);
 }
 
 

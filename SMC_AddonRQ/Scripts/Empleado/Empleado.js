@@ -49,10 +49,16 @@ function ModalNuevo() {
     CargarPaises();
     CargarDepartamentos();
     $("#cboPais").val(193);
+    $('#chkActivo').prop('checked', true);
 }
 
 
 function GuardarEmpleado() {
+
+    if (!$("#txtFechaIngreso").val().length > 0) {
+        swal("Info!", "Debe elegir fecha de emision")
+        return;
+    }
 
     let varIdEmpleado = $("#txtId").val();
     let varCodigo = $("#txtCodigo").val();
@@ -507,5 +513,5 @@ function limpiarDatos() {
     //$("#cboPais").val("");
     $("#cboCondicionPago").val("");
 
-    $("#chkActivo").prop('checked', false);
+    //$("#chkActivo").prop('checked', false);
 }

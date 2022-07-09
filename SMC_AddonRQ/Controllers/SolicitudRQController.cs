@@ -82,7 +82,7 @@ namespace SMC_AddonRQ.Controllers
                     {
                         var User = oUsuarioDAO.ObtenerDatosxID(Resultado[0].DetallesAutor[j].IdAutor);
                         var Solicitante = oEmpleadoDAO.ObtenerDatosxID(solicitudRQDTO.IdSolicitante);
-                        EnviarCorreo(User[0].Correo, solicitudRQDTO.Serie, solicitudRQDTO.Numero);
+                        EnviarCorreo(User[0].Correo,Solicitante[0].RazonSocial, solicitudRQDTO.Serie, solicitudRQDTO.Numero);
                     }
                     
                 }
@@ -102,7 +102,7 @@ namespace SMC_AddonRQ.Controllers
         }
 
 
-        public void EnviarCorreo(string Correo,string Serie,int Numero)
+        public void EnviarCorreo(string Correo,string Solicitante,string Serie,int Numero)
         {
   
             string body;
@@ -111,8 +111,7 @@ namespace SMC_AddonRQ.Controllers
             body = "<body>" +
                 "<h1>Se creo una nueva Solicitud</h1>" +
                 "<h4>Detalles de Solicitud:</h4>" +
-                "<span>"+Serie+"-"+Numero+"</span>" +
-                "<span></span>" +
+                "<span>Serie Solicitud: "+Serie+"-"+Numero+"</span>" +
                 "<br/><br/><span></span>" +
                 "</body>";
 
@@ -136,14 +135,11 @@ namespace SMC_AddonRQ.Controllers
 
 
 
+        }
 
-
-
-
-        
-
-
-
+        public void CargarFiles()
+        {
+            string hola = "dasd";
         }
 
 

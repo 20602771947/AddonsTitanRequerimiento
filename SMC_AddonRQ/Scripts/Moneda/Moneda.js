@@ -56,6 +56,7 @@ function ConsultaServidor(url) {
 function ModalNuevo() {
     $("#lblTituloModal").html("Nueva Moneda");
     AbrirModal("modal-form");
+    $('#chkActivo').prop('checked', true);
 }
 
 

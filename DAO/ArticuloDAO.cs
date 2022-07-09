@@ -163,5 +163,47 @@ namespace DAO
         }
 
 
+
+        public List<ArticuloDTO> ObtenerArticuloxCodigo(string Codigo)
+        {
+            List<ArticuloDTO> lstArticuloDTO = new List<ArticuloDTO>();
+            using (SqlConnection cn = new Conexion().conectar())
+            {
+                try
+                {
+                    cn.Open();
+                    SqlDataAdapter da = new SqlDataAdapter("SMC_ObtenerArticuloxCodigo", cn);
+                    da.SelectCommand.Parameters.AddWithValue("@Codigo", Codigo);
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader drd = da.SelectCommand.ExecuteReader();
+                    while (drd.Read())
+                    {
+                        ArticuloDTO oArticuloDTO = new ArticuloDTO();
+                        oArticuloDTO.IdArticulo = int.Parse(drd["Id"].ToString());
+                        oArticuloDTO.Codigo = drd["Codigo"].ToString();
+                        oArticuloDTO.Descripcion1 = (drd["Descripcion1"].ToString());
+                        oArticuloDTO.Descripcion2 = (drd["Descripcion2"].ToString());
+                        oArticuloDTO.IdUnidadMedida = int.Parse(drd["IdUnidadMedida"].ToString());
+                        oArticuloDTO.ActivoFijo = Convert.ToBoolean(drd["ActivoFijo"].ToString());
+                        oArticuloDTO.ActivoCatalogo = Convert.ToBoolean(drd["ActivoCatalogo"].ToString());
+                        oArticuloDTO.IdCodigoUbso = int.Parse(drd["IdCodigoUbso"].ToString());
+                        oArticuloDTO.IdSociedad = int.Parse(drd["IdSociedad"].ToString());
+                        oArticuloDTO.Estado = Convert.ToBoolean(drd["Estado"].ToString());
+                        //oArticuloDTO.Eliminado = Convert.ToBoolean(drd["Eliminado"].ToString());
+                        lstArticuloDTO.Add(oArticuloDTO);
+                    }
+                    drd.Close();
+
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            return lstArticuloDTO;
+        }
+
+
     }
 }

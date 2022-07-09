@@ -23,8 +23,8 @@ function ConsultaServidor(url) {
         $("#txtPrecios").val(configuraciondecimales[0].Precios);
         $("#txtCantidades").val(configuraciondecimales[0].Cantidades);
         $("#txtPorcentajes").val(configuraciondecimales[0].Porcentajes);
-        $("#txtUnidades").val(configuraciondecimales[0].Unidades);
-        $("#txtDecimales").val(configuraciondecimales[0].Decimales);
+        //$("#txtUnidades").val(configuraciondecimales[0].Unidades);
+        //$("#txtDecimales").val(configuraciondecimales[0].Decimales);
         $("#txtId").val(configuraciondecimales[0].IdConfiguracionDecimales);
     
 
@@ -50,8 +50,8 @@ function GuardarConfiguracionDecimales() {
         'Precios': varPrecios,
         'Cantidades': varCantidades,
         'Porcentajes': varPorcentajes,
-        'Unidades': varUnidades,
-        'Decimales': varDecimales
+        'Unidades': 0,
+        'Decimales': 0
     }, function (data, status) {
 
         if (data == 1) {

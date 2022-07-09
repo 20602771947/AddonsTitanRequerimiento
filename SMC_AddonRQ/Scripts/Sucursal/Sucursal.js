@@ -50,6 +50,7 @@ function ConsultaServidor(url) {
 function ModalNuevo() {
     $("#lblTituloModal").html("Nuevo Sucursal");
     AbrirModal("modal-form");
+    $('#chkActivo').prop('checked', true);
 }
 
 

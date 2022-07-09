@@ -102,6 +102,7 @@ namespace DAO
                         da.SelectCommand.Parameters.AddWithValue("@Comentarios", oSolicitudRQDTO.Comentarios);
                         da.SelectCommand.Parameters.AddWithValue("@Estado", oSolicitudRQDTO.Estado);
                         da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
+                        da.SelectCommand.Parameters.AddWithValue("@Prioridad", oSolicitudRQDTO.Prioridad);
                         int IdInsert = 0;
                         if (oSolicitudRQDTO.IdSolicitudRQ > 0)
                         {
@@ -136,7 +137,8 @@ namespace DAO
                             dad.SelectCommand.Parameters.AddWithValue("@IdProyecto", oSolicitudRQDetalleDTO.IdProyecto[i]);
                             dad.SelectCommand.Parameters.AddWithValue("@IdMoneda", oSolicitudRQDetalleDTO.IdItemMoneda[i]);
                             dad.SelectCommand.Parameters.AddWithValue("@TipoCambio", oSolicitudRQDetalleDTO.ItemTipoCambio[i]);
-                            da.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
+                            dad.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
+                            dad.SelectCommand.Parameters.AddWithValue("@Referencia", oSolicitudRQDetalleDTO.Referencia[i]);
                             //IdInsertDetalle = Convert.ToInt32(dad.SelectCommand.ExecuteScalar());
                             rpta = dad.SelectCommand.ExecuteNonQuery();
                             //int rptaDetalle = dad.SelectCommand.ExecuteNonQuery();
@@ -198,6 +200,7 @@ namespace DAO
                         oSolicitudRQDTO.Comentarios = drd["Comentarios"].ToString();
                         oSolicitudRQDTO.Estado = int.Parse(drd["Estado"].ToString());
                         oSolicitudRQDTO.DetalleEstado = drd["DetalleEstado"].ToString();
+
                         //lstSolicitudRQDTO.Add(oSolicitudRQDTO);
                     }
                     drd.Close();
@@ -260,6 +263,7 @@ namespace DAO
                         oSolicitudRQDetalleDTO.IdProyecto = int.Parse(drd["IdProyecto"].ToString());
                         oSolicitudRQDetalleDTO.IdItemMoneda = int.Parse(drd["IdMoneda"].ToString());
                         oSolicitudRQDetalleDTO.ItemTipoCambio = decimal.Parse(drd["TipoCambio"].ToString());
+                        oSolicitudRQDetalleDTO.Referencia = drd["Referencia"].ToString();
                         //lstSolicitudRQDTO.Add(oSolicitudRQDTO.Detalle.Add(oSolicitudRQDetalleDTO));
                         oSolicitudRQDTO.Detalle[posicion]= oSolicitudRQDetalleDTO;
                         posicion = posicion + 1;

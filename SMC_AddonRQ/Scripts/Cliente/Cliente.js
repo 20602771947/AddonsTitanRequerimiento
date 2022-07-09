@@ -45,6 +45,7 @@ function ConsultaServidor(url) {
 function ModalNuevo() {
     $("#lblTituloModal").html("Nuevo Cliente");
     AbrirModal("modal-form");
+    $('#chkActivo').prop('checked', true);
     CargarTipoPersona();
     CargarTipoDocumento();
     CargarCondicionPago();
@@ -520,5 +521,5 @@ function limpiarDatos() {
     //$("#cboPais").val("");
     $("#cboCondicionPago").val("");
 
-    $("#chkActivo").prop('checked', false);
+    //$("#chkActivo").prop('checked', false);
 }

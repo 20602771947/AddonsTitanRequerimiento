@@ -54,15 +54,28 @@ function ConsultaServidor(url) {
 
 function ModalNuevo() {
     $("#lblTituloModal").html("Nueva Solicitud");
-    AgregarLinea();
+    //AgregarLinea();
     CargarSeries();
     CargarSolicitante();
     CargarSucursales();
     CargarDepartamentos();
     CargarMoneda();
+    AgregarLineaAnexo();
+    CargarImpuestos();
+    $("#cboImpuesto").val(2).change();
     AbrirModal("modal-form");
     //setearValor_ComboRenderizado("cboCodigoArticulo");
 }
+
+
+function OpenModalItem() {
+    $("#ModalItem").modal();
+    CargarUnidadMedidaItem();
+    CargarProyectos();
+    CargarCentroCostos();
+}
+
+
 
 function openContenido(evt, Name) {
     var i, tabcontent, tablinks;
@@ -78,11 +91,18 @@ function openContenido(evt, Name) {
     evt.currentTarget.className += " active";
 }
 
-
-
 let contador = 0;
 function AgregarLinea() {
 
+    let CodigoItem = $("#txtCodigoItem").val();
+    let MedidaItem = $("#cboMedidaItem").val();
+    let DescripcionItem = $("#txtDescripcionItem").val();
+    let PrecioUnitarioItem = $("#txtPrecioUnitarioItem").val();
+    let CantidadItem = $("#txtCantidadItem").val();
+    let ProyectoItem = $("#cboProyectoItem").val();
+    let CentroCostoItem = $("#cboCentroCostoItem").val();
+    let ReferenciaItem = $("#txtReferenciaItem").val();
+    //txtReferenciaItem
 
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -142,20 +162,20 @@ function AgregarLinea() {
     //</select>
     tr += `<tr>
             <td><input style="display:none;" class="form-control" type="text" value="0" id="txtIdSolicitudRQDetalle" name="txtIdSolicitudRQDetalle[]"/></td>
-            <td>
-            <input class="form-control" type="text" id="txtCodigoArticulo" name="txtCodigoArticulo[]" />
+            <td style="display:none">
+            <input class="form-control" type="text" id="txtCodigoArticulo`+contador+`" name="txtCodigoArticulo[]" />
             </td>
-            <td><input class="form-control" type="text" id="txtDescripcionArticulo" name="txtDescripcionArticulo[]"/></td>
+            <td><input class="form-control" type="text" id="txtDescripcionArticulo`+ contador +`" name="txtDescripcionArticulo[]"/></td>
             <td>
-            <select class="form-control" id="cboUnidadMedida" name="cboUnidadMedida[]">`;
+            <select class="form-control" id="cboUnidadMedida`+ contador +`" name="cboUnidadMedida[]">`;
     tr += `  <option value="0">Seleccione</option>`;
             for (var i = 0; i < UnidadMedida.length; i++) {
                 tr += `  <option value="` + UnidadMedida[i].IdUnidadMedida+`">` + UnidadMedida[i].Descripcion + `</option>`;
             }
     tr += `</select>
             </td>
-            <td><input class="form-control" type="date" value="`+ today +`" id="txtFechaNecesaria`+contador+`" name="txtFechaNecesaria[]"></td>
-            <td>
+            <td style="display:none"><input class="form-control" type="date" value="`+ today +`" id="txtFechaNecesaria`+contador+`" name="txtFechaNecesaria[]"></td>
+            <td style="display:none">
             <select class="form-control MonedaDeCabecera" style="width:100px" name="cboMoneda[]" id="cboMonedaDetalle`+contador+`" disabled>`;
     tr += `  <option value="0">Seleccione</option>`;
             for (var i = 0; i < Moneda.length; i++) {
@@ -163,11 +183,11 @@ function AgregarLinea() {
             }
     tr += `</select>
             </td>
-            <td><input class="form-control TipoCambioDeCabecera" type="number" name="txtTipoCambio[]" id="txtTipoCambioDetalle`+contador+`" disabled></td>
-            <td><input class="form-control" type="number" name="txtCantidadNecesaria[]" value="0" id="txtCantidadNecesaria`+contador+`" onkeyup="CalcularTotalDetalle(`+contador+`)"></td>
-            <td><input class="form-control" type="number" name="txtPrecioInfo[]" value="0" id="txtPrecioInfo`+ contador + `" onkeyup="CalcularTotalDetalle(` + contador +`)"></td>
-            <td>
-            <select class="form-control" name="cboIndicadorImpuesto[]" id="cboIndicadorImpuestoDetalle`+contador+`" onchange="CalcularTotalDetalle(`+contador+`)">`;
+            <td style="display:none"><input class="form-control TipoCambioDeCabecera" type="number" name="txtTipoCambio[]" id="txtTipoCambioDetalle`+contador+`" disabled></td>
+            <td><input class="form-control" type="number" name="txtCantidadNecesaria[]" value="0" id="txtCantidadNecesaria`+contador+`" onchange="CalcularTotalDetalle(`+contador+`)"></td>
+            <td><input class="form-control" type="number" name="txtPrecioInfo[]" value="0" id="txtPrecioInfo`+ contador + `" onchange="CalcularTotalDetalle(` + contador +`)"></td>
+            <td style="display:none">
+            <select class="form-control ImpuestoCabecera" name="cboIndicadorImpuesto[]" id="cboIndicadorImpuestoDetalle`+contador+`" onchange="CalcularTotalDetalle(`+contador+`)">`;
     tr += `  <option impuesto="0" value="0">Seleccione</option>`;
             for (var i = 0; i < IndicadorImpuesto.length; i++) {
                 tr += `  <option impuesto="` + IndicadorImpuesto[i].Porcentaje+`" value="` + IndicadorImpuesto[i].IdIndicadorImpuesto + `">` + IndicadorImpuesto[i].Descripcion + `</option>`;
@@ -175,7 +195,7 @@ function AgregarLinea() {
     tr += `</select>
             </td>
             <td><input class="form-control changeTotal" type="number" style="width:100px" name="txtItemTotal[]" id="txtItemTotal`+contador+`" onchange="CalcularTotales()"></td>
-            <td>
+            <td style="display:none">
             <select class="form-control" style="width:100px" name="cboAlmacen[]">`;
     tr += `  <option value="0">Seleccione</option>`;
             for (var i = 0; i < Almacen.length; i++) {
@@ -183,7 +203,7 @@ function AgregarLinea() {
             }
     tr += `</select>
             </td>
-            <td>
+            <td style="display:none">
             <select class="form-control" style="width:100px" name="cboProveedor[]">`;
     tr += `  <option value="0">Seleccione</option>`;
             for (var i = 0; i < Proveedor.length; i++) {
@@ -191,9 +211,9 @@ function AgregarLinea() {
             }
     tr += `</select>
             </td>
-            <td><input class="form-control" type="text" name="txtNumeroFacbricacion[]"></td>
-            <td><input class="form-control" type="text" name="txtNumeroSerie[]"></td>
-            <td>
+            <td style="display:none"><input class="form-control" type="text" name="txtNumeroFacbricacion[]"></td>
+            <td style="display:none"><input class="form-control" type="text" name="txtNumeroSerie[]"></td>
+            <td style="display:none">
             <select class="form-control" name="cboLineaNegocio[]">`;
     tr += `  <option value="0">Seleccione</option>`;
             for (var i = 0; i < LineaNegocio.length; i++) {
@@ -202,7 +222,7 @@ function AgregarLinea() {
     tr += `</select>
             </td>
             <td>
-            <select class="form-control" name="cboCentroCostos[]">`;
+            <select class="form-control" id="cboCentroCostos`+ contador +`" name="cboCentroCostos[]">`;
     tr += `  <option value="0">Seleccione</option>`;
             for (var i = 0; i < CentroCosto.length; i++) {
                 tr += `  <option value="` + CentroCosto[i].IdCentroCosto + `">` + CentroCosto[i].Descripcion + `</option>`;
@@ -210,15 +230,16 @@ function AgregarLinea() {
     tr += `</select>
             </td>
             <td>
-            <select class="form-control" style="width:100px" name="cboProyecto[]">`;
+            <select class="form-control" style="width:100px" id="cboProyecto`+ contador +`" name="cboProyecto[]">`;
     tr += `  <option value="0">Seleccione</option>`;
             for (var i = 0; i < Proyecto.length; i++) {
                 tr += `  <option value="` + Proyecto[i].IdProyecto + `">` + Proyecto[i].Descripcion + `</option>`;
             }
     tr += `</select>
             </td>
-            <td><input class="form-control" type="text" value="0" disabled></td>
-            <td><input class="form-control" type="text" value="0" disabled></td>
+            <td style="display:none"><input class="form-control" type="text" value="0" disabled></td>
+            <td style="display:none"><input class="form-control" type="text" value="0" disabled></td>
+            <td ><input class="form-control" type="text" value="" id="txtReferencia`+ contador +`" name="txtReferencia[]"></td>
             <td><button class="btn btn-xs btn-danger borrar">-</button></td>
           <tr>`;
 
@@ -227,6 +248,7 @@ function AgregarLinea() {
 
     let varMoneda = $("#cboMoneda").val();
     let varTipoCambio = $("#txtTipoCambio").val();
+    let varimpuesto= $("#cboImpuesto").val();
 
     if (varMoneda) {
         $(".MonedaDeCabecera").val(varMoneda);
@@ -234,7 +256,20 @@ function AgregarLinea() {
     if (varTipoCambio) {
         $(".TipoCambioDeCabecera").val(varTipoCambio);
     }
+    if (varimpuesto) {
+        $(".ImpuestoCabecera").val(varimpuesto);
+    }
+
+
     
+    $("#CodigoItem"+contador).val(CodigoItem);
+    $("#txtDescripcionArticulo" + contador).val(DescripcionItem);
+    $("#cboUnidadMedida" + contador).val(MedidaItem);
+    $("#txtCantidadNecesaria" + contador).val(CantidadItem).change();
+    $("#txtPrecioInfo" + contador).val(PrecioUnitarioItem).change();
+    $("#cboProyecto" + contador).val(ProyectoItem);
+    $("#cboCentroCostos" + contador).val(CentroCostoItem);
+    $("#txtReferencia" + contador).val(ReferenciaItem);
     
 
 }
@@ -245,6 +280,22 @@ function CargarSeries() {
     $.post("/Serie/ObtenerSeries", function (data, status) {
         let series = JSON.parse(data);
         llenarComboSerie(series, "cboSerie", "Seleccione")
+    });
+}
+
+function CargarImpuestos() {
+    $.ajaxSetup({ async: false });
+    $.post("/IndicadorImpuesto/ObtenerIndicadorImpuestos", function (data, status) {
+        let impuestos = JSON.parse(data);
+        llenarComboImpuesto(impuestos, "cboImpuesto", "Seleccione")
+    });
+}
+
+function CargarUnidadMedidaItem() {
+    $.ajaxSetup({ async: false });
+    $.post("/UnidadMedida/ObtenerUnidadMedidas", function (data, status) {
+        let unidad = JSON.parse(data);
+        llenarComboUnidadMedidaItem(unidad, "cboMedidaItem", "Seleccione")
     });
 }
 
@@ -281,6 +332,22 @@ function CargarMoneda() {
     });
 }
 
+function CargarProyectos() {
+    $.ajaxSetup({ async: false });
+    $.post("/Proyecto/ObtenerProyectos", function (data, status) {
+        let proyecto = JSON.parse(data);
+        llenarComboProyectoItem(proyecto, "cboProyectoItem", "Seleccione")
+    });
+}
+
+function CargarCentroCostos() {
+    $.ajaxSetup({ async: false });
+    $.post("/CentroCosto/ObtenerCentroCostos", function (data, status) {
+        let proyecto = JSON.parse(data);
+        llenarComboCentroCostoItem(proyecto, "cboCentroCostoItem", "Seleccione")
+    });
+}
+
 function llenarComboSerie(lista, idCombo, primerItem) {
     var contenido = "";
     if (primerItem != null) contenido = "<option value=''>" + primerItem + "</option>";
@@ -295,6 +362,68 @@ function llenarComboSerie(lista, idCombo, primerItem) {
     var cbo = document.getElementById(idCombo);
     if (cbo != null) cbo.innerHTML = contenido;
 }
+
+function llenarComboImpuesto(lista, idCombo, primerItem) {
+    var contenido = "";
+    if (primerItem != null) contenido = "<option value=''>" + primerItem + "</option>";
+    var nRegistros = lista.length;
+    var nCampos;
+    var campos;
+    for (var i = 0; i < nRegistros; i++) {
+
+        if (lista.length > 0) { contenido += "<option value='" + lista[i].IdIndicadorImpuesto + "'>" + lista[i].Descripcion + "</option>"; }
+        else { }
+    }
+    var cbo = document.getElementById(idCombo);
+    if (cbo != null) cbo.innerHTML = contenido;
+}
+
+function llenarComboUnidadMedidaItem(lista, idCombo, primerItem) {
+    var contenido = "";
+    if (primerItem != null) contenido = "<option value=''>" + primerItem + "</option>";
+    var nRegistros = lista.length;
+    var nCampos;
+    var campos;
+    for (var i = 0; i < nRegistros; i++) {
+
+        if (lista.length > 0) { contenido += "<option value='" + lista[i].IdUnidadMedida + "'>" + lista[i].Descripcion + "</option>"; }
+        else { }
+    }
+    var cbo = document.getElementById(idCombo);
+    if (cbo != null) cbo.innerHTML = contenido;
+}
+
+function llenarComboProyectoItem(lista, idCombo, primerItem) {
+    var contenido = "";
+    if (primerItem != null) contenido = "<option value=''>" + primerItem + "</option>";
+    var nRegistros = lista.length;
+    var nCampos;
+    var campos;
+    for (var i = 0; i < nRegistros; i++) {
+
+        if (lista.length > 0) { contenido += "<option value='" + lista[i].IdProyecto + "'>" + lista[i].Descripcion + "</option>"; }
+        else { }
+    }
+    var cbo = document.getElementById(idCombo);
+    if (cbo != null) cbo.innerHTML = contenido;
+}
+
+function llenarComboCentroCostoItem(lista, idCombo, primerItem) {
+    var contenido = "";
+    if (primerItem != null) contenido = "<option value=''>" + primerItem + "</option>";
+    var nRegistros = lista.length;
+    var nCampos;
+    var campos;
+    for (var i = 0; i < nRegistros; i++) {
+
+        if (lista.length > 0) { contenido += "<option value='" + lista[i].IdCentroCosto + "'>" + lista[i].Descripcion + "</option>"; }
+        else { }
+    }
+    var cbo = document.getElementById(idCombo);
+    if (cbo != null) cbo.innerHTML = contenido;
+}
+
+
 
 function llenarComboEmpleado(lista, idCombo, primerItem) {
     var contenido = "";
@@ -362,25 +491,24 @@ $(document).on('click', '.borrar', function (event) {
 });
 
 
-//function configurarAutocompletar(nombre) {
-//    var availableTags = [
-//        "ActionScript",
-//        "AppleScript",
-//        "Ruby",
-//        "Scala",
-//        "Scheme"
-//    ];
-
-//    $("#" + nombre).autocomplete({
-//        source: availableTags
-//    });
-//}
 
 function CerrarModal() {
     $("#tabla").find('tbody').empty();
     $.magnificPopup.close();
     limpiarDatos();
 }
+
+
+function SetImpuestoDetalle() {
+
+    let varImpuestoCabecera = $("#cboImpuesto").val();
+    $(".ImpuestoCabecera").val(varImpuestoCabecera).change();
+
+}
+
+
+
+
 
 function ValidarMonedaBase() {
 
@@ -408,29 +536,6 @@ function ValidarMonedaBase() {
     $(".TipoCambioDeCabecera").val(varTipoCambio).change();
 }
 
-//function ValidarMonedaBaseDetalle(contador) {
-
-//    let varMoneda = $("#cboMonedaDetalle"+contador).val();
-//    $.post("/Moneda/ValidarMonedaBase", { 'IdMoneda': varMoneda }, function (data, status) {
-
-//        if (data == "error") {
-//            swal("Error!", "Ocurrio un Error")
-//            return;
-//        } else {
-
-//            let datos = JSON.parse(data);
-//            if (datos[0].Base) {
-//                $("#txtTipoCambioDetalle"+contador).prop('disabled', true);
-//            } else {
-//                $("#txtTipoCambioDetalle" + contador).prop('disabled', false);
-//            }
-
-//        }
-
-
-//    });
-
-//}
 
 function ObtenerNumeracion() {
 
@@ -456,6 +561,16 @@ function ObtenerNumeracion() {
 
 
 function GuardarSolicitud() {
+
+    //let ArrayFile = new Array();
+
+    //$("input[name='file']").each(function (indice, elemento) {
+    //    ArrayFile.push($(elemento).val());
+    //});
+
+    //console.log(ArrayFile);
+    //return;
+
     let ArrayGeneral = new Array();
     let arrayIdArticulo = new Array();
     let arrayIdUnidadMedida = new Array();
@@ -473,6 +588,7 @@ function GuardarSolicitud() {
     let arrayLineaNegocio = new Array();
     let arrayCentroCosto = new Array();
     let arrayProyecto = new Array();
+    let arrayReferencia= new Array();
     let arrayIdSolicitudDetalle = new Array();
 
     $("input[name='txtCodigoArticulo[]']").each(function (indice, elemento) {
@@ -523,6 +639,9 @@ function GuardarSolicitud() {
     $("select[name='cboProyecto[]']").each(function (indice, elemento) {
         arrayProyecto.push($(elemento).val());
     });
+    $("input[name='txtReferencia[]']").each(function (indice, elemento) {
+        arrayReferencia.push($(elemento).val());
+    });
     $("input[name='txtIdSolicitudRQDetalle[]']").each(function (indice, elemento) {
         arrayIdSolicitudDetalle.push($(elemento).val());
     });
@@ -532,30 +651,30 @@ function GuardarSolicitud() {
     //return;
 
 
-    if (!$("#cboSerie").val().length > 0) {
-        swal("Info!", "Debe Seleccionar Serie")
-        return;
-    }
-    if (!$("#cboEmpleado").val().length > 0) {
-        swal("Info!", "Debe Seleccionar Solicitante")
-        return;
-    }
-    if (!$("#cboSucursal").val().length > 0) {
-        swal("Info!", "Debe Seleccionar Sucursal")
-        return;
-    }
-    if (!$("#cboDepartamento").val().length > 0) {
-        swal("Info!", "Debe Seleccionar Departamento")
-        return;
-    }
-    if (!$("#cboMoneda").val().length > 0) {
-        swal("Info!", "Debe Seleccionar Moneda")
-        return;
-    }
-    if (!$("#cboTitular").val().length > 0) {
-        swal("Info!", "Debe Seleccionar Titular")
-        return;
-    }
+    //if (!$("#cboSerie").val().length > 0) {
+    //    swal("Info!", "Debe Seleccionar Serie")
+    //    return;
+    //}
+    //if (!$("#cboEmpleado").val().length > 0) {
+    //    swal("Info!", "Debe Seleccionar Solicitante")
+    //    return;
+    //}
+    //if (!$("#cboSucursal").val().length > 0) {
+    //    swal("Info!", "Debe Seleccionar Sucursal")
+    //    return;
+    //}
+    //if (!$("#cboDepartamento").val().length > 0) {
+    //    swal("Info!", "Debe Seleccionar Departamento")
+    //    return;
+    //}
+    //if (!$("#cboMoneda").val().length > 0) {
+    //    swal("Info!", "Debe Seleccionar Moneda")
+    //    return;
+    //}
+    //if (!$("#cboTitular").val().length > 0) {
+    //    swal("Info!", "Debe Seleccionar Titular")
+    //    return;
+    //}
 
     let varIdSolicitud = $("#txtId").val();
 
@@ -577,6 +696,7 @@ function GuardarSolicitud() {
     let varComentarios = $("#txtComentarios").val();
     let varImpuesto = $("#txtImpuesto").val();
     let varTotal = $("#txtTotal").val();
+    let varPrioridad = $("#cboPrioridad").val();
 
 
     $.post('UpdateInsertSolicitud', {
@@ -600,6 +720,7 @@ function GuardarSolicitud() {
         'FechaDocumento': varFechaDocumento,
         'Comentarios': varComentarios,
         'Estado': varEstado,
+        'Prioridad': varPrioridad,
         'IdArticulo': arrayIdArticulo,
         'IdUnidadMedida': arrayIdUnidadMedida,
         'FechaNecesaria': arrayFechaNecesaria,
@@ -616,6 +737,7 @@ function GuardarSolicitud() {
         'IdLineaNegocio': arrayLineaNegocio,
         'IdCentroCostos': arrayCentroCosto,
         'IdProyecto': arrayProyecto,
+        'Referencia':arrayReferencia,
         'IdSolicitudRQDetalle': arrayIdSolicitudDetalle
         
     }, function (data, status) {
@@ -717,7 +839,7 @@ function ObtenerDatosxID(IdSolicitudRQ) {
             console.log(Detalle);
             for (var i = 0; i < Detalle.length; i++) {
 
-                AgregarLineaDetalle(i, Detalle[i].IdSolicitudRQDetalle, Detalle[i].IdUnidadMedida, Detalle[i].IdIndicadorImpuesto, Detalle[i].IdAlmacen, Detalle[i].IdProveedor, Detalle[i].IdLineaNegocio, Detalle[i].IdCentroCostos, Detalle[i].IdProyecto, Detalle[i].IdItemMoneda, Detalle[i].ItemTipoCambio, Detalle[i].CantidadNecesaria, Detalle[i].PrecioInfo, Detalle[i].ItemTotal, Detalle[i].NumeroFabricacion, Detalle[i].NumeroSerie, Detalle[i].FechaNecesaria);
+                AgregarLineaDetalle(i, Detalle[i].IdArticulo,Detalle[i].IdSolicitudRQDetalle, Detalle[i].IdUnidadMedida, Detalle[i].IdIndicadorImpuesto, Detalle[i].IdAlmacen, Detalle[i].IdProveedor, Detalle[i].IdLineaNegocio, Detalle[i].IdCentroCostos, Detalle[i].IdProyecto, Detalle[i].IdItemMoneda, Detalle[i].ItemTipoCambio, Detalle[i].CantidadNecesaria, Detalle[i].PrecioInfo, Detalle[i].ItemTotal, Detalle[i].NumeroFabricacion, Detalle[i].NumeroSerie, Detalle[i].FechaNecesaria);
 
             }
 
@@ -797,7 +919,7 @@ function CalcularTotales() {
 }
 
 
-function AgregarLineaDetalle(contador,IdSolicitudRQDetalle,IdUnidadMedida, IdIndicadorImpuesto, IdAlmacen, IdProveedor, IdLineaNegocio, IdCentroCosto, IdProyecto, IdMoneda, ItemTipoCambio, CantidadNecesaria, PrecioInfo, ItemTotal, NumeroFabricacion, NumeroSerie, FechaNecesaria) {
+function AgregarLineaDetalle(contador,IdArticulo,IdSolicitudRQDetalle,IdUnidadMedida, IdIndicadorImpuesto, IdAlmacen, IdProveedor, IdLineaNegocio, IdCentroCosto, IdProyecto, IdMoneda, ItemTipoCambio, CantidadNecesaria, PrecioInfo, ItemTotal, NumeroFabricacion, NumeroSerie, FechaNecesaria) {
 
     let UnidadMedida;
     let IndicadorImpuesto;
@@ -848,7 +970,7 @@ function AgregarLineaDetalle(contador,IdSolicitudRQDetalle,IdUnidadMedida, IdInd
 
     tr += `<tr>
             <td><input style="display:none;" class="form-control" type="text" value="`+ IdSolicitudRQDetalle+`" id="txtIdSolicitudRQDetalle" name="txtIdSolicitudRQDetalle[]"/></td>
-            <td><input class="form-control" type="text" id="txtCodigoArticulo" name="txtCodigoArticulo[]"/></td>
+            <td><input class="form-control" type="text" value="`+ IdArticulo+`" id="txtCodigoArticulo" name="txtCodigoArticulo[]"/></td>
             <td><input class="form-control" type="text" id="txtDescripcionArticulo" name="txtDescripcionArticulo[]"/></td>
             <td>
             <select class="form-control" name="cboUnidadMedida[]">`;
@@ -879,7 +1001,7 @@ function AgregarLineaDetalle(contador,IdSolicitudRQDetalle,IdUnidadMedida, IdInd
             <td><input class="form-control" type="number" name="txtCantidadNecesaria[]" value="`+ CantidadNecesaria+`" id="txtCantidadNecesaria`+ contador + `" onkeyup="CalcularTotalDetalle(` + contador + `)"></td>
             <td><input class="form-control" type="number" name="txtPrecioInfo[]" value="`+ PrecioInfo+`" id="txtPrecioInfo`+ contador + `" onkeyup="CalcularTotalDetalle(` + contador + `)"></td>
             <td>
-            <select class="form-control" name="cboIndicadorImpuesto[]" id="cboIndicadorImpuestoDetalle`+ contador + `" onchange="CalcularTotalDetalle(` + contador + `)">`;
+            <select class="form-control ImpuestoCabecera" name="cboIndicadorImpuesto[]" id="cboIndicadorImpuestoDetalle`+ contador + `" onchange="CalcularTotalDetalle(` + contador + `)">`;
     tr += `  <option impuesto="0" value="0">Seleccione</option>`;
     for (var i = 0; i < IndicadorImpuesto.length; i++) {
         if (IndicadorImpuesto[i].IdIndicadorImpuesto == IdIndicadorImpuesto) {
@@ -989,47 +1111,45 @@ function EnviarTipoCambioDetalle(){
     $(".TipoCambioDeCabecera").val(TpCambio);
 }
 
-//function setearValor_ComboRenderizado(combo) {
+
+function AgregarLineaAnexo() {
 
 
-//    $("#"+combo).select2(
-//        {
-//            ajax: {
-//                url: "/Articulo/ObtenerArticulos",
-//                dataType: 'json',
-//                processResults: function (data) {
-//                    let ArrayProductos = new Array();
-//                    for (var i = 0; i < data.length; i++) {
-//                        ArrayProductos.push({ "id": data[i].IdArticulo, "text": data[i].Descripcion1 });
-//                    }
-//                    return {
-//                        results: [
-//                            {
-//                                id: 0,
-//                                text: 'enhancement'
-//                            },
-//                            {
-//                                id: 1,
-//                                text: 'bug'
-//                            },
-//                            {
-//                                id: 2,
-//                                text: 'duplicate'
-//                            },
-//                            {
-//                                id: 3,
-//                                text: 'invalid'
-//                            },
-//                            {
-//                                id: 4,
-//                                text: 'wontfix'
-//                            }
-//                        ]
-//                    };
-//                }
-//            }
-//        }
-//    );
+    let tr = '';
+
+    tr += `<tr>
+            <td><input style="display:none;" class="form-control" type="text" value="0" id="txtIdSolicitudRQAnexo" name="txtIdSolicitudRQAnexo[]"/></td>
+           <td>
+                <input class="form-control" type="file" id="txtFile" name="txtFile[]"/>
+            </td>
+
+            <td><button class="btn btn-xs btn-danger borrar">-</button></td>
+            </tr>`;
+
+    $("#tabla_anexos").find('tbody').append(tr);
+
+}
 
 
-//}
+function BuscarCodigoProducto() {
+
+    let Codigo = $("#txtCodigoItem").val();
+
+    $.post("/Articulo/ObtenerArticuloxCodigo", { 'Codigo': Codigo }, function (data, status) {
+
+        if (data == "error") {
+            swal("Info!", "No se encontro Articulo")
+        } else {
+            let datos = JSON.parse(data);
+            console.log(datos);
+            $("#txtDescripcionItem").val(datos[0].Descripcion1);
+            $("#cboMedidaItem").val(datos[0].IdUnidadMedida);
+            $("#txtPrecioUnitarioItem").val(1);
+            $("#txtStockAlmacenItem").val("Si");
+
+        }
+      
+
+    });
+
+}
