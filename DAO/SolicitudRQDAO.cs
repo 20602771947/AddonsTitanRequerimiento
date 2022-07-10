@@ -200,7 +200,7 @@ namespace DAO
                         oSolicitudRQDTO.Comentarios = drd["Comentarios"].ToString();
                         oSolicitudRQDTO.Estado = int.Parse(drd["Estado"].ToString());
                         oSolicitudRQDTO.DetalleEstado = drd["DetalleEstado"].ToString();
-
+                        oSolicitudRQDTO.Prioridad = int.Parse(drd["Prioridad"].ToString());
                         //lstSolicitudRQDTO.Add(oSolicitudRQDTO);
                     }
                     drd.Close();
@@ -264,6 +264,7 @@ namespace DAO
                         oSolicitudRQDetalleDTO.IdItemMoneda = int.Parse(drd["IdMoneda"].ToString());
                         oSolicitudRQDetalleDTO.ItemTipoCambio = decimal.Parse(drd["TipoCambio"].ToString());
                         oSolicitudRQDetalleDTO.Referencia = drd["Referencia"].ToString();
+                        oSolicitudRQDetalleDTO.DescripcionItem = drd["DescripcionItem"].ToString();
                         //lstSolicitudRQDTO.Add(oSolicitudRQDTO.Detalle.Add(oSolicitudRQDetalleDTO));
                         oSolicitudRQDTO.Detalle[posicion]= oSolicitudRQDetalleDTO;
                         posicion = posicion + 1;

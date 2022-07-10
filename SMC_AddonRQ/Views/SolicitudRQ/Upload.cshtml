@@ -1,0 +1,36 @@
+﻿@model List<string>
+@{
+    ViewBag.Title = "Listado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Upload</h2>
+
+@using (Html.BeginForm("Listado", "SolicitudRQ", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <label for="file">Subir Anexos</label>
+    <input type="file" name="file" id="file" />
+    <br />
+    <input type="submit" value="Subir Archivo" />
+    <br />
+    @ViewBag.Message
+    <br />
+
+    <h2>Documentos</h2>
+    <table>
+        <tr>
+            <td>Nombre</td>
+            <td>Link</td>
+        </tr>
+
+        @for (var i = 0; i <= Model.Count - 1; i++)
+        {
+            <tr>
+                <td>@Model[i].ToString()</td>
+                <td>@Html.ActionLink("Download", "Download", new { ImageName = Model[i].ToString() })</td>
+            </tr>
+        }
+    </table>
+
+}

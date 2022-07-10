@@ -673,8 +673,10 @@
     <Content Include="Views\ModeloAutorizacion\Listado.cshtml" />
     <Content Include="Views\Articulo\Listado.cshtml" />
     <Content Include="Views\CodigoUbso\Listado.cshtml" />
+    <Content Include="Views\SolicitudRQ\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Anexos\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Pais\" />

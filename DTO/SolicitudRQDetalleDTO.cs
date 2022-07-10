@@ -26,5 +26,6 @@ namespace DTO
         public List<int> IdProyecto { get; set; }
         public List<int> IdItemMoneda { get; set; }
         public List<decimal> ItemTipoCambio { get; set; }
+        public List<string> Referencia { get; set; }
     }
 }

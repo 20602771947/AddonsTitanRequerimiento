@@ -8,6 +8,7 @@ using DTO;
 using Newtonsoft.Json;
 using System.Net.Mail;
 using System.Net;
+using System.IO;
 
 namespace SMC_AddonRQ.Controllers
 {
@@ -16,7 +17,14 @@ namespace SMC_AddonRQ.Controllers
         // GET: SolicitudRQ
         public ActionResult Listado()
         {
-            return View();
+            var items = GetFiles();
+            return View(items);
+        }
+
+        public ActionResult Upload()
+        {
+            var items = GetFiles();
+            return View(items);
         }
 
 
@@ -137,9 +145,50 @@ namespace SMC_AddonRQ.Controllers
 
         }
 
-        public void CargarFiles()
+
+
+        [HttpPost]
+        public ActionResult Listado(HttpPostedFileBase file)
         {
-            string hola = "dasd";
+            if (file!=null && file.ContentLength > 0)
+            {
+                try
+                {
+                    string path = Path.Combine(Server.MapPath("~/Anexos"),Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                    ViewBag.Message = "Anexo guardado correctamente";
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "Error:" + ex.Message.ToString();
+                    throw;
+                }
+            }
+            else
+            {
+                ViewBag.Message = "Debe especificar el archivo";
+            }
+            var items = GetFiles();
+            return View(items);
+        }
+
+        public FileResult Download(string ImageName)
+        {
+            var FileVirtualPath = "~/Anexos/" + ImageName;
+            return File(FileVirtualPath, "application/force-download", Path.GetFileName(FileVirtualPath));
+        }
+
+        private List<string> GetFiles()
+        {
+            var dir = new System.IO.DirectoryInfo(Server.MapPath("~/Anexos"));
+            System.IO.FileInfo[] fileNames = dir.GetFiles("*.*");
+
+            List<string> items = new List<string>();
+            foreach (var file in fileNames)
+            {
+                items.Add(file.Name);
+            }
+            return items;
         }
 
 

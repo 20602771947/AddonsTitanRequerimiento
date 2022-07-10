@@ -4,6 +4,22 @@
 window.onload = function () {
     var url = "ObtenerSolicitudesRQ";
     ConsultaServidor(url);
+
+    $("#SubirAnexos").on("submit", function (e) {
+        e.preventDefault();
+        var formData = new FormData($("#SubirAnexos")[0]);
+        $.ajax({
+            url: "Listado",
+            type: "POST",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (datos) {
+                console.log(datos);
+            }
+        });
+    }); 
 };
 
 
@@ -94,6 +110,7 @@ function openContenido(evt, Name) {
 let contador = 0;
 function AgregarLinea() {
 
+    let IdItem = $("#txtIdItem").val();
     let CodigoItem = $("#txtCodigoItem").val();
     let MedidaItem = $("#cboMedidaItem").val();
     let DescripcionItem = $("#txtDescripcionItem").val();
@@ -163,6 +180,7 @@ function AgregarLinea() {
     tr += `<tr>
             <td><input style="display:none;" class="form-control" type="text" value="0" id="txtIdSolicitudRQDetalle" name="txtIdSolicitudRQDetalle[]"/></td>
             <td style="display:none">
+            <input class="form-control" type="text" id="txtIdArticulo`+ contador +`" name="txtIdArticulo[]" />
             <input class="form-control" type="text" id="txtCodigoArticulo`+contador+`" name="txtCodigoArticulo[]" />
             </td>
             <td><input class="form-control" type="text" id="txtDescripcionArticulo`+ contador +`" name="txtDescripcionArticulo[]"/></td>
@@ -262,7 +280,8 @@ function AgregarLinea() {
 
 
     
-    $("#CodigoItem"+contador).val(CodigoItem);
+    $("#txtIdArticulo" + contador).val(IdItem);
+    $("#txtCodigoArticulo"+contador).val(CodigoItem);
     $("#txtDescripcionArticulo" + contador).val(DescripcionItem);
     $("#cboUnidadMedida" + contador).val(MedidaItem);
     $("#txtCantidadNecesaria" + contador).val(CantidadItem).change();
@@ -562,14 +581,7 @@ function ObtenerNumeracion() {
 
 function GuardarSolicitud() {
 
-    //let ArrayFile = new Array();
 
-    //$("input[name='file']").each(function (indice, elemento) {
-    //    ArrayFile.push($(elemento).val());
-    //});
-
-    //console.log(ArrayFile);
-    //return;
 
     let ArrayGeneral = new Array();
     let arrayIdArticulo = new Array();
@@ -591,7 +603,7 @@ function GuardarSolicitud() {
     let arrayReferencia= new Array();
     let arrayIdSolicitudDetalle = new Array();
 
-    $("input[name='txtCodigoArticulo[]']").each(function (indice, elemento) {
+    $("input[name='txtIdArticulo[]']").each(function (indice, elemento) {
         arrayIdArticulo.push($(elemento).val());
     });
     $("select[name='cboUnidadMedida[]']").each(function (indice, elemento) {
@@ -645,37 +657,7 @@ function GuardarSolicitud() {
     $("input[name='txtIdSolicitudRQDetalle[]']").each(function (indice, elemento) {
         arrayIdSolicitudDetalle.push($(elemento).val());
     });
-    //ArrayGeneral.push({ 'IdArticulo': arrayIdArticulo });
-
-    //console.log(ArrayGeneral[0]);
-    //return;
-
-
-    //if (!$("#cboSerie").val().length > 0) {
-    //    swal("Info!", "Debe Seleccionar Serie")
-    //    return;
-    //}
-    //if (!$("#cboEmpleado").val().length > 0) {
-    //    swal("Info!", "Debe Seleccionar Solicitante")
-    //    return;
-    //}
-    //if (!$("#cboSucursal").val().length > 0) {
-    //    swal("Info!", "Debe Seleccionar Sucursal")
-    //    return;
-    //}
-    //if (!$("#cboDepartamento").val().length > 0) {
-    //    swal("Info!", "Debe Seleccionar Departamento")
-    //    return;
-    //}
-    //if (!$("#cboMoneda").val().length > 0) {
-    //    swal("Info!", "Debe Seleccionar Moneda")
-    //    return;
-    //}
-    //if (!$("#cboTitular").val().length > 0) {
-    //    swal("Info!", "Debe Seleccionar Titular")
-    //    return;
-    //}
-
+ 
     let varIdSolicitud = $("#txtId").val();
 
     let varSerie = $("#cboSerie").val();
@@ -684,7 +666,7 @@ function GuardarSolicitud() {
     let varNumero = $("#txtNumeracion").val();
     let varMoneda = $("#cboMoneda").val();
     let varTipoCambio = $("#txtTipoCambio").val();
-    let varClaseArticulo = $("#cboClaseArticulo").val();
+    //let varClaseArticulo = $("#cboClaseArticulo").val();
     let varSolicitante = $("#cboEmpleado").val();
     let varFechaContabilizacion = $("#txtFechaContabilizacion").val();
     let varSucursal = $("#cboSucursal").val();
@@ -697,7 +679,7 @@ function GuardarSolicitud() {
     let varImpuesto = $("#txtImpuesto").val();
     let varTotal = $("#txtTotal").val();
     let varPrioridad = $("#cboPrioridad").val();
-
+    let varClaseArticulo = $("#cboClaseArticulo").val();
 
     $.post('UpdateInsertSolicitud', {
         'IdSolicitudRQ': varIdSolicitud,
@@ -781,6 +763,7 @@ function limpiarDatos() {
 function ObtenerDatosxID(IdSolicitudRQ) {
     $("#lblTituloModal").html("Editar Solicitud");
     AbrirModal("modal-form");
+    
 
     $.post('ObtenerDatosxID', {
         'IdSolicitudRQ': IdSolicitudRQ,
@@ -799,6 +782,7 @@ function ObtenerDatosxID(IdSolicitudRQ) {
             CargarSucursales();
             CargarDepartamentos();
             CargarMoneda();
+            CargarImpuestos();
 
             $("#txtId").val(solicitudes[0].IdSolicitudRQ);
             $("#cboSerie").val(solicitudes[0].IdSerie);
@@ -807,6 +791,9 @@ function ObtenerDatosxID(IdSolicitudRQ) {
             $("#txtTipoCambio").val(solicitudes[0].TipoCambio);
             $("#cboClaseArticulo").val(solicitudes[0].IdClaseArticulo);
             $("#cboEmpleado").val(solicitudes[0].IdSolicitante);
+            $("#cboClaseArticulo").val(solicitudes[0].ClaseArticulo);
+            $("#cboPrioridad").val(solicitudes[0].Prioridad);
+            
 
             var fechaSplit = (solicitudes[0].FechaContabilizacion.substring(0, 10)).split("-");
             var fecha = fechaSplit[0] + "-" + fechaSplit[1] + "-" + fechaSplit[2];
@@ -839,8 +826,8 @@ function ObtenerDatosxID(IdSolicitudRQ) {
             console.log(Detalle);
             for (var i = 0; i < Detalle.length; i++) {
 
-                AgregarLineaDetalle(i, Detalle[i].IdArticulo,Detalle[i].IdSolicitudRQDetalle, Detalle[i].IdUnidadMedida, Detalle[i].IdIndicadorImpuesto, Detalle[i].IdAlmacen, Detalle[i].IdProveedor, Detalle[i].IdLineaNegocio, Detalle[i].IdCentroCostos, Detalle[i].IdProyecto, Detalle[i].IdItemMoneda, Detalle[i].ItemTipoCambio, Detalle[i].CantidadNecesaria, Detalle[i].PrecioInfo, Detalle[i].ItemTotal, Detalle[i].NumeroFabricacion, Detalle[i].NumeroSerie, Detalle[i].FechaNecesaria);
-
+                AgregarLineaDetalle(i, Detalle[i].IdArticulo, Detalle[i].IdSolicitudRQDetalle, Detalle[i].IdUnidadMedida, Detalle[i].IdIndicadorImpuesto, Detalle[i].IdAlmacen, Detalle[i].IdProveedor, Detalle[i].IdLineaNegocio, Detalle[i].IdCentroCostos, Detalle[i].IdProyecto, Detalle[i].IdItemMoneda, Detalle[i].ItemTipoCambio, Detalle[i].CantidadNecesaria, Detalle[i].PrecioInfo, Detalle[i].ItemTotal, Detalle[i].NumeroFabricacion, Detalle[i].NumeroSerie, Detalle[i].FechaNecesaria, Detalle[i].Referencia, Detalle[i].DescripcionItem);
+                $("#cboImpuesto").val(Detalle[0].IdIndicadorImpuesto);
             }
 
 
@@ -919,7 +906,7 @@ function CalcularTotales() {
 }
 
 
-function AgregarLineaDetalle(contador,IdArticulo,IdSolicitudRQDetalle,IdUnidadMedida, IdIndicadorImpuesto, IdAlmacen, IdProveedor, IdLineaNegocio, IdCentroCosto, IdProyecto, IdMoneda, ItemTipoCambio, CantidadNecesaria, PrecioInfo, ItemTotal, NumeroFabricacion, NumeroSerie, FechaNecesaria) {
+function AgregarLineaDetalle(contador, IdArticulo, IdSolicitudRQDetalle, IdUnidadMedida, IdIndicadorImpuesto, IdAlmacen, IdProveedor, IdLineaNegocio, IdCentroCosto, IdProyecto, IdMoneda, ItemTipoCambio, CantidadNecesaria, PrecioInfo, ItemTotal, NumeroFabricacion, NumeroSerie, FechaNecesaria, Referencia, DescripcionItem) {
 
     let UnidadMedida;
     let IndicadorImpuesto;
@@ -970,8 +957,11 @@ function AgregarLineaDetalle(contador,IdArticulo,IdSolicitudRQDetalle,IdUnidadMe
 
     tr += `<tr>
             <td><input style="display:none;" class="form-control" type="text" value="`+ IdSolicitudRQDetalle+`" id="txtIdSolicitudRQDetalle" name="txtIdSolicitudRQDetalle[]"/></td>
-            <td><input class="form-control" type="text" value="`+ IdArticulo+`" id="txtCodigoArticulo" name="txtCodigoArticulo[]"/></td>
-            <td><input class="form-control" type="text" id="txtDescripcionArticulo" name="txtDescripcionArticulo[]"/></td>
+            <td style="display:none">
+            <input class="form-control" type="text" value="" id="txtCodigoArticulo" name="txtCodigoArticulo[]"/>
+            <input class="form-control" type="hidden" value="`+ IdArticulo +`" id="txtIdArticulo" name="txtIdArticulo[]"/>
+            </td>
+            <td ><input class="form-control" value="`+ DescripcionItem +`" type="text" id="txtDescripcionArticulo" name="txtDescripcionArticulo[]"/></td>
             <td>
             <select class="form-control" name="cboUnidadMedida[]">`;
     tr += `  <option value="0">Seleccione</option>`;
@@ -984,8 +974,8 @@ function AgregarLineaDetalle(contador,IdArticulo,IdSolicitudRQDetalle,IdUnidadMe
     }
     tr += `</select>
             </td>
-            <td><input class="form-control" type="date" value="`+ fecha + `" id="txtFechaNecesaria` + contador + `" name="txtFechaNecesaria[]"></td>
-            <td>
+            <td style="display:none"><input class="form-control" type="date" value="`+ fecha + `" id="txtFechaNecesaria` + contador + `" name="txtFechaNecesaria[]"></td>
+            <td style="display:none">
             <select class="form-control MonedaDeCabecera" style="width:100px" name="cboMoneda[]" id="cboMonedaDetalle`+ contador + `" disabled>`;
     tr += `  <option value="0">Seleccione</option>`;
     for (var i = 0; i < Moneda.length; i++) {
@@ -997,10 +987,10 @@ function AgregarLineaDetalle(contador,IdArticulo,IdSolicitudRQDetalle,IdUnidadMe
     }
     tr += `</select>
             </td>
-            <td><input class="form-control TipoCambioDeCabecera" type="number" name="txtTipoCambio[]" value="`+ ItemTipoCambio+`" id="txtTipoCambioDetalle`+ contador + `" disabled></td>
+            <td style="display:none"><input class="form-control TipoCambioDeCabecera" type="number" name="txtTipoCambio[]" value="`+ ItemTipoCambio+`" id="txtTipoCambioDetalle`+ contador + `" disabled></td>
             <td><input class="form-control" type="number" name="txtCantidadNecesaria[]" value="`+ CantidadNecesaria+`" id="txtCantidadNecesaria`+ contador + `" onkeyup="CalcularTotalDetalle(` + contador + `)"></td>
             <td><input class="form-control" type="number" name="txtPrecioInfo[]" value="`+ PrecioInfo+`" id="txtPrecioInfo`+ contador + `" onkeyup="CalcularTotalDetalle(` + contador + `)"></td>
-            <td>
+            <td style="display:none">
             <select class="form-control ImpuestoCabecera" name="cboIndicadorImpuesto[]" id="cboIndicadorImpuestoDetalle`+ contador + `" onchange="CalcularTotalDetalle(` + contador + `)">`;
     tr += `  <option impuesto="0" value="0">Seleccione</option>`;
     for (var i = 0; i < IndicadorImpuesto.length; i++) {
@@ -1013,7 +1003,7 @@ function AgregarLineaDetalle(contador,IdArticulo,IdSolicitudRQDetalle,IdUnidadMe
     tr += `</select>
             </td>
             <td><input class="form-control changeTotal" type="number" style="width:100px" value="`+ ItemTotal+`" name="txtItemTotal[]" id="txtItemTotal`+ contador + `" onchange="CalcularTotales()"></td>
-            <td>
+            <td style="display:none">
             <select class="form-control" style="width:100px" name="cboAlmacen[]">`;
     tr += `  <option value="0">Seleccione</option>`;
     for (var i = 0; i < Almacen.length; i++) {
@@ -1025,7 +1015,7 @@ function AgregarLineaDetalle(contador,IdArticulo,IdSolicitudRQDetalle,IdUnidadMe
     }
     tr += `</select>
             </td>
-            <td>
+            <td style="display:none">
             <select class="form-control" style="width:100px" name="cboProveedor[]">`;
     tr += `  <option value="0">Seleccione</option>`;
     for (var i = 0; i < Proveedor.length; i++) {
@@ -1037,9 +1027,9 @@ function AgregarLineaDetalle(contador,IdArticulo,IdSolicitudRQDetalle,IdUnidadMe
     }
     tr += `</select>
             </td>
-            <td><input class="form-control" type="text" value="`+ NumeroFabricacion+`" name="txtNumeroFacbricacion[]"></td>
-            <td><input class="form-control" type="text" value="`+ NumeroSerie+`" name="txtNumeroSerie[]"></td>
-            <td>
+            <td style="display:none"><input class="form-control" type="text" value="`+ NumeroFabricacion+`" name="txtNumeroFacbricacion[]"></td>
+            <td style="display:none"><input class="form-control" type="text" value="`+ NumeroSerie+`" name="txtNumeroSerie[]"></td>
+            <td style="display:none">
             <select class="form-control" name="cboLineaNegocio[]">`;
     tr += `  <option value="0">Seleccione</option>`;
     for (var i = 0; i < LineaNegocio.length; i++) {
@@ -1075,8 +1065,9 @@ function AgregarLineaDetalle(contador,IdArticulo,IdSolicitudRQDetalle,IdUnidadMe
     }
     tr += `</select>
             </td>
-            <td><input class="form-control" type="text" value="0" disabled></td>
-            <td><input class="form-control" type="text" value="0" disabled></td>
+            <td style="display:none"><input class="form-control" type="text" value="0" disabled></td>
+            <td style="display:none"><input class="form-control" type="text" value="0" disabled></td>
+            <td ><input class="form-control" type="text" value="`+ Referencia+`"  name="txtReferencia[]"></td>
             <td><button class="btn btn-xs btn-danger"  onclick="EliminarDetalle(`+ IdSolicitudRQDetalle+`,this)">-</button></td>
           <tr>`;
 
@@ -1142,6 +1133,8 @@ function BuscarCodigoProducto() {
         } else {
             let datos = JSON.parse(data);
             console.log(datos);
+            
+            $("#txtIdItem").val(datos[0].IdArticulo);
             $("#txtDescripcionItem").val(datos[0].Descripcion1);
             $("#cboMedidaItem").val(datos[0].IdUnidadMedida);
             $("#txtPrecioUnitarioItem").val(1);
@@ -1153,3 +1146,5 @@ function BuscarCodigoProducto() {
     });
 
 }
+
+

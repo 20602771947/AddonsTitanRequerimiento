@@ -27,6 +27,7 @@ namespace DTO
         public int IdProyecto { get; set; }
         public int IdItemMoneda { get; set; }
         public decimal ItemTipoCambio { get; set; }
-
+        public string Referencia { get; set; }
+        public string DescripcionItem { get; set; }
     }
 }
