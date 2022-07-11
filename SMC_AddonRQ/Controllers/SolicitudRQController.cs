@@ -17,14 +17,12 @@ namespace SMC_AddonRQ.Controllers
         // GET: SolicitudRQ
         public ActionResult Listado()
         {
-            var items = GetFiles();
-            return View(items);
+            return View();
         }
 
         public ActionResult Upload()
         {
-            var items = GetFiles();
-            return View(items);
+            return View();
         }
 
 
@@ -64,6 +62,18 @@ namespace SMC_AddonRQ.Controllers
         {
             SolicitudRQDAO oSolicitudRQDAO = new SolicitudRQDAO();
             int resultado = oSolicitudRQDAO.Delete(IdSolicitudRQDetalle);
+            if (resultado == 0)
+            {
+                resultado = 1;
+            }
+
+            return resultado;
+        }
+
+        public int EliminarAnexoSolicitud(int IdSolicitudRQAnexos)
+        {
+            SolicitudRQDAO oSolicitudRQDAO = new SolicitudRQDAO();
+            int resultado = oSolicitudRQDAO.DeleteAnexo(IdSolicitudRQAnexos);
             if (resultado == 0)
             {
                 resultado = 1;
@@ -147,16 +157,27 @@ namespace SMC_AddonRQ.Controllers
 
 
 
-        [HttpPost]
-        public ActionResult Listado(HttpPostedFileBase file)
+        //[HttpPost]
+        public string GuardarFile(HttpPostedFileBase file)
         {
+            List<string> Archivos = new List<string>();
             if (file!=null && file.ContentLength > 0)
             {
                 try
                 {
-                    string path = Path.Combine(Server.MapPath("~/Anexos"),Path.GetFileName(file.FileName));
-                    file.SaveAs(path);
-                    ViewBag.Message = "Anexo guardado correctamente";
+                    string dir = "~/Anexos/"+ file.FileName;
+                    if (Directory.Exists(dir))
+                    {
+                        ViewBag.Message = "Archivo ya existe";
+                    }
+                    else
+                    {
+                        string path = Path.Combine(Server.MapPath("~/Anexos"), Path.GetFileName(file.FileName));
+                        file.SaveAs(path);
+                        Archivos.Add(file.FileName);
+                        ViewBag.Message = "Anexo guardado correctamente";
+                    }
+                   
                 }
                 catch (Exception ex)
                 {
@@ -168,8 +189,8 @@ namespace SMC_AddonRQ.Controllers
             {
                 ViewBag.Message = "Debe especificar el archivo";
             }
-            var items = GetFiles();
-            return View(items);
+            var items = GetFiles(Archivos);
+            return items;
         }
 
         public FileResult Download(string ImageName)
@@ -178,18 +199,39 @@ namespace SMC_AddonRQ.Controllers
             return File(FileVirtualPath, "application/force-download", Path.GetFileName(FileVirtualPath));
         }
 
-        private List<string> GetFiles()
+        public string GetFiles(List<string> files)
         {
             var dir = new System.IO.DirectoryInfo(Server.MapPath("~/Anexos"));
-            System.IO.FileInfo[] fileNames = dir.GetFiles("*.*");
-
             List<string> items = new List<string>();
-            foreach (var file in fileNames)
+
+            for (int i = 0; i < files.Count; i++)
             {
-                items.Add(file.Name);
+                System.IO.FileInfo[] fileNames = dir.GetFiles(files[i] + ".*");
+                foreach (var file in fileNames)
+                {
+                    items.Add(file.Name);
+                }
             }
-            return items;
+
+           
+            return JsonConvert.SerializeObject(items);
         }
+
+        //public FileResult EliminarArchivo(string filename)
+        //{
+        //    string path = "~/Anexos/"+ filename;
+        //    bool result = File.Exists(path);
+        //    if (result == true)
+        //    {
+        //        Console.WriteLine("File Found");
+        //        File.Delete(path);
+        //        Console.WriteLine("File Deleted Successfully");
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("File Not Found");
+        //    }
+        //}
 
 
     }

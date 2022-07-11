@@ -9,14 +9,19 @@ window.onload = function () {
         e.preventDefault();
         var formData = new FormData($("#SubirAnexos")[0]);
         $.ajax({
-            url: "Listado",
+            url: "GuardarFile",
             type: "POST",
             data: formData,
             cache: false,
             contentType: false,
             processData: false,
             success: function (datos) {
-                console.log(datos);
+                let data = JSON.parse(datos);
+                console.log(data);
+                if (data.length > 0) {
+                    AgregarLineaAnexo(data[0]);
+                }
+                
             }
         });
     }); 
@@ -76,7 +81,7 @@ function ModalNuevo() {
     CargarSucursales();
     CargarDepartamentos();
     CargarMoneda();
-    AgregarLineaAnexo();
+    
     CargarImpuestos();
     $("#cboImpuesto").val(2).change();
     AbrirModal("modal-form");
@@ -91,6 +96,43 @@ function OpenModalItem() {
     CargarCentroCostos();
 }
 
+function AgregarLineaAnexo(Nombre) {
+
+    let tr = '';
+    tr += `<tr>
+            <td style="display:none"><input  class="form-control" type="text" value="0" id="txtIdSolicitudRQAnexo" name="txtIdSolicitudRQAnexo[]"/></td>
+            <td>
+               `+ Nombre +`
+               <input  class="form-control" type="hidden" value="`+ Nombre +`" id="txtNombreAnexo" name="txtNombreAnexo[]"/>
+            </td>
+            <td>
+               <a href="/SolicitudRQ/Download?ImageName=`+ Nombre +`" >Descargar</a>
+            </td>
+            <td><button class="btn btn-xs btn-danger borrar">-</button></td>
+            </tr>`;
+
+    $("#tabla_files").find('tbody').append(tr);
+
+}
+
+function AgregarLineaDetalleAnexo(Id,Nombre) {
+
+    let tr = '';
+    tr += `<tr>
+            <td style="display:none"><input  class="form-control" type="text" value="`+Id+`" id="txtIdSolicitudRQAnexo" name="txtIdSolicitudRQAnexo[]"/></td>
+            <td>
+               `+ Nombre + `
+               <input  class="form-control" type="hidden" value="`+ Nombre + `" id="txtNombreAnexo" name="txtNombreAnexo[]"/>
+            </td>
+            <td>
+               <a href="/SolicitudRQ/Download?ImageName=`+ Nombre + `" >Descargar</a>
+            </td>
+            <td><button class="btn btn-xs btn-danger" onclick="EliminarAnexo(`+ Id +`,this)">-</button></td>
+            </tr>`;
+
+    $("#tabla_files").find('tbody').append(tr);
+
+}
 
 
 function openContenido(evt, Name) {
@@ -106,6 +148,28 @@ function openContenido(evt, Name) {
     document.getElementById(Name).style.display = "block";
     evt.currentTarget.className += " active";
 }
+
+
+function EliminarAnexo(Id,dato) {
+
+    alertify.confirm('Confirmar', '¿Desea eliminar este item?', function () {
+
+        $.post("EliminarAnexoSolicitud", { 'IdSolicitudRQAnexos': Id }, function (data, status) {
+
+            if (data == 0) {
+                swal("Error!", "Ocurrio un Error")
+
+            } else {
+                swal("Exito!", "Item Eliminado", "success")
+                $(dato).closest('tr').remove();
+            }
+
+        });
+
+    }, function () { });
+
+}
+
 
 let contador = 0;
 function AgregarLinea() {
@@ -513,6 +577,7 @@ $(document).on('click', '.borrar', function (event) {
 
 function CerrarModal() {
     $("#tabla").find('tbody').empty();
+    $("#tabla_files").find('tbody').empty();
     $.magnificPopup.close();
     limpiarDatos();
 }
@@ -580,8 +645,7 @@ function ObtenerNumeracion() {
 
 
 function GuardarSolicitud() {
-
-
+   
 
     let ArrayGeneral = new Array();
     let arrayIdArticulo = new Array();
@@ -657,6 +721,8 @@ function GuardarSolicitud() {
     $("input[name='txtIdSolicitudRQDetalle[]']").each(function (indice, elemento) {
         arrayIdSolicitudDetalle.push($(elemento).val());
     });
+
+
  
     let varIdSolicitud = $("#txtId").val();
 
@@ -680,6 +746,22 @@ function GuardarSolicitud() {
     let varTotal = $("#txtTotal").val();
     let varPrioridad = $("#cboPrioridad").val();
     let varClaseArticulo = $("#cboClaseArticulo").val();
+
+
+
+    arrayIdSolicitudRQAnexo = new Array();
+    arrayNombreAnexo = new Array();
+    arrayGeneralAnexo = new Array();
+    $("input[name='txtIdSolicitudRQAnexo[]']").each(function (indice, elemento) {
+        arrayIdSolicitudRQAnexo.push($(elemento).val());
+    });
+    $("input[name='txtNombreAnexo[]']").each(function (indice, elemento) {
+        arrayNombreAnexo.push($(elemento).val());
+    });
+    for (var i = 0; i < arrayNombreAnexo.length; i++) {
+        arrayGeneralAnexo.push({ 'IdSolicitudRQAnexos': arrayIdSolicitudRQAnexo[i], 'Nombre': arrayNombreAnexo[i] });
+    }
+
 
     $.post('UpdateInsertSolicitud', {
         'IdSolicitudRQ': varIdSolicitud,
@@ -720,7 +802,8 @@ function GuardarSolicitud() {
         'IdCentroCostos': arrayCentroCosto,
         'IdProyecto': arrayProyecto,
         'Referencia':arrayReferencia,
-        'IdSolicitudRQDetalle': arrayIdSolicitudDetalle
+        'IdSolicitudRQDetalle': arrayIdSolicitudDetalle,
+        'DetalleAnexo': arrayGeneralAnexo
         
     }, function (data, status) {
 
@@ -775,8 +858,9 @@ function ObtenerDatosxID(IdSolicitudRQ) {
             limpiarDatos();
         } else {
             let solicitudes = JSON.parse(data);
-            
-
+            console.log("sda");
+            console.log(solicitudes);
+     
             CargarSeries();
             CargarSolicitante();
             CargarSucursales();
@@ -791,7 +875,7 @@ function ObtenerDatosxID(IdSolicitudRQ) {
             $("#txtTipoCambio").val(solicitudes[0].TipoCambio);
             $("#cboClaseArticulo").val(solicitudes[0].IdClaseArticulo);
             $("#cboEmpleado").val(solicitudes[0].IdSolicitante);
-            $("#cboClaseArticulo").val(solicitudes[0].ClaseArticulo);
+            //$("#cboClaseArticulo").val(solicitudes[0].ClaseArticulo);
             $("#cboPrioridad").val(solicitudes[0].Prioridad);
             
 
@@ -831,7 +915,10 @@ function ObtenerDatosxID(IdSolicitudRQ) {
             }
 
 
-
+            let DetalleAnexo = solicitudes[0].DetallesAnexo;
+            for (var i = 0; i < DetalleAnexo.length; i++) {
+                AgregarLineaDetalleAnexo(DetalleAnexo[i].IdSolicitudRQAnexos, DetalleAnexo[i].Nombre)
+            }
 
 
         }
@@ -1103,23 +1190,7 @@ function EnviarTipoCambioDetalle(){
 }
 
 
-function AgregarLineaAnexo() {
 
-
-    let tr = '';
-
-    tr += `<tr>
-            <td><input style="display:none;" class="form-control" type="text" value="0" id="txtIdSolicitudRQAnexo" name="txtIdSolicitudRQAnexo[]"/></td>
-           <td>
-                <input class="form-control" type="file" id="txtFile" name="txtFile[]"/>
-            </td>
-
-            <td><button class="btn btn-xs btn-danger borrar">-</button></td>
-            </tr>`;
-
-    $("#tabla_anexos").find('tbody').append(tr);
-
-}
 
 
 function BuscarCodigoProducto() {

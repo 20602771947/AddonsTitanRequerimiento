@@ -139,16 +139,23 @@ namespace DAO
                             dad.SelectCommand.Parameters.AddWithValue("@TipoCambio", oSolicitudRQDetalleDTO.ItemTipoCambio[i]);
                             dad.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
                             dad.SelectCommand.Parameters.AddWithValue("@Referencia", oSolicitudRQDetalleDTO.Referencia[i]);
-                            //IdInsertDetalle = Convert.ToInt32(dad.SelectCommand.ExecuteScalar());
                             rpta = dad.SelectCommand.ExecuteNonQuery();
-                            //int rptaDetalle = dad.SelectCommand.ExecuteNonQuery();
+                            
                         }
 
-                        //if (IdInsert > 0 && IdInsertDetalle>0)
-                        //{
-                        //    rpta = 1;
-                        //}
-                       
+                        for (int i = 0; i < oSolicitudRQDTO.DetalleAnexo.Count; i++)
+                        {
+                            SqlDataAdapter dad = new SqlDataAdapter("SMC_UpdateInsertSolicitudRQAnexos", cn);
+                            dad.SelectCommand.CommandType = CommandType.StoredProcedure;
+                            dad.SelectCommand.Parameters.AddWithValue("@IdSolicitudRQAnexos", oSolicitudRQDTO.DetalleAnexo[i].IdSolicitudRQAnexos);
+                            dad.SelectCommand.Parameters.AddWithValue("@IdSolicitud", IdInsert);
+                            dad.SelectCommand.Parameters.AddWithValue("@Nombre", oSolicitudRQDTO.DetalleAnexo[i].Nombre);
+                            dad.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
+                            rpta = dad.SelectCommand.ExecuteNonQuery();
+                        }
+
+
+
                         transactionScope.Complete();
                         return rpta;
                     }
@@ -275,6 +282,58 @@ namespace DAO
                 {
                 }
 
+            }
+
+
+
+            Int32 filasdetalleAnexo = 0;
+            using (SqlConnection cn = new Conexion().conectar())
+            {
+                try
+                {
+                    cn.Open();
+                    SqlDataAdapter da = new SqlDataAdapter("SMC_ListarSolicitudAnexosRQxID", cn);
+                    da.SelectCommand.Parameters.AddWithValue("@IdSolicitudRQ", IdSolicitudRQ);
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader dr1 = da.SelectCommand.ExecuteReader();
+                    while (dr1.Read())
+                    {
+                        filasdetalleAnexo++;
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+
+            oSolicitudRQDTO.DetallesAnexo = new SolicitudRQAnexos[filasdetalleAnexo];
+            using (SqlConnection cn = new Conexion().conectar())
+            {
+                try
+                {
+                    cn.Open();
+                    SqlDataAdapter da = new SqlDataAdapter("SMC_ListarSolicitudAnexosRQxID", cn);
+                    da.SelectCommand.Parameters.AddWithValue("@IdSolicitudRQ", IdSolicitudRQ);
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader drd = da.SelectCommand.ExecuteReader();
+                    Int32 posicion = 0;
+                    while (drd.Read())
+                    {
+                        SolicitudRQAnexos oSolicitudRQAnexos = new SolicitudRQAnexos();
+                        oSolicitudRQAnexos.IdSolicitudRQAnexos = int.Parse(drd["Id"].ToString());
+                        oSolicitudRQAnexos.IdSolicitud = int.Parse(drd["IdSolicitud"].ToString());
+                        oSolicitudRQAnexos.Nombre = drd["Nombre"].ToString();
+                        oSolicitudRQAnexos.IdSociedad = int.Parse(drd["IdSociedad"].ToString());
+
+                        oSolicitudRQDTO.DetallesAnexo[posicion] = oSolicitudRQAnexos;
+                        posicion = posicion + 1;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                }
+
                 lstSolicitudRQDTO.Add(oSolicitudRQDTO);
 
             }
@@ -314,6 +373,38 @@ namespace DAO
                 }
             }
         }
+
+
+        public int DeleteAnexo(int IdSolicitudRQAnexos)
+        {
+            TransactionOptions transactionOptions = default(TransactionOptions);
+            transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;
+            transactionOptions.Timeout = TimeSpan.FromSeconds(60.0);
+            TransactionOptions option = transactionOptions;
+            using (SqlConnection cn = new Conexion().conectar())
+            {
+                using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.Required, option))
+                {
+                    try
+                    {
+                        cn.Open();
+                        SqlDataAdapter da = new SqlDataAdapter("SMC_EliminarAnexoSolicitud", cn);
+                        da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                        da.SelectCommand.Parameters.AddWithValue("@IdSolicitudRQAnexo", IdSolicitudRQAnexos);
+                        int rpta = Convert.ToInt32(da.SelectCommand.ExecuteScalar());
+                        transactionScope.Complete();
+                        return rpta;
+                    }
+                    catch (Exception ex)
+                    {
+                        return -1;
+                    }
+                }
+            }
+        }
+
+
+
 
     }
 }

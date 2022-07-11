@@ -33,8 +33,17 @@ namespace DTO
         public string DetalleEstado { get; set; }
 
         public IList<SolicitudDetalleDTO> Detalle;
+
+        public List<SolicitudRQAnexos> DetalleAnexo { get; set; }
+        public IList<SolicitudRQAnexos> DetallesAnexo;
     }
 
 
-
+    public class SolicitudRQAnexos
+    {
+        public int IdSolicitudRQAnexos { get; set; }
+        public int IdSolicitud { get; set; }
+        public string Nombre { get; set; }
+        public int IdSociedad { get; set; }
+    }
 }
