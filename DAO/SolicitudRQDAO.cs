@@ -109,8 +109,36 @@ namespace DAO
                             IdInsert = oSolicitudRQDTO.IdSolicitudRQ;
                         }
                         else
-                        {
+                        {//cuando es un nuevo requerimiento
                             IdInsert = Convert.ToInt32(da.SelectCommand.ExecuteScalar());
+
+                            //ModeloAutorizacionDAO oModeloAutorizacionDAO = new ModeloAutorizacionDAO();
+                            //SolicitudRQModeloDAO oSolicitudRQModeloDAO = new SolicitudRQModeloDAO();
+                            //var Datos = oModeloAutorizacionDAO.VerificarExisteModeloSolicitud();
+
+                            //if (Datos.Count > 0)
+                            //{
+                            //    for (int i = 0; i < Datos.Count; i++)
+                            //    {
+                            //        var Resultado = oModeloAutorizacionDAO.ObtenerDatosxID(Datos[i].IdModeloAutorizacion);
+                            //        //oSolicitudRQModeloDAO.UpdateInsertSolicitudRQModelo(new SolicitudRQModeloDTO {
+                            //        //    IdSolicitud = IdInsert,
+                            //        //    IdModelo = Resultado
+                            //        //});
+
+                            //        //UsuarioDAO oUsuarioDAO = new UsuarioDAO();
+                            //        //EmpleadoDAO oEmpleadoDAO = new EmpleadoDAO();
+                            //        //for (int j = 0; j < Resultado[0].DetallesAutor.Count; j++)
+                            //        //{
+                            //        //    var User = oUsuarioDAO.ObtenerDatosxID(Resultado[0].DetallesAutor[j].IdAutor);
+                            //        //    var Solicitante = oEmpleadoDAO.ObtenerDatosxID(solicitudRQDTO.IdSolicitante);
+                            //        //    EnviarCorreo(User[0].Correo,Solicitante[0].RazonSocial, solicitudRQDTO.Serie, solicitudRQDTO.Numero);
+                            //        //}
+
+                            //    }
+                            //}
+
+
                         }
                         
                         //int rpta = da.SelectCommand.ExecuteNonQuery();
@@ -143,16 +171,20 @@ namespace DAO
                             
                         }
 
-                        for (int i = 0; i < oSolicitudRQDTO.DetalleAnexo.Count; i++)
+                        if (oSolicitudRQDTO.DetalleAnexo.Count > 0)
                         {
-                            SqlDataAdapter dad = new SqlDataAdapter("SMC_UpdateInsertSolicitudRQAnexos", cn);
-                            dad.SelectCommand.CommandType = CommandType.StoredProcedure;
-                            dad.SelectCommand.Parameters.AddWithValue("@IdSolicitudRQAnexos", oSolicitudRQDTO.DetalleAnexo[i].IdSolicitudRQAnexos);
-                            dad.SelectCommand.Parameters.AddWithValue("@IdSolicitud", IdInsert);
-                            dad.SelectCommand.Parameters.AddWithValue("@Nombre", oSolicitudRQDTO.DetalleAnexo[i].Nombre);
-                            dad.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
-                            rpta = dad.SelectCommand.ExecuteNonQuery();
+                            for (int i = 0; i < oSolicitudRQDTO.DetalleAnexo.Count; i++)
+                            {
+                                SqlDataAdapter dad = new SqlDataAdapter("SMC_UpdateInsertSolicitudRQAnexos", cn);
+                                dad.SelectCommand.CommandType = CommandType.StoredProcedure;
+                                dad.SelectCommand.Parameters.AddWithValue("@IdSolicitudRQAnexos", oSolicitudRQDTO.DetalleAnexo[i].IdSolicitudRQAnexos);
+                                dad.SelectCommand.Parameters.AddWithValue("@IdSolicitud", IdInsert);
+                                dad.SelectCommand.Parameters.AddWithValue("@Nombre", oSolicitudRQDTO.DetalleAnexo[i].Nombre);
+                                dad.SelectCommand.Parameters.AddWithValue("@IdSociedad", int.Parse(IdSociedad));
+                                rpta = dad.SelectCommand.ExecuteNonQuery();
+                            }
                         }
+                        
 
 
 

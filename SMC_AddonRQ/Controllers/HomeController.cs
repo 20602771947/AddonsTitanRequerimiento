@@ -50,6 +50,8 @@ namespace SMC_AddonRQ.Controllers
                     base.Session["IdSociedad"] = oUsuarioDTO.IdSociedad;
                     base.Session["Estado"] = oUsuarioDTO.Estado;
                     base.Session["NombreSociedad"] = oUsuarioDTO.NombreSociedad;
+                    base.Session["NombreDepartamento"] = oUsuarioDTO.NombreDepartamento;
+                    base.Session["IdDepartamento"] = oUsuarioDTO.IdDepartamento;
 
                     return true;
                 }

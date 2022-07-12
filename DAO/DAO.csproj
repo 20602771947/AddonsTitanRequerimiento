@@ -68,6 +68,7 @@
     <Compile Include="SociedadDAO.cs" />
     <Compile Include="SolicitudRQDAO.cs" />
     <Compile Include="SolicitudRQDetalleDAO.cs" />
+    <Compile Include="SolicitudRQModeloDAO.cs" />
     <Compile Include="SucursalDAO.cs" />
     <Compile Include="TipoDocumentoDAO.cs" />
     <Compile Include="TipoPersonaDAO.cs" />

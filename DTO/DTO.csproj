@@ -66,6 +66,8 @@
     <Compile Include="SolicitudDetalleDTO.cs" />
     <Compile Include="SolicitudRQDetalleDTO.cs" />
     <Compile Include="SolicitudRQDTO.cs" />
+    <Compile Include="SolicitudRQModeloAprobacionesDTO.cs" />
+    <Compile Include="SolicitudRQModeloDTO.cs" />
     <Compile Include="SucursalDTO.cs" />
     <Compile Include="TipoDocumentoDTO.cs" />
     <Compile Include="TipoPersonaDTO.cs" />

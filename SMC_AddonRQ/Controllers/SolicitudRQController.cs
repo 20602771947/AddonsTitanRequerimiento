@@ -86,27 +86,6 @@ namespace SMC_AddonRQ.Controllers
         public int UpdateInsertSolicitud(SolicitudRQDTO solicitudRQDTO, SolicitudRQDetalleDTO solicitudRQDetalleDTO)
         {
 
-            ModeloAutorizacionDAO oModeloAutorizacionDAO = new ModeloAutorizacionDAO();
-            var Datos = oModeloAutorizacionDAO.VerificarExisteModeloSolicitud();
-
-            if (Datos.Count > 0)
-            {
-                for (int i = 0; i < Datos.Count; i++)
-                {
-                    var Resultado = oModeloAutorizacionDAO.ObtenerDatosxID(Datos[i].IdModeloAutorizacion);
-                    UsuarioDAO oUsuarioDAO = new UsuarioDAO();
-                    EmpleadoDAO oEmpleadoDAO = new EmpleadoDAO();
-                    for (int j = 0; j < Resultado[0].DetallesAutor.Count; j++)
-                    {
-                        var User = oUsuarioDAO.ObtenerDatosxID(Resultado[0].DetallesAutor[j].IdAutor);
-                        var Solicitante = oEmpleadoDAO.ObtenerDatosxID(solicitudRQDTO.IdSolicitante);
-                        EnviarCorreo(User[0].Correo,Solicitante[0].RazonSocial, solicitudRQDTO.Serie, solicitudRQDTO.Numero);
-                    }
-                    
-                }
-            }
-            
-
             SolicitudRQDAO oSolicitudRQDAO = new SolicitudRQDAO();
 
             int resultado = oSolicitudRQDAO.UpdateInsertSolicitud(solicitudRQDTO, solicitudRQDetalleDTO, base.Session["IdSociedad"].ToString());

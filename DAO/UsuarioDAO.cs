@@ -37,7 +37,8 @@ namespace DAO
                         oUsuarioDTO.IdSociedad = int.Parse(drd["IdSociedad"].ToString());
                         oUsuarioDTO.NombreSociedad = drd["NombreSociedad"].ToString();
                         oUsuarioDTO.Estado = bool.Parse(drd["Estado"].ToString());
-                        //oUsuarioDTO.IdDepartamento= int.Parse(drd["IdDepartamento"].ToString());
+                        oUsuarioDTO.IdDepartamento= int.Parse(drd["IdDepartamento"].ToString());
+                        oUsuarioDTO.NombreDepartamento = drd["NombreDepartamento"].ToString();
                         lstUsuarioDTO.Add(oUsuarioDTO);
                     }
                     drd.Close();

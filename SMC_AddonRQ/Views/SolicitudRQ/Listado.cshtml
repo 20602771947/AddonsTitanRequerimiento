@@ -80,7 +80,6 @@
                         <th>Serie</th>
                         <th>Numero</th>
                         <th>Neto</th>
-                        <th>Impuesto</th>
                         <th>Total</th>
                         <th>Estado</th>
                         <th>Mas</th>
@@ -112,7 +111,7 @@
                                 <div class='form-group-sm'>
                                     <label for="cboSerie" class="control-label col-sm-2 left-align">Serie</label>
                                     <div class="col-sm-4">
-                                        <select id="cboSerie" class="form-control input-sm" tabindex="0" onchange="ObtenerNumeracion()"></select>
+                                        <select id="cboSerie" class="form-control input-sm" tabindex="0" onchange="ObtenerNumeracion()" disabled></select>
                                     </div>
                                 </div>
                                 <div class='form-group-sm' style="display:none">
@@ -162,7 +161,7 @@
                                 <div class='form-group-sm'>
                                     <label for="cboImpuesto" class="control-label col-sm-2 left-align">Impuestos</label>
                                     <div class="col-sm-4">
-                                        <select id="cboImpuesto" class="form-control input-sm" tabindex="6" onchange="SetImpuestoDetalle()"></select>
+                                        <select id="cboImpuesto" class="form-control input-sm" tabindex="6" onchange="SetImpuestoDetalle()" disabled></select>
                                     </div>
                                 </div>
 
@@ -189,7 +188,9 @@
                                 <div class='form-group-sm'>
                                     <label for="cboEmpleado" class="control-label col-sm-2 left-align">Solicitante</label>
                                     <div class="col-sm-4">
-                                        <select id="cboEmpleado" class="form-control input-sm" tabindex="5"></select>
+                                        <select id="cboEmpleado" class="form-control input-sm" tabindex="5" disabled>
+                                            <option value="@base.Session["idUsuario"].ToString()" selected>@base.Session["NombUsuario"].ToString()</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -202,7 +203,7 @@
                                             var nuevaFecha = fechaActual.AddDays(10);
                                             var fecha = nuevaFecha.ToString("yyyy-MM-dd");
 
-                                            <input id="txtFechaValidoHasta" value="@fecha" type="date" class="form-control input-sm" tabindex="8">
+                                            <input id="txtFechaValidoHasta" value="@fecha" type="date" class="form-control input-sm" tabindex="8" disabled>
                                         }
                                     </div>
                                 </div>
@@ -212,13 +213,15 @@
                                 <div class='form-group-sm'>
                                     <label for="cboDepartamento" class="control-label col-sm-2 left-align">Area Solicitante</label>
                                     <div class="col-sm-4">
-                                        <select id="cboDepartamento" class="form-control input-sm" tabindex="9"></select>
+                                        <select id="cboDepartamento" class="form-control input-sm" tabindex="9" disabled>
+                                            <option value="@base.Session["idDepartamento"].ToString()" selected>@base.Session["NombreDepartamento"].ToString()</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class='form-group-sm'>
                                     <label for="txtFechaDocumento" class="control-label col-sm-2 left-align">Fecha Documento</label>
                                     <div class="col-sm-4">
-                                        <input id="txtFechaDocumento" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="date" class="form-control input-sm" tabindex="10">
+                                        <input id="txtFechaDocumento" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="date" class="form-control input-sm" tabindex="10" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -350,7 +353,7 @@
                                 <div class='form-group-sm'>
                                     <label for="txtTotalAntesDescuento" class="control-label col-sm-2 left-align">Sub Total</label>
                                     <div class="col-sm-4">
-                                        <input id="txtTotalAntesDescuento" type="number" class="form-control input-sm" tabindex="12">
+                                        <input id="txtTotalAntesDescuento" type="number" class="form-control input-sm" tabindex="12" onkeyup="ValidarDecimalesImportes('txtTotalAntesDescuento')">
                                     </div>
                                 </div>
                             </div>
@@ -364,7 +367,7 @@
                                 <div class='form-group-sm'>
                                     <label for="txtImpuesto" class="control-label col-sm-2 left-align">Impuesto</label>
                                     <div class="col-sm-4">
-                                        <input id="txtImpuesto" type="number" class="form-control input-sm" tabindex="15">
+                                        <input id="txtImpuesto" type="number" class="form-control input-sm" tabindex="15" onkeyup="ValidarDecimalesImportes('txtImpuesto')">
                                     </div>
                                 </div>
                             </div>
@@ -380,7 +383,7 @@
                                 <div class='form-group-sm'>
                                     <label for="txtTotal" class="control-label col-sm-2 left-align">Total</label>
                                     <div class="col-sm-4">
-                                        <input id="txtTotal" type="number" class="form-control input-sm" tabindex="16">
+                                        <input id="txtTotal" type="number" class="form-control input-sm" tabindex="16" onkeyup="ValidarDecimalesImportes('txtTotal')">
                                     </div>
                                 </div>
                             </div>
@@ -478,7 +481,7 @@
                                     <div class='form-group-sm'>
                                         <label for="txtCantidadItem" class="control-label col-sm-2 left-align">Cantidad</label>
                                         <div class="col-sm-4">
-                                            <input id="txtCantidadItem" type="text" class="form-control input-sm" tabindex="6">
+                                            <input id="txtCantidadItem" max="5" type="number" class="form-control input-sm" tabindex="6" onkeyup="ValidarDecimalesCantidades('txtCantidadItem')">
                                         </div>
                                     </div>
 
@@ -522,7 +525,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary pull-right plu" onclick="AgregarLinea()">+ Agregar Item</button>
-                    <button type="button" class="btn btn-danger pull-right" style="background-color:orange;" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger pull-right" style="background-color:orange;" data-dismiss="modal" onclick="LimpiarModalItem()">Cerrar</button>
                 </div>
             </div>
         </div>
